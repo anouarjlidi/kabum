@@ -17,10 +17,9 @@ You should have received a copy of the GNU Affero General Public License
 along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
-{% extends 'layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}KaBuM! e-commerce{% endblock %}
-
-{% block content %}
-  content_placeholder
+{% block body %}
+  <h1>KaBuM!</h1>
+  {% block content %}{% endblock %}
 {% endblock %}

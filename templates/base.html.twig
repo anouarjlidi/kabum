@@ -1,12 +1,49 @@
+{#
+Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}KaBuM!{% endblock %}</title>
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    <div id="sidebar">
+      {% block sidebar %}
+        sidebar_placeholder
+      {% endblock %}
+    </div>
+    <div id="content">
+      {% block body %}{% endblock %}
+    </div>
+    <footer>
+      {% block footer %}{% endblock %}
+    </footer>
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+  </body>
 </html>
