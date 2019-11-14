@@ -17,10 +17,78 @@ You should have received a copy of the GNU Affero General Public License
 along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
-{% extends 'layout.html.twig' %}
+{% extends 'main/layout.html.twig' %}
 
-{% block title %}KaBuM! e-commerce{% endblock %}
+{% block title %}KaBuM! - Explosão de Preços Baixos!{% endblock %}
 
-{% block content %}
-  content_placeholder
+{% block sidebar %}
+  <ul class="nav flex-md-column">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Processadores</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Fontes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Placas de vídeo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">SSDs</a>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block main %}
+  <div class="card-deck mb-0 mb-md-4">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+  <div class="card-deck">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
 {% endblock %}
