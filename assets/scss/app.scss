@@ -3,10 +3,20 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-$body-bg: theme-color('light');
-
 // Import remaining Bootstrap files
 @import "~bootstrap/scss/bootstrap";
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
+
+.sidebar {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 1000;
+  height: calc(100vh - 3.5rem);
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+
+.header {
+  min-height: 3.5rem;
+}
