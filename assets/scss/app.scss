@@ -15,8 +15,23 @@
   z-index: 1000;
   height: calc(100vh - 3.5rem);
   border-right: 1px solid rgba(0,0,0,.1);
+  overflow-y: auto;
 }
 
 .header {
   min-height: 3.5rem;
+}
+
+.highlight {
+  background-image: url('../images/test.png');
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+  @include media-breakpoint-up(lg) {
+    height: 400px;
+  }
+  @include media-breakpoint-up(xl) {
+    height: 500px;
+  }
 }
