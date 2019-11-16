@@ -9,6 +9,10 @@
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+.header {
+  min-height: 3.5rem;
+}
+
 .sidebar {
   position: sticky;
   top: 3.5rem;
@@ -16,15 +20,25 @@
   height: calc(100vh - 3.5rem);
   border-right: 1px solid rgba(0,0,0,.1);
   overflow-y: auto;
+  @include media-breakpoint-down(sm) {
+    position: static;
+    top: auto;
+    z-index: auto;
+    height: auto;
+    border-right: 0;
+    overflow-y: visible;
+  }
 }
 
-.header {
-  min-height: 3.5rem;
+#siteNav {
+  @include media-breakpoint-up(md) {
+    display: flex;
+  }
 }
 
 .highlight {
   background-image: url('../images/test.png');
-  background-position: center right;
+  background-position: center left;
   background-repeat: no-repeat;
   background-size: cover;
   height: 300px;

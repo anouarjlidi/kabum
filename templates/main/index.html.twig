@@ -22,7 +22,15 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}KaBuM! - Explosão de Preços Baixos!{% endblock %}
 
 {% block sidebar %}
-  <ul class="nav flex-nowrap flex-column mt-3">
+  <div class="d-flex flex-row flex-md-column align-items-center align-items-md-stretch my-3">
+    <form class="flex-grow-1">
+      <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+    </form>
+    <button class="navbar-toggler d-md-none d-flex ml-2" type="button" data-toggle="collapse" data-target="#siteNav" aria-expanded="false" aria-controls="siteNav">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+  </div>
+  <ul id="siteNav" class="nav collapse flex-nowrap flex-column flex-grow-1 mb-3">
     <li class="nav-item">
       <a class="nav-link text-dark" href="#">Processadores</a>
     </li>
@@ -39,7 +47,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% endblock %}
 
 {% block main %}
-  <div class="highlight d-none d-sm-block"></div>
+  <div class="highlight"></div>
   <div class="m-3">
     <div class="card-deck mb-0 mb-sm-4">
       <div class="card">
