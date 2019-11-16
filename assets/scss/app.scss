@@ -9,6 +9,19 @@
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+.navbar-sticky {
+  @include media-breakpoint-up(md) {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+    }
+  }
+  position: static;
+  top: auto;
+  z-index: auto;
+}
+
 .header {
   min-height: 3.5rem;
 }
