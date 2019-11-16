@@ -32,10 +32,16 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   <body>
     {% block header %}
       <header class="navbar-sticky">
-        <nav class="navbar navbar-expand navbar-dark bg-dark header">
+        <nav class="navbar navbar-expand navbar-dark bg-black header">
           <a class="navbar-brand" href="{{ path('main_page') }}">
             <img src="{{ asset('images/kabum.png') }}" width="80" height="27" alt="Site logo">
           </a>
+
+          <ul class="navbar-nav mx-auto flex-grow-1 d-none d-md-flex">
+            <form class="form-inline flex-grow-1 mx-3">
+              <input class="form-control navbar-search flex-grow-1 border-0" type="search" placeholder="Search" aria-label="Search">
+            </form>
+          </ul>
 
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">

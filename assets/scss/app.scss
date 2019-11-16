@@ -1,7 +1,26 @@
+$theme-colors: (
+  "strawberry": #c6262e,
+  "orange": #f37329,
+  "banana": #f9c440,
+  "lime": #68b723,
+  "blueberry": #3689e6,
+  "grape": #a56de2,
+  "cocoa": #715344,
+  "silver": #abacae,
+  "slate": #485a6c,
+  "black": #333333,
+);
+
+$component-active-bg: map-get($theme-colors, 'orange');
+
 // Import required Bootstrap files
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+
+$input-placeholder-color: theme-color('silver');
+
+$dropdown-link-hover-bg: theme-color-level('silver', -7);
 
 // Import remaining Bootstrap files
 @import "~bootstrap/scss/bootstrap";
@@ -49,6 +68,15 @@
   }
 }
 
+.navbar-search {
+  background-color: theme-color-level('black', -1);
+  color: theme-color('light');
+}
+
+.navbar-search:focus {
+  box-shadow: none;
+}
+
 .highlight {
   background-image: url('../images/test.png');
   background-position: center left;
@@ -57,8 +85,5 @@
   height: 300px;
   @include media-breakpoint-up(lg) {
     height: 400px;
-  }
-  @include media-breakpoint-up(xl) {
-    height: 500px;
   }
 }
