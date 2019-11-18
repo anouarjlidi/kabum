@@ -31,6 +31,18 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+.header-item {
+  font-size: 1.3rem;
+}
+
+#header-brand {
+  transition: transform .15s;
+}
+
+#header-brand:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+
 .highlight {
   background-image: url('../images/test.png');
   background-position: center left;

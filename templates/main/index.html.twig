@@ -22,28 +22,76 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}KaBuM! - Explosão de Preços Baixos!{% endblock %}
 
 {% block banner %}
-  <div class="highlight"></div>
+  <section>
+    <div class="highlight"></div>
+  </section>
 {% endblock %}
 
 {% block sidebar %}
-  <ul class="nav flex-column my-3">
-    <li class="nav-item">
-      <a class="nav-link text-black" href="#">Processadores</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-black" href="#">Fontes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-black" href="#">Placas de vídeo</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-black" href="#">SSDs</a>
-    </li>
-  </ul>
+  <div class="accordion py-3" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Hardware
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <nav class="nav">
+            <a class="nav-link active" href="#">Processadores</a>
+            <a class="nav-link" href="#">Fontes</a>
+            <a class="nav-link" href="#">Placas gráficas</a>
+            <a class="nav-link" href="#">SSDs</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Computadores
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          <nav class="nav">
+            <a class="nav-link active" href="#">Desktops</a>
+            <a class="nav-link" href="#">Servidores</a>
+            <a class="nav-link" href="#">Laptops</a>
+            <a class="nav-link" href="#">Tablets</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Periféricos
+          </button>
+        </h2>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+          <nav class="nav">
+            <a class="nav-link active" href="#">Acessórios</a>
+            <a class="nav-link" href="#">Mochilas</a>
+            <a class="nav-link" href="#">Teclado e mouse</a>
+            <a class="nav-link" href="#">Pen drive</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block main %}
-  <div class="m-3">
+  <div class="py-4 px-0 px-md-2">
     <div class="card-deck mb-0 mb-sm-4">
       <div class="card">
         <img src="..." class="card-img-top" alt="...">

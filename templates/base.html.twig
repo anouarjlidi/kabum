@@ -31,12 +31,12 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   </head>
   <body>
     {% block header %}
-      <header>
+      <header class="bg-light">
         <div class="container py-4">
           <div class="row align-items-center">
             <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
               <a href="{{ path('main_page') }}">
-                <img src="{{ asset('images/kabum.png') }}" class="img-fluid" alt="Site logo"/>
+                <img id="header-brand" src="{{ asset('images/kabum.png') }}" class="img-fluid" alt="Site logo"/>
               </a>
             </div>
             <div class="col-md-8 col-lg-9">
@@ -45,15 +45,15 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
                   <input type="text" class="form-control" placeholder="Search" aria-label="Search">
                 </form>
                 <div class="d-flex justify-content-center">
-                  <a href="#" class="nav-link text-kabum-orange p-3 mr-3">
-                    <i class="fas fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                  <a href="#" class="nav-link text-kabum-orange p-3 mr-3" role="button">
+                    <i class="fas fa-shopping-cart header-item" aria-hidden="true"></i>
                   </a>
-                  <a href="#" class="nav-link text-kabum-orange p-3 mr-3">
-                    <i class="fas fa-bookmark fa-2x" aria-hidden="true"></i>
+                  <a href="#" class="nav-link text-kabum-orange p-3 mr-3" role="button">
+                    <i class="fas fa-bookmark header-item" aria-hidden="true"></i>
                   </a>
                   <div class="dropdown">
                     <a class="dropdown-toggle nav-link text-kabum-orange p-3" href="#" role="button" id="userMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-user fa-2x" aria-hidden="true"></i>
+                      <i class="fas fa-user header-item" aria-hidden="true"></i>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLink">
