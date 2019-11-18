@@ -9,9 +9,12 @@ $theme-colors: (
   "silver": #abacae,
   "slate": #485a6c,
   "black": #333333,
+  "kabum-light-blue": #0584c2,
+  "kabum-dark-blue": #055eb2,
+  "kabum-orange": #fb6a0e,
 );
 
-$component-active-bg: map-get($theme-colors, 'orange');
+$component-active-bg: map-get($theme-colors, 'kabum-orange');
 
 // Import required Bootstrap files
 @import "~bootstrap/scss/functions";
@@ -27,55 +30,6 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
-
-.navbar-sticky {
-  @include media-breakpoint-up(md) {
-    @supports (position: sticky) {
-      position: sticky;
-      top: 0;
-      z-index: 1020;
-    }
-  }
-  position: static;
-  top: auto;
-  z-index: auto;
-}
-
-.header {
-  min-height: 3.5rem;
-}
-
-.sidebar {
-  position: sticky;
-  top: 3.5rem;
-  z-index: 1000;
-  height: calc(100vh - 3.5rem);
-  border-right: 1px solid rgba(0,0,0,.1);
-  overflow-y: auto;
-  @include media-breakpoint-down(sm) {
-    position: static;
-    top: auto;
-    z-index: auto;
-    height: auto;
-    border-right: 0;
-    overflow-y: visible;
-  }
-}
-
-#siteNav {
-  @include media-breakpoint-up(md) {
-    display: flex;
-  }
-}
-
-.navbar-search {
-  background-color: theme-color-level('black', -1);
-  color: theme-color('light');
-}
-
-.navbar-search:focus {
-  box-shadow: none;
-}
 
 .highlight {
   background-image: url('../images/test.png');

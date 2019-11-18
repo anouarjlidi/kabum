@@ -20,12 +20,17 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <div class="container-fluid">
+  <div class="container">
+    <section class="my-3">
+      {% block banner %}{% endblock %}
+    </section>
+  </div>
+  <div class="container">
     <section class="row">
-      <aside class="col-md-3 col-xl-2 sidebar bg-light">
+      <aside class="col-md-3 col-xl-2 bg-light rounded">
         {% block sidebar %}{% endblock %}
       </aside>
-      <main class="col-md-9 col-xl-10 p-0">
+      <main class="col-md-9 col-xl-10">
         {% block main %}{% endblock %}
       </main>
     </section>
