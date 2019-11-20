@@ -21,6 +21,8 @@ $component-active-bg: map-get($theme-colors, 'kabum-orange');
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
+$enable-responsive-font-sizes: true;
+
 $input-placeholder-color: theme-color('silver');
 
 $dropdown-link-hover-bg: theme-color-level('silver', -7);
@@ -40,16 +42,59 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 }
 
 #header-brand:hover {
-  transform: rotate(-4deg) scale(1.05);
+  transform: scale(1.05);
 }
 
 .highlight {
-  background-image: url('../images/test.png');
-  background-position: center left;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1300px;
+  min-height: 20rem;
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    height: 35rem;
+  }
+}
+
+.highlight-background {
+  background-color: theme-color('light');
+}
+
+.highlight-description {
+  flex-basis: 50%;
+  flex-grow: 1;
+  margin-right: -11rem;
+  @include media-breakpoint-down(sm) {
+    margin-right: 0;
+    margin-bottom: -2.5rem;
+  }
+}
+
+.highlight-description-content {
+  width: 50%;
+  @include media-breakpoint-down(md) {
+    width: 45%;
+  }
+  @include media-breakpoint-down(sm) {
+    width: auto;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 60%;
+  }
+}
+
+.highlight-picture {
+  background-image: url('../images/highlight.jpg');
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 300px;
-  @include media-breakpoint-up(lg) {
-    height: 400px;
+  flex-basis: 50%;
+  flex-grow: 1;
+  clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -11rem;
+  @include media-breakpoint-down(sm) {
+    clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
+    margin-right: 0;
   }
 }

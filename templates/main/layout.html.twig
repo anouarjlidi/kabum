@@ -20,7 +20,14 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  {% block banner %}{% endblock %}
+  <section class="highlight-background">
+    <div class="highlight">
+      <div class="highlight-description bg-light">
+        {% block highlight_description %}{% endblock %}
+      </div>
+      <div class="highlight-picture"></div>
+    </div>
+  </section>
   <div class="container-fluid">
     <section class="row">
       <aside class="col-md-3 col-xl-2 bg-light rounded">
