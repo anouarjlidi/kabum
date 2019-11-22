@@ -22,9 +22,7 @@ $component-active-bg: map-get($theme-colors, 'kabum-orange');
 @import "~bootstrap/scss/mixins";
 
 $enable-responsive-font-sizes: true;
-
 $input-placeholder-color: theme-color('silver');
-
 $dropdown-link-hover-bg: theme-color-level('silver', -7);
 
 // Import remaining Bootstrap files
@@ -33,8 +31,8 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
-.header-item {
-  font-size: 1.3rem;
+.action-button {
+  font-size: 1.5rem;
 }
 
 #header-brand {
@@ -42,59 +40,84 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 }
 
 #header-brand:hover {
-  transform: scale(1.05);
+  transform: scale(1.15);
+}
+
+#sidebar {
+  display: none;
+  @include media-breakpoint-up(md) {
+    position: sticky;
+    display: block;
+    top: 0;
+    height: 100vh;
+    padding: 16px;
+    min-width: 250px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, .11);
+  }
+  @include media-breakpoint-up(lg) {
+    min-width: 300px;
+  }
+}
+
+#sidebar nav {
+  /*
+   * The max-height value below compensates for other elements taking up space
+   * on the sidebar. This nav element will display a scroll bar if it overflows,
+   * and this ensures it's rendered correctly.
+   */
+  max-height: calc(100vh - 18rem);
+  overflow-y: auto;
 }
 
 .highlight {
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1300px;
   min-height: 20rem;
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     flex-direction: column;
-    height: 35rem;
   }
 }
 
-.highlight-background {
-  background-color: theme-color('light');
-}
-
 .highlight-description {
-  flex-basis: 50%;
+  flex-basis: 60%;
   flex-grow: 1;
-  margin-right: -11rem;
-  @include media-breakpoint-down(sm) {
+  // This margin compensates for the clip-path
+  margin-right: -8rem;
+  min-height: 20rem;
+  @include media-breakpoint-down(lg) {
+    flex-basis: 40%;
     margin-right: 0;
+    // This margin compensates for the clip-path
     margin-bottom: -2.5rem;
   }
 }
 
+// Wrapper for the content inside the .highlight-description element
 .highlight-description-content {
-  width: 50%;
-  @include media-breakpoint-down(md) {
-    width: 45%;
-  }
-  @include media-breakpoint-down(sm) {
-    width: auto;
-  }
+  text-align: center;
+  width: auto;
   @include media-breakpoint-up(xl) {
+    text-align: left;
+    // Width is set to prevent overflow
     width: 60%;
   }
 }
 
 .highlight-picture {
-  background-image: url('../images/highlight.jpg');
+  background-image: url('../images/highlight.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  flex-basis: 50%;
+  flex-basis: 40%;
   flex-grow: 1;
+  min-height: 20rem;
   clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%);
-  margin-left: -11rem;
-  @include media-breakpoint-down(sm) {
+  -webkit-clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%);
+  // This margin compensates for the clip-path
+  margin-left: -8rem;
+  @include media-breakpoint-down(lg) {
+    flex-basis: 60%;
     clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
-    margin-right: 0;
+    -webkit-clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
+    margin-left: 0;
   }
 }
