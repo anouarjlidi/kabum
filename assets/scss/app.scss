@@ -36,38 +36,57 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 }
 
 #header-brand {
+  width: 180px;
   transition: transform .15s;
+  @include media-breakpoint-down(sm) {
+    width: 150px;
+  }
 }
 
 #header-brand:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 
 #sidebar {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
   @include media-breakpoint-up(md) {
     position: sticky;
-    display: block;
     top: 0;
     height: 100vh;
     padding: 16px;
     min-width: 250px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .11);
   }
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     min-width: 300px;
   }
 }
 
 #sidebar nav {
-  /*
-   * The max-height value below compensates for other elements taking up space
-   * on the sidebar. This nav element will display a scroll bar if it overflows,
-   * and this ensures it's rendered correctly.
-   */
-  max-height: calc(100vh - 18rem);
-  overflow-y: auto;
+  @include media-breakpoint-up(md) {
+    /*
+     * The max-height value below compensates for other elements taking up space
+     * on the sidebar. This nav element will display a scroll bar if it overflows,
+     * and this ensures it's rendered correctly.
+     */
+    max-height: calc(100vh - 17rem);
+    overflow-y: auto;
+  }
 }
+
+#sidebarContent {
+  @include media-breakpoint-up(md) {
+    // Ensures #sidebarContent is always displayed on larger viewport sizes
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*
+ * Responsive 'highlight' section for special promotions
+ */
 
 .highlight {
   display: flex;
@@ -78,6 +97,7 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 }
 
 .highlight-description {
+  display: flex;
   flex-basis: 60%;
   flex-grow: 1;
   // This margin compensates for the clip-path

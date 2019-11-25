@@ -22,59 +22,64 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block body %}
   <div class="d-flex flex-column flex-md-row">
     <div id="sidebar">
-      <div class="text-center p-3">
+      <div class="d-flex justify-content-md-center justify-content-between pb-2">
         <a href="{{ path('main_page') }}" aria-label="Go to home page">
-          <img src="{{ asset('images/kabum.png') }}" id="header-brand" width="180" alt="Site logo">
+          <img src="{{ asset('images/kabum.png') }}" id="header-brand" alt="Site logo">
         </a>
+        <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#sidebarContent" aria-expanded="false" aria-controls="sidebarContent" aria-label="Toggle main menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
       </div>
-      <div class="py-2">
-        <div class="d-flex flex-row justify-content-center">
-          <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="Shopping cart">
-            <i class="fas fa-shopping-cart action-button" aria-hidden="true"></i>
-          </a>
-          <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="Wishlist">
-            <i class="fas fa-bookmark action-button" aria-hidden="true"></i>
-          </a>
-          <div class="dropdown">
-            <a class="nav-link dropdown-toggle text-kabum-orange" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="User menu">
-              <i class="fas fa-user action-button" aria-hidden="true"></i>
+      <div id="sidebarContent" class="collapse">
+        <div class="py-2">
+          <div class="d-flex justify-content-center">
+            <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="Shopping cart">
+              <i class="fas fa-shopping-cart action-button" aria-hidden="true"></i>
             </a>
+            <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="Wishlist">
+              <i class="fas fa-bookmark action-button" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle text-kabum-orange" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="User menu">
+                <i class="fas fa-user action-button" aria-hidden="true"></i>
+              </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-              <a class="dropdown-item" href="#">Dashboard</a>
-              <a class="dropdown-item" href="#">Settings</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Log out</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                <a class="dropdown-item" href="#">Dashboard</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Log out</a>
+              </div>
             </div>
           </div>
         </div>
+        <div class="py-2">
+          <form>
+            <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"/>
+          </form>
+        </div>
+        <nav class="nav flex-column flex-nowrap py-2">
+          <a class="nav-link text-black" href="#">Celular & Telefone</a>
+          <a class="nav-link text-black" href="#">Eletrônicos</a>
+          <a class="nav-link text-black" href="#">Computadores</a>
+          <a class="nav-link text-black" href="#">Hardware</a>
+          <a class="nav-link text-black" href="#">Periféricos</a>
+          <a class="nav-link text-black" href="#">Câmeras Digitais</a>
+          <a class="nav-link text-black" href="#">Instrumento Musical</a>
+          <a class="nav-link text-black" href="#">Segurança</a>
+          <a class="nav-link text-black" href="#">Automotivo</a>
+          <a class="nav-link text-black" href="#">Gamer</a>
+          <a class="nav-link text-black" href="#">Vídeo & Som</a>
+          <a class="nav-link text-black" href="#">Geek</a>
+          <a class="nav-link text-black" href="#">Smart Home</a>
+          <a class="nav-link text-black" href="#">Eletroportáteis</a>
+          <a class="nav-link text-black" href="#">Automação</a>
+          <a class="nav-link text-black" href="#">Brinquedos</a>
+          <a class="nav-link text-black" href="#">Esporte e Lazer</a>
+          <a class="nav-link text-black" href="#">Casa & Jardim</a>
+          <a class="nav-link text-black" href="#">Presentes</a>
+        </nav>
       </div>
-      <div class="py-2">
-        <form>
-          <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"/>
-        </form>
-      </div>
-      <nav class="nav flex-column flex-nowrap my-4">
-        <a class="nav-link text-black" href="#">Celular & Telefone</a>
-        <a class="nav-link text-black" href="#">Eletrônicos</a>
-        <a class="nav-link text-black" href="#">Computadores</a>
-        <a class="nav-link text-black" href="#">Hardware</a>
-        <a class="nav-link text-black" href="#">Periféricos</a>
-        <a class="nav-link text-black" href="#">Câmeras Digitais</a>
-        <a class="nav-link text-black" href="#">Instrumento Musical</a>
-        <a class="nav-link text-black" href="#">Segurança</a>
-        <a class="nav-link text-black" href="#">Automotivo</a>
-        <a class="nav-link text-black" href="#">Gamer</a>
-        <a class="nav-link text-black" href="#">Vídeo & Som</a>
-        <a class="nav-link text-black" href="#">Geek</a>
-        <a class="nav-link text-black" href="#">Smart Home</a>
-        <a class="nav-link text-black" href="#">Eletroportáteis</a>
-        <a class="nav-link text-black" href="#">Automação</a>
-        <a class="nav-link text-black" href="#">Brinquedos</a>
-        <a class="nav-link text-black" href="#">Esporte e Lazer</a>
-        <a class="nav-link text-black" href="#">Casa & Jardim</a>
-        <a class="nav-link text-black" href="#">Presentes</a>
-      </nav>
     </div>
     <div>
       {% block main %}{% endblock %}
