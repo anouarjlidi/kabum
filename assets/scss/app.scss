@@ -9,6 +9,7 @@ $theme-colors: (
   "silver": #abacae,
   "slate": #485a6c,
   "black": #333333,
+  "blackhole": #111111,
   "kabum-light-blue": #0584c2,
   "kabum-dark-blue": #055eb2,
   "kabum-orange": #fb6a0e,
@@ -140,4 +141,11 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
     -webkit-clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
     margin-left: 0;
   }
+}
+
+#flash {
+  position: fixed;
+  top: 16px;
+  right: 0;
+  z-index: 1000;
 }

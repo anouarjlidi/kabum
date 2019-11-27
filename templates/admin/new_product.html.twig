@@ -19,10 +19,22 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}New product added!{% endblock %}
+{% block title %}Add a new product{% endblock %}
 
 {% block body %}
-  <h1>{{ product.name }}</h1>
-  <h3>{{ product.price }}</h3>
-  <p>{{ product.description }}</p>
+  <div class="container">
+    {{ form_start(form) }}
+      {{ form_errors(form) }}
+
+      {{ form_row(form.name) }}
+      {{ form_row(form.description) }}
+      {{ form_row(form.price) }}
+
+      {# The submit button is created here to preserve the form's reusability
+      for other purposes #}
+      <div class="form-group">
+        <input type="submit" class="btn btn-kabum-orange" value="Create"/>
+      </div>
+    {{ form_end(form) }}
+  </div>
 {% endblock %}

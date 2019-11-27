@@ -21,30 +21,48 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Product;
+use App\Form\Type\ProductType;
+use App\Form\Model\ProductFormModel;
 
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_new_product")
+     * @Route("/admin/new", name="admin_new_product")
      */
-    public function addProduct(EntityManagerInterface $entityManager): Response
+    public function addProduct(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $product = new Product();
-        $product->setName('SSD Kingston A400, 480GB, SATA, Leitura 500MB/s, Gravação 450MB/s - SA400S37/480G');
-        $product->setPrice(28290);
-        $product->setDescription('Reforçado com uma controladora de última geração para velocidades de leitura e gravação de até 500MB/s e 450MB/s, este SSD é 10x mais rápido do que um disco rígido tradicional para melhor desempenho, resposta ultra-rápida em multitarefas e um computador mais rápido de modo geral.');
+        $product = new Product;
+        $productModel = new ProductFormModel;
 
-        $entityManager->persist($product);
+        $form = $this->createForm(ProductType::class, $productModel);
+        $form->handleRequest($request);
 
-        $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productModel = $form->getData();
+
+            $product->setName($productModel->getName());
+            $product->setDescription($productModel->getDescription());
+            $product->setPrice($productModel->getPrice());
+
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'kabum-light-blue',
+                'Product added!'
+            );
+
+            return $this->redirectToRoute('main_page');
+        }
 
         return $this->render('admin/new_product.html.twig', [
-            'product' => $product,
+            'form' => $form->createView(),
         ]);
     }
 }
