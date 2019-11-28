@@ -36,7 +36,9 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('price', MoneyType::class)
+            ->add('price', MoneyType::class, [
+                'currency' => 'BRL',
+            ])
         ;
     }
 

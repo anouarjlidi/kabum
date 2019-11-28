@@ -36,14 +36,16 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </div>
     <div class="highlight-picture"></div>
   </section>
-  <section class="container-fluid my-4">
-    <div class="row row-columns">
+  <section class="container-fluid">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
       {% for product in products %}
-        <div class="col p-4 border rounded">
+        <div class="col px-4 py-5">
           <article>
             <h4 class="text-kabum-dark-blue">{{ product.name }}</h4>
             <p class="text-secondary">{{ product.description }}</p>
-            <span class="font-weight-bold text-kabum-orange">{{ product.price }}</span>
+            <span class="font-weight-bold text-kabum-orange">
+              R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+            </span>
           </article>
         </div>
       {% endfor %}
