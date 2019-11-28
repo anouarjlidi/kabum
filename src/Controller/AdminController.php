@@ -49,6 +49,7 @@ class AdminController extends AbstractController
             $product->setName($productModel->getName());
             $product->setDescription($productModel->getDescription());
             $product->setPrice($productModel->getPrice());
+            $product->setSlug($productModel->getSlug());
 
             $entityManager->persist($product);
             $entityManager->flush();

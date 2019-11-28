@@ -27,18 +27,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use App\Form\Model\ProductFormModel;
+use App\Utils\Slugger;
 
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $nameListener = function (FormEvent $event) {
+            $productModel = $event->getData();
+
+            if (null !== $productModel->getName()) {
+                $slug = Slugger::slugify($productModel->getName());
+                $productModel->setSlug($slug);
+            }
+        };
+
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('price', MoneyType::class, [
-                'currency' => 'BRL',
-            ])
+            ->add('price', TextType::class)
+            /*
+             * In order to transform the name into a slug and make automatic
+             * form validation catch its violations, we must use Form Events.
+             */
+            ->addEventListener(FormEvents::SUBMIT, $nameListener)
         ;
     }
 

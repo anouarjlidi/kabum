@@ -22,9 +22,17 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\UniqueSlug;
 
+/**
+ * A DTO (Data Transfer Object) for the product creation form.
+ *
+ * @UniqueSlug
+ */
 class ProductFormModel
 {
+    private $id;
+
     /**
      * @Assert\NotBlank
      */
@@ -39,6 +47,24 @@ class ProductFormModel
      * @Assert\NotBlank
      */
     private $price;
+
+    /**
+     * @Assert\NotBlank
+     */
+    private $slug;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function getName()
     {
@@ -72,6 +98,18 @@ class ProductFormModel
     public function setPrice($price)
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

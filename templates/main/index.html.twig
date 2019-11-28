@@ -41,11 +41,15 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {% for product in products %}
         <div class="col px-4 py-5">
           <article>
-            <h4 class="text-kabum-dark-blue">{{ product.name }}</h4>
-            <p class="text-secondary">{{ product.description }}</p>
-            <span class="font-weight-bold text-kabum-orange">
-              R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
-            </span>
+            <p class="text-kabum-dark-blue lead">{{ product.name }}</p>
+            <div class="mb-3">
+              <small class="text-secondary">{{ product.description }}</small>
+            </div>
+            <div class="bg-kabum-orange rounded text-center py-1">
+              <h5 class="font-weight-bold text-white">
+                R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+              </h5>
+            </div>
           </article>
         </div>
       {% endfor %}
