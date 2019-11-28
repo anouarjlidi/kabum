@@ -25,10 +25,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\ProductRepository;
+use App\Entity\Product;
 
 class MainController extends AbstractController
 {
     /**
+     * @param ProductRepository $repository
+     *
+     * @return Response
+     *
      * @Route("/", name="main_page")
      */
     public function mainPage(ProductRepository $repository): Response
@@ -37,6 +42,20 @@ class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'products' => $products,
+        ]);
+    }
+
+    /**
+     * @param Product $product
+     *
+     * @return Response
+     *
+     * @Route("/product/{slug}", name="product_page")
+     */
+    public function productPage(Product $product): Response
+    {
+        return $this->render('main/product.html.twig', [
+            'product' => $product,
         ]);
     }
 }

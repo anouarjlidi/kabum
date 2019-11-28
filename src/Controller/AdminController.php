@@ -33,6 +33,13 @@ use App\Form\Model\ProductFormModel;
 class AdminController extends AbstractController
 {
     /**
+     * Add a new product.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     *
      * @Route("/admin/new", name="admin_new_product")
      */
     public function addProduct(Request $request, EntityManagerInterface $entityManager): Response
