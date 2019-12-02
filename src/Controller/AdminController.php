@@ -26,6 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Service\FileUploader;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
 use App\Form\Model\ProductFormModel;
@@ -42,12 +43,14 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/new", name="admin_new_product")
      */
-    public function addProduct(Request $request, EntityManagerInterface $entityManager): Response
+    public function addProduct(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $product = new Product;
         $productModel = new ProductFormModel;
 
-        $form = $this->createForm(ProductType::class, $productModel);
+        $form = $this->createForm(ProductType::class, $productModel, [
+            'currentLocale' => $request->getLocale(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,6 +60,10 @@ class AdminController extends AbstractController
             $product->setDescription($productModel->getDescription());
             $product->setPrice($productModel->getPrice());
             $product->setSlug($productModel->getSlug());
+
+            $image = $productModel->getImageFile();
+            $filename = $fileUploader->uploadProductImage($image, $product);
+            $product->setImage($filename);
 
             $entityManager->persist($product);
             $entityManager->flush();

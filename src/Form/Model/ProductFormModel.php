@@ -53,6 +53,11 @@ class ProductFormModel
      */
     private $slug;
 
+    /**
+     * @Assert\Image
+     */
+    private $imageFile;
+
 
     public function getId()
     {
@@ -110,6 +115,18 @@ class ProductFormModel
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }

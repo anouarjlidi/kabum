@@ -24,6 +24,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block main %}
   <section class="container-fluid">
     <h3 class="font-weight-bold">{{ product.name }}</h3>
+    <img src="{{ asset(product.image) }}" class="img-fluid" alt="Product image"/>
     <p>{{ product.description }}</p>
     <h5 class="font-weight-bold">
       R$ {{ (product.price / 100)|number_format(2, ',', '.') }}

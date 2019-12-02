@@ -28,6 +28,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    public const IMAGE_DIR = 'images/products/';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -56,6 +58,11 @@ class Product
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
 
     public function getSlug(): ?string
     {
@@ -106,6 +113,18 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return self::IMAGE_DIR . $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

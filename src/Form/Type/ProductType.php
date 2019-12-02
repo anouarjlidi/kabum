@@ -26,7 +26,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Form\Model\ProductFormModel;
@@ -49,6 +49,12 @@ class ProductType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('price', TextType::class)
+            ->add('imageFile', FileType::class, [
+                'attr' => [
+                    'lang' => $options['currentLocale'],
+                    'placeholder' => 'Select the image',
+                ],
+            ])
             /*
              * In order to transform the name into a slug and make automatic
              * form validation catch its violations, we must use Form Events.
@@ -61,6 +67,7 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProductFormModel::class,
+            'currentLocale' => '',
         ]);
     }
 }

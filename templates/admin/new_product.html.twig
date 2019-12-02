@@ -29,6 +29,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {{ form_row(form.name) }}
       {{ form_row(form.description) }}
       {{ form_row(form.price) }}
+      {{ form_row(form.imageFile) }}
 
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}
@@ -37,4 +38,9 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     {{ form_end(form) }}
   </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('admin') }}
 {% endblock %}
