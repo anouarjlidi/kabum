@@ -54,6 +54,9 @@ class ProductType extends AbstractType
                     'lang' => $options['currentLocale'],
                     'placeholder' => 'Select the image',
                 ],
+                'label_attr' => [
+                    'class' => 'text-truncate',
+                ],
             ])
             /*
              * In order to transform the name into a slug and make automatic
