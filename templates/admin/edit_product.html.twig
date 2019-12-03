@@ -1,0 +1,55 @@
+{#
+Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit a product{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {{ form_start(form) }}
+      {{ form_errors(form) }}
+
+      {{ form_row(form.name) }}
+      {{ form_row(form.description) }}
+      {{ form_row(form.price) }}
+
+      <div class="row mb-3">
+        <div class="col-sm-3 col-lg-2 text-center text-md-left my-3 my-md-0">
+          <img src="{{ asset(product.image) }}" width="200"
+            class="img-thumbnail" alt="Current product image">
+        </div>
+        <div class="col-sm-9 col-lg-10">
+          {{ form_row(form.imageFile) }}
+        </div>
+      </div>
+
+      {# The submit button is created here to preserve the form's reusability
+      for other purposes #}
+      <div class="form-group">
+        <input type="submit" class="btn btn-kabum-orange" value="Apply changes"/>
+      </div>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('admin') }}
+{% endblock %}

@@ -47,9 +47,14 @@ class ProductType extends AbstractType
 
         $builder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'rows' => 4,
+                ],
+            ])
             ->add('price', TextType::class)
             ->add('imageFile', FileType::class, [
+                'required' => $options['required'],
                 'attr' => [
                     'lang' => $options['currentLocale'],
                     'placeholder' => 'Select the image',
@@ -71,6 +76,7 @@ class ProductType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProductFormModel::class,
             'currentLocale' => '',
+            'required' => true,
         ]);
     }
 }

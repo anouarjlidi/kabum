@@ -22,6 +22,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -64,18 +65,6 @@ class Product
      */
     private $image;
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -117,6 +106,18 @@ class Product
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getImage(): ?string
     {
         return self::IMAGE_DIR . $this->image;
@@ -124,6 +125,13 @@ class Product
 
     public function setImage(string $image): self
     {
+        // If an image is already set, delete it
+        if ($this->image) {
+            $filesystem = new Filesystem;
+            $filesystem->remove($this->image);
+        }
+
+        // Set the new image
         $this->image = $image;
 
         return $this;

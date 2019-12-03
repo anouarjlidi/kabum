@@ -26,6 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use App\Service\FileUploader;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
@@ -38,10 +39,11 @@ class AdminController extends AbstractController
      *
      * @param Request $request
      * @param EntityManagerInterface $entityManager
+     * @param FileUploader $fileUploader
      *
      * @return Response
      *
-     * @Route("/admin/new", name="admin_new_product")
+     * @Route("/admin/product/new", name="admin_new_product")
      */
     public function addProduct(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
@@ -78,6 +80,61 @@ class AdminController extends AbstractController
 
         return $this->render('admin/new_product.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Edit an existing product.
+     *
+     * @param Product $product
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param FileUploader $fileUploader
+     *
+     * @return Response
+     *
+     * @Route("/admin/product/{slug}/edit", name="admin_edit_product")
+     */
+    public function editProduct(Product $product, Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    {
+        $productModel = new ProductFormModel;
+        $productModel->setId($product->getId());
+        $productModel->setName($product->getName());
+        $productModel->setPrice($product->getPrice());
+        $productModel->setDescription($product->getDescription());
+
+        $form = $this->createForm(ProductType::class, $productModel, [
+            'currentLocale' => $request->getLocale(),
+            'required' => false,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productModel = $form->getData();
+
+            $product->setName($productModel->getName());
+            $product->setPrice($productModel->getPrice());
+            $product->setDescription($productModel->getDescription());
+            $image = $productModel->getImageFile();
+
+            if ($image) {
+                $filename = $fileUploader->uploadProductImage($image, $product);
+                $product->setImage($filename);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash(
+                'kabum-light-blue',
+                'Product edited!'
+            );
+
+            return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
+        }
+
+        return $this->render('admin/edit_product.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product,
         ]);
     }
 }

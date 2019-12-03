@@ -31,6 +31,9 @@ use App\Validator\UniqueSlug;
  */
 class ProductFormModel
 {
+    /**
+     * The ID is needed in the custom validator UniqueSlug.
+     */
     private $id;
 
     /**
