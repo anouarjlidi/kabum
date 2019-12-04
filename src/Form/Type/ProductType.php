@@ -53,6 +53,7 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('longDescription', TextareaType::class, [
+                'help' => 'You can use Markdown here',
                 'attr' => [
                     'rows' => 7,
                 ],
