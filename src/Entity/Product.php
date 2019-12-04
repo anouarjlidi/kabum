@@ -65,6 +65,11 @@ class Product
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $longDescription;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -133,6 +138,18 @@ class Product
 
         // Set the new image
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLongDescription(): ?string
+    {
+        return $this->longDescription;
+    }
+
+    public function setLongDescription(string $longDescription): self
+    {
+        $this->longDescription = $longDescription;
 
         return $this;
     }

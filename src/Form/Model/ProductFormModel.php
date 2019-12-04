@@ -49,6 +49,11 @@ class ProductFormModel
     /**
      * @Assert\NotBlank
      */
+    private $longDescription;
+
+    /**
+     * @Assert\NotBlank
+     */
     private $price;
 
     /**
@@ -94,6 +99,18 @@ class ProductFormModel
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLongDescription()
+    {
+        return $this->longDescription;
+    }
+
+    public function setLongDescription($longDescription)
+    {
+        $this->longDescription = $longDescription;
 
         return $this;
     }

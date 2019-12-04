@@ -52,6 +52,11 @@ class ProductType extends AbstractType
                     'rows' => 4,
                 ],
             ])
+            ->add('longDescription', TextareaType::class, [
+                'attr' => [
+                    'rows' => 7,
+                ],
+            ])
             ->add('price', TextType::class)
             ->add('imageFile', FileType::class, [
                 'required' => $options['required'],

@@ -60,6 +60,7 @@ class AdminController extends AbstractController
 
             $product->setName($productModel->getName());
             $product->setDescription($productModel->getDescription());
+            $product->setLongDescription($productModel->getLongDescription());
             $product->setPrice($productModel->getPrice());
             $product->setSlug($productModel->getSlug());
 
@@ -75,7 +76,7 @@ class AdminController extends AbstractController
                 'Product added!'
             );
 
-            return $this->redirectToRoute('main_page');
+            return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
         }
 
         return $this->render('admin/new_product.html.twig', [
@@ -102,6 +103,7 @@ class AdminController extends AbstractController
         $productModel->setName($product->getName());
         $productModel->setPrice($product->getPrice());
         $productModel->setDescription($product->getDescription());
+        $productModel->setLongDescription($product->getLongDescription());
 
         $form = $this->createForm(ProductType::class, $productModel, [
             'currentLocale' => $request->getLocale(),
@@ -115,6 +117,7 @@ class AdminController extends AbstractController
             $product->setName($productModel->getName());
             $product->setPrice($productModel->getPrice());
             $product->setDescription($productModel->getDescription());
+            $product->setLongDescription($productModel->getLongDescription());
             $image = $productModel->getImageFile();
 
             if ($image) {
