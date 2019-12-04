@@ -22,24 +22,24 @@ require('jquery-mask-plugin');
 
 $(document).ready(function() {
   /*
-   * This handles the product creation form.
+   * Display the file name when one is present in the image field.
    */
   var fileInputCount = $("#product_imageFile").prop("files").length;
 
-  // If a file is already selected, display its name on the field
+  // If a file is already selected when the page loads, display its name
   if (fileInputCount) {
     var fileInputName = $("#product_imageFile").prop("files")[0].name;
     $("#product_imageFile").siblings(".custom-file-label").html(fileInputName);
   }
 
-  // Change the indicated file name when it changes
+  // Change the displayed file name when the file changes
   $("#product_imageFile").change(function() {
     var selectedFileName = $(this).prop("files")[0].name;
     $(this).siblings(".custom-file-label").html(selectedFileName);
   });
 
   /*
-   * Price input masking.
+   * Apply money mask.
    */
   $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
 });
