@@ -18,6 +18,7 @@
  */
 
 const $ = require('jquery');
+require('jquery-mask-plugin');
 
 $(document).ready(function() {
   /*
@@ -36,4 +37,9 @@ $(document).ready(function() {
     var selectedFileName = $(this).prop("files")[0].name;
     $(this).siblings(".custom-file-label").html(selectedFileName);
   });
+
+  /*
+   * Price input masking.
+   */
+  $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
 });

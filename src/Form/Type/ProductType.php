@@ -36,13 +36,21 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $nameListener = function (FormEvent $event) {
+        $listener = function (FormEvent $event) {
             $productModel = $event->getData();
 
+            // Set the slug
             if (null !== $productModel->getName()) {
                 $slug = Slugger::slugify($productModel->getName());
                 $productModel->setSlug($slug);
             }
+
+            // Remove dots and commas from the price value (and store int)
+            $price = $productModel->getPrice();
+            $price = (string) $price;
+            $price = str_replace(array('.', ','), '', $price);
+            $price = (int) $price;
+            $productModel->setPrice($price);
         };
 
         $builder
@@ -58,7 +66,16 @@ class ProductType extends AbstractType
                     'rows' => 7,
                 ],
             ])
-            ->add('price', TextType::class)
+            ->add('price', TextType::class, [
+                'attr' => [
+                    /*
+                     * These attributes ensure that the virtual numeric keyboard
+                     * is used instead of the normal multi-character keyboard.
+                     */
+                    'pattern' => '[0-9,.]*',
+                    'inputmode' => 'numeric',
+                ],
+            ])
             ->add('imageFile', FileType::class, [
                 'required' => $options['required'],
                 'attr' => [
@@ -73,7 +90,7 @@ class ProductType extends AbstractType
              * In order to transform the name into a slug and make automatic
              * form validation catch its violations, we must use Form Events.
              */
-            ->addEventListener(FormEvents::SUBMIT, $nameListener)
+            ->addEventListener(FormEvents::SUBMIT, $listener)
         ;
     }
 
