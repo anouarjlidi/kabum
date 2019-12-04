@@ -90,6 +90,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "erusev/parsedown": {
+        "version": "1.7.3"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -512,6 +515,9 @@
         "version": "v4.4.0"
     },
     "twig/extra-bundle": {
+        "version": "v3.0.0"
+    },
+    "twig/markdown-extra": {
         "version": "v3.0.0"
     },
     "twig/twig": {
