@@ -54,7 +54,7 @@ class Slugger
         // Eliminate forbidden characters, replacing them with an hyphen (-)
         $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
 
-        // Eliminate any hyphens (-) on the start and end of the string
+        // Eliminate any hyphens (-) at the start and end of the string
         return trim($slug, '-');
     }
 }
