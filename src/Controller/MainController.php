@@ -25,8 +25,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
 use App\Entity\Product;
+use App\Repository\CategoryRepository;
+use App\Entity\Category;
 
 class MainController extends AbstractController
 {
@@ -57,6 +58,20 @@ class MainController extends AbstractController
     {
         return $this->render('main/product.html.twig', [
             'product' => $product,
+        ]);
+    }
+
+    /**
+     * @param Category $product
+     *
+     * @return Response
+     *
+     * @Route("/category/{slug}", name="category_page")
+     */
+    public function categoryPage(Category $category): Response
+    {
+        return $this->render('main/category.html.twig', [
+            'category' => $category,
         ]);
     }
 

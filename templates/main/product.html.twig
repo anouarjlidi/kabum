@@ -28,7 +28,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ path('main_page') }}">Início</a></li>
-          <li class="breadcrumb-item"><a href="#">{{ product.category.name }}</a></li>
+          <li class="breadcrumb-item">
+            <a href="{{ path('category_page', {slug: product.category.slug}) }}">
+              {{ product.category.name }}
+            </a>
+          </li>
         </ol>
       </nav>
       <div class="row mt-4">

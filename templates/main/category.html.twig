@@ -19,13 +19,13 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'main/layout.html.twig' %}
 
-{% block title %}KaBuM! - Explosão de Preços Baixos!{% endblock %}
+{% block title %}{{ category.name }} - KaBuM!{% endblock %}
 
 {% block main %}
   {{ include('main/_highlight.html.twig') }}
   <section class="container-fluid">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-      {% for product in products %}
+      {% for product in category.products %}
         <div class="col px-4 py-5">
           <article>
             <a href="{{ path('product_page', {slug: product.slug}) }}">
