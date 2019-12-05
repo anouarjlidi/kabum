@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Add a new product{% endblock %}
+{% block title %}Manage categories{% endblock %}
 
 {% block body %}
   <div class="container">
@@ -27,18 +27,22 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {{ form_errors(form) }}
 
       {{ form_row(form.name) }}
-      {{ form_row(form.description) }}
-      {{ form_row(form.longDescription) }}
-      {{ form_row(form.category) }}
-      {{ form_row(form.price) }}
-      {{ form_row(form.imageFile) }}
 
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}
       <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange" value="Create"/>
+        <input type="submit" class="btn btn-kabum-orange" value="Add"/>
       </div>
     {{ form_end(form) }}
+
+    <ul class="list-group">
+      {% for category in categories %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ category.name }}
+          <span class="badge badge-primary badge-pill">{{ category.products|length }}</span>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}
 

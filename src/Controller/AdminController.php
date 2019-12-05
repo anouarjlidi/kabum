@@ -31,6 +31,10 @@ use App\Service\FileUploader;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
 use App\Form\Model\ProductFormModel;
+use App\Entity\Category;
+use App\Form\Type\CategoryType;
+use App\Form\Model\CategoryFormModel;
+use App\Repository\CategoryRepository;
 
 class AdminController extends AbstractController
 {
@@ -61,6 +65,7 @@ class AdminController extends AbstractController
             $product->setName($productModel->getName());
             $product->setDescription($productModel->getDescription());
             $product->setLongDescription($productModel->getLongDescription());
+            $product->setCategory($productModel->getCategory());
             $product->setPrice($productModel->getPrice());
             $product->setSlug($productModel->getSlug());
 
@@ -104,6 +109,7 @@ class AdminController extends AbstractController
         $productModel->setPrice($product->getPrice());
         $productModel->setDescription($product->getDescription());
         $productModel->setLongDescription($product->getLongDescription());
+        $productModel->setCategory($product->getCategory());
 
         $form = $this->createForm(ProductType::class, $productModel, [
             'currentLocale' => $request->getLocale(),
@@ -118,6 +124,7 @@ class AdminController extends AbstractController
             $product->setPrice($productModel->getPrice());
             $product->setDescription($productModel->getDescription());
             $product->setLongDescription($productModel->getLongDescription());
+            $product->setCategory($productModel->getCategory());
             $image = $productModel->getImageFile();
 
             if ($image) {
@@ -138,6 +145,49 @@ class AdminController extends AbstractController
         return $this->render('admin/edit_product.html.twig', [
             'form' => $form->createView(),
             'product' => $product,
+        ]);
+    }
+
+    /**
+     * Category management.
+     *
+     * @param CategoryRepository $repository
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     *
+     * @Route("/admin/category/manage", name="admin_category_management")
+     */
+    public function categoryList(CategoryRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $category = new Category;
+        $categoryModel = new CategoryFormModel;
+
+        $form = $this->createForm(CategoryType::class, $categoryModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryModel = $form->getData();
+
+            $category->setName($categoryModel->getName());
+
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'kabum-light-blue',
+                'Category added!'
+            );
+
+            return $this->redirectToRoute('admin_category_management');
+        }
+
+        $categories = $repository->findAll();
+
+        return $this->render('admin/category_list.html.twig', [
+            'form' => $form->createView(),
+            'categories' => $categories,
         ]);
     }
 }

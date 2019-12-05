@@ -32,6 +32,15 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+/*
+ * Removes the default dropdown arrow indicator from
+ * <select> input elements.
+ */
+.custom-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
 .action-button {
   font-size: 1.5rem;
 }

@@ -24,7 +24,13 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block main %}
   <section class="container-fluid">
     <div class="px-0 px-md-3">
-      <h3 class="font-weight-light text-kabum-dark-blue mt-3">{{ product.name }}</h3>
+      <h3 class="font-weight-light text-kabum-dark-blue my-3">{{ product.name }}</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ path('main_page') }}">Início</a></li>
+          <li class="breadcrumb-item"><a href="#">{{ product.category.name }}</a></li>
+        </ol>
+      </nav>
       <div class="row mt-4">
         <div class="col-sm-5 col-lg-4 col-xl-3">
           <img src="{{ asset(product.image) }}" class="img-fluid" alt="Product image"/>

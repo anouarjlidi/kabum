@@ -27,10 +27,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Form\Model\ProductFormModel;
 use App\Utils\Slugger;
+use App\Entity\Category;
 
 class ProductType extends AbstractType
 {
@@ -64,6 +66,14 @@ class ProductType extends AbstractType
                 'help' => 'You can use Markdown here',
                 'attr' => [
                     'rows' => 7,
+                ],
+            ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choose a category',
+                'attr' => [
+                    'class' => 'custom-select',
                 ],
             ])
             ->add('price', TextType::class, [

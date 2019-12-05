@@ -59,25 +59,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           </form>
         </div>
         <nav class="nav flex-column flex-nowrap py-2">
-          <a class="nav-link text-black" href="#">Celular & Telefone</a>
-          <a class="nav-link text-black" href="#">Eletrônicos</a>
-          <a class="nav-link text-black" href="#">Computadores</a>
-          <a class="nav-link text-black" href="#">Hardware</a>
-          <a class="nav-link text-black" href="#">Periféricos</a>
-          <a class="nav-link text-black" href="#">Câmeras Digitais</a>
-          <a class="nav-link text-black" href="#">Instrumento Musical</a>
-          <a class="nav-link text-black" href="#">Segurança</a>
-          <a class="nav-link text-black" href="#">Automotivo</a>
-          <a class="nav-link text-black" href="#">Gamer</a>
-          <a class="nav-link text-black" href="#">Vídeo & Som</a>
-          <a class="nav-link text-black" href="#">Geek</a>
-          <a class="nav-link text-black" href="#">Smart Home</a>
-          <a class="nav-link text-black" href="#">Eletroportáteis</a>
-          <a class="nav-link text-black" href="#">Automação</a>
-          <a class="nav-link text-black" href="#">Brinquedos</a>
-          <a class="nav-link text-black" href="#">Esporte e Lazer</a>
-          <a class="nav-link text-black" href="#">Casa & Jardim</a>
-          <a class="nav-link text-black" href="#">Presentes</a>
+          {{ render(controller('App\\Controller\\MainController::categoryList')) }}
         </nav>
       </div>
     </div>

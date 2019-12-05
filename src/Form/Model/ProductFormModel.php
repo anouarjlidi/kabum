@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\UniqueSlug;
 
 /**
- * A DTO (Data Transfer Object) for the product creation form.
+ * A DTO (Data Transfer Object) for the product entity.
  *
  * @UniqueSlug
  */
@@ -66,6 +66,10 @@ class ProductFormModel
      */
     private $imageFile;
 
+    /**
+     * @Assert\NotBlank
+     */
+    private $category;
 
     public function getId()
     {
@@ -147,6 +151,18 @@ class ProductFormModel
     public function setImageFile($imageFile)
     {
         $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
 
         return $this;
     }

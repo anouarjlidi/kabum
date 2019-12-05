@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use App\Entity\Product;
 
 class MainController extends AbstractController
@@ -56,6 +57,24 @@ class MainController extends AbstractController
     {
         return $this->render('main/product.html.twig', [
             'product' => $product,
+        ]);
+    }
+
+    /**
+     * Retrieve all categories.
+     *
+     * This controller is meant to be embedded on templates.
+     *
+     * @param CategoryRepository $repository
+     *
+     * @return Response
+     */
+    public function categoryList(CategoryRepository $repository): Response
+    {
+        $categories = $repository->findAll();
+
+        return $this->render('main/_categories.html.twig', [
+            'categories' => $categories,
         ]);
     }
 }
