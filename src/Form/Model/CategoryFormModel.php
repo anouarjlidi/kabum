@@ -85,6 +85,8 @@ class CategoryFormModel
 
     /**
      * Returns the fully qualified class name of the Category entity.
+     *
+     * @see App\Validator\UniqueSlug
      */
     public function getEntityClassName()
     {

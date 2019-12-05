@@ -22,8 +22,14 @@
 namespace App\Utils;
 
 /**
- * Formats a 'slug': a string used in the URL
- * to point to a resource on the domain.
+ * Formats a 'slug': a string used in the URL to point to a resource
+ * on the domain.
+ *
+ * It supports character translation, which is useful to replace accented characters
+ * such as "é", "ã" or "ç" with "e", "a" and "c", respectively.
+ *
+ * Because this application is used in Brazilian Portuguese, this Slugger
+ * is configured to support the most common accented letters for this language.
  */
 class Slugger
 {
@@ -34,8 +40,21 @@ class Slugger
      */
     public static function slugify(string $string): string
     {
-        $slug = preg_replace('/[^a-z0-9-]+/', '-', mb_strtolower($string, 'UTF-8'));
+        // Convert the string to lowercase
+        $slug = strtolower($string);
 
+        // Perform character translation
+        $translation = array(
+            'ã' => 'a', 'â' => 'a', 'á' => 'a', 'à' => 'a', 'í' => 'i',
+            'é' => 'e', 'ê' => 'e', '&' => 'e', 'ç' => 'c', 'ô' => 'o',
+            'õ' => 'o', 'ó' => 'o', 'ú' => 'u',
+        );
+        $slug = strtr($slug, $translation);
+
+        // Eliminate forbidden characters, replacing them with an hyphen (-)
+        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+
+        // Eliminate any hyphens (-) on the start and end of the string
         return trim($slug, '-');
     }
 }

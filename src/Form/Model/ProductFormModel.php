@@ -170,6 +170,8 @@ class ProductFormModel
 
     /**
      * Returns the fully qualified class name of the Product entity.
+     *
+     * @see App\Validator\UniqueSlug
      */
     public function getEntityClassName()
     {
