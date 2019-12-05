@@ -26,8 +26,17 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Validates for the uniqueness of the slug.
  *
- * This is meant for Data Transfer Objects, where
- * the native @UniqueEntity cannot be used.
+ * This is primarily meant for Data Transfer Objects, where
+ * the native @UniqueEntity cannot be used; or when additional
+ * verification is needed.
+ *
+ * (1) One of the requirements to use this constraint on a DTO is having an 'id'
+ * property in it. Checking the 'id' prevents a violation under a specific condition.
+ *
+ * (2) The entity or DTO to be validated with this constraint must contain
+ * the method getEntityClassName() that will return the fully qualified
+ * class name of the respective entity (e.g. Product::class). This requirement
+ * is more of a workaround and will likely be removed in future redesigns.
  *
  * @Annotation
  * @Target({"CLASS"})
@@ -38,6 +47,11 @@ class UniqueSlug extends Constraint
      * @var string
      */
     public $message = 'Slug is not unique.';
+
+    /**
+     * @var string The entity property to be associated to the violation
+     */
+    public $propertyPath;
 
     /**
      * Just like the "Target" annotation, this defines to what this constraint

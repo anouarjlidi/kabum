@@ -22,16 +22,42 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Category;
+use App\Validator\UniqueSlug;
 
 /**
  * A DTO (Data Transfer Object) for the category entity.
+ *
+ * @UniqueSlug(propertyPath="name")
  */
 class CategoryFormModel
 {
     /**
+     * The ID is needed in the custom validator UniqueSlug.
+     */
+    private $id;
+
+    /**
      * @Assert\NotBlank
      */
     private $name;
+
+    /**
+     * @Assert\NotBlank
+     */
+    private $slug;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function getName()
     {
@@ -43,5 +69,25 @@ class CategoryFormModel
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Returns the fully qualified class name of the Category entity.
+     */
+    public function getEntityClassName()
+    {
+        return Category::class;
     }
 }

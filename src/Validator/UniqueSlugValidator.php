@@ -23,28 +23,24 @@ namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use App\Repository\ProductRepository;
-use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Validates for the uniqueness of the slug.
  */
 class UniqueSlugValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductRepository
-     */
-    private $productRepository;
+    private $entityManager;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->productRepository = $productRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
      * The constraint validator method.
      *
-     * @param Product $object
+     * @param $object The entity to be validated
      * @param Constraint $constraint
      */
     public function validate($object, Constraint $constraint)
@@ -57,31 +53,34 @@ class UniqueSlugValidator extends ConstraintValidator
             return;
         }
 
-        // Find a product with the same slug
-        $productWithSameSlug = $this->productRepository->findOneBy([
+        // Retrieve the Doctrine repository of the respective entity
+        $repository = $this->entityManager->getRepository($object->getEntityClassName());
+
+        // Find an entity instance with the same slug
+        $entityWithSameSlug = $repository->findOneBy([
             'slug' => $object->getSlug()
         ]);
 
         /*
          * Will not add a violation if the slug being validated is unique.
          */
-        if (!$productWithSameSlug) {
+        if (!$entityWithSameSlug) {
             return;
         }
 
         /*
-         * If the product found with an identical slug is the exact same product
+         * If the entity found with an identical slug is the exact same entity
          * as the one currently being validated, don't trigger a violation.
-         * This allows edits to a product without having to change the value
+         * This allows edits to an entity without having to change the value
          * of the unique field.
          */
-        if ($productWithSameSlug->getId() === $object->getId()) {
+        if ($entityWithSameSlug->getId() === $object->getId()) {
             return;
         }
 
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $object->getSlug())
-            ->atPath('name')
+            ->atPath($constraint->propertyPath)
             ->addViolation();
     }
 }

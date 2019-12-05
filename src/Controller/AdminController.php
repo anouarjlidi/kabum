@@ -171,6 +171,7 @@ class AdminController extends AbstractController
             $categoryModel = $form->getData();
 
             $category->setName($categoryModel->getName());
+            $category->setSlug($categoryModel->getSlug());
 
             $entityManager->persist($category);
             $entityManager->flush();

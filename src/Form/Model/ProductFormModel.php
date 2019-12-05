@@ -22,12 +22,13 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Product;
 use App\Validator\UniqueSlug;
 
 /**
  * A DTO (Data Transfer Object) for the product entity.
  *
- * @UniqueSlug
+ * @UniqueSlug(propertyPath="name")
  */
 class ProductFormModel
 {
@@ -165,5 +166,13 @@ class ProductFormModel
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * Returns the fully qualified class name of the Product entity.
+     */
+    public function getEntityClassName()
+    {
+        return Product::class;
     }
 }

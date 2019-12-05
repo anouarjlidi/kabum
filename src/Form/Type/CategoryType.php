@@ -25,14 +25,32 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use App\Form\Model\CategoryFormModel;
+use App\Utils\Slugger;
 
 class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $listener = function (FormEvent $event) {
+            $categoryModel = $event->getData();
+
+            // Set the slug
+            if (null !== $categoryModel->getName()) {
+                $slug = Slugger::slugify($categoryModel->getName());
+                $categoryModel->setSlug($slug);
+            }
+        };
+
         $builder
             ->add('name', TextType::class)
+            /*
+             * In order to transform the name into a slug and make automatic
+             * form validation catch its violations, we must use Form Events.
+             */
+            ->addEventListener(FormEvents::SUBMIT, $listener)
         ;
     }
 
