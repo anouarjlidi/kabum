@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'main/layout.html.twig' %}
 
-{% block title %}{{ product.name }} - KaBuM!{% endblock %}
+{% block title %}{{ product.name }} - {{ parent() }}{% endblock %}
 
 {% block main %}
   <section class="container-fluid">
@@ -37,7 +37,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </nav>
       <div class="row mt-4">
         <div class="col-sm-5 col-lg-4 col-xl-3">
-          <img src="{{ asset(product.image) }}" class="img-fluid" alt="Product image"/>
+          <img src="{{ asset(product.image) }}" class="img-fluid" alt="Imagem do produto"/>
         </div>
         <div class="col-sm-7 col-lg-8 col-xl-9">
           <p>{{ product.description }}</p>

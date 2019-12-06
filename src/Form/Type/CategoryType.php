@@ -45,7 +45,9 @@ class CategoryType extends AbstractType
         };
 
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nome',
+            ])
             /*
              * In order to transform the name into a slug and make automatic
              * form validation catch its violations, we must use Form Events.

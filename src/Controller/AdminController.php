@@ -47,16 +47,14 @@ class AdminController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/admin/product/new", name="admin_new_product")
+     * @Route("/admin/produto/novo", name="admin_new_product")
      */
     public function addProduct(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $product = new Product;
         $productModel = new ProductFormModel;
 
-        $form = $this->createForm(ProductType::class, $productModel, [
-            'currentLocale' => $request->getLocale(),
-        ]);
+        $form = $this->createForm(ProductType::class, $productModel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +76,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'Product added!'
+                'Produto adicionado.'
             );
 
             return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
@@ -99,7 +97,7 @@ class AdminController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/admin/product/{slug}/edit", name="admin_edit_product")
+     * @Route("/admin/produto/{slug}/editar", name="admin_edit_product")
      */
     public function editProduct(Product $product, Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
@@ -112,7 +110,6 @@ class AdminController extends AbstractController
         $productModel->setCategory($product->getCategory());
 
         $form = $this->createForm(ProductType::class, $productModel, [
-            'currentLocale' => $request->getLocale(),
             'required' => false,
         ]);
         $form->handleRequest($request);
@@ -136,7 +133,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'Product edited!'
+                'As alterações ao produto foram aplicadas.'
             );
 
             return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
@@ -157,7 +154,7 @@ class AdminController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/admin/category/manage", name="admin_category_management")
+     * @Route("/admin/categoria/gerenciar", name="admin_category_management")
      */
     public function categoryList(CategoryRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -178,7 +175,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'Category added!'
+                'Categoria criada.'
             );
 
             return $this->redirectToRoute('admin_category_management');

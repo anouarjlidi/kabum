@@ -56,27 +56,33 @@ class ProductType extends AbstractType
         };
 
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nome',
+            ])
             ->add('description', TextareaType::class, [
+                'label' => 'Descrição curta',
                 'attr' => [
-                    'rows' => 4,
+                    'rows' => 3,
                 ],
             ])
             ->add('longDescription', TextareaType::class, [
-                'help' => 'You can use Markdown here',
+                'label' => 'Descrição detalhada',
+                'help' => 'Você pode usar sintaxe Markdown aqui.',
                 'attr' => [
                     'rows' => 7,
                 ],
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'label' => 'Categoria',
                 'choice_label' => 'name',
-                'placeholder' => 'Choose a category',
+                'placeholder' => 'Selecione uma categoria',
                 'attr' => [
                     'class' => 'custom-select',
                 ],
             ])
             ->add('price', TextType::class, [
+                'label' => 'Preço',
                 'attr' => [
                     /*
                      * These attributes ensure that the virtual numeric keyboard
@@ -87,13 +93,14 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('imageFile', FileType::class, [
+                'label' => 'Imagem',
                 'required' => $options['required'],
                 'attr' => [
-                    'lang' => $options['currentLocale'],
-                    'placeholder' => 'Select the image',
+                    'placeholder' => 'Selecione uma imagem',
                 ],
                 'label_attr' => [
                     'class' => 'text-truncate',
+                    'data-browse' => 'Selecionar',
                 ],
             ])
             /*
@@ -108,7 +115,6 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProductFormModel::class,
-            'currentLocale' => '',
             'required' => true,
         ]);
     }

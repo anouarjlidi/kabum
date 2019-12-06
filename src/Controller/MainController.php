@@ -52,7 +52,7 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/product/{slug}", name="product_page")
+     * @Route("/produto/{slug}", name="product_page")
      */
     public function productPage(Product $product): Response
     {
@@ -66,7 +66,7 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/category/{slug}", name="category_page")
+     * @Route("/categoria/{slug}", name="category_page")
      */
     public function categoryPage(Category $category): Response
     {

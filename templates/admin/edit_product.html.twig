@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit a product{% endblock %}
+{% block title %}Editar um produto - {{ parent() }}{% endblock %}
 
 {% block body %}
   <div class="container">
@@ -45,7 +45,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}
       <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange" value="Apply changes"/>
+        <input type="submit" class="btn btn-kabum-orange" value="Aplicar alterações"/>
       </div>
     {{ form_end(form) }}
   </div>
