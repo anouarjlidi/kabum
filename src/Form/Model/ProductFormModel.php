@@ -63,6 +63,7 @@ class ProductFormModel
     private $slug;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Image
      */
     private $imageFile;
