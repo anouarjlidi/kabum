@@ -29,13 +29,13 @@ $(document).ready(function() {
   // If a file is already selected when the page loads, display its name
   if (fileInputCount) {
     var fileInputName = $("#product_imageFile").prop("files")[0].name;
-    $("#product_imageFile").siblings(".custom-file-label").html(fileInputName);
+    $("#product_imageFile").siblings(".custom-file-label").text(fileInputName);
   }
 
   // Change the displayed file name when the file changes
   $("#product_imageFile").change(function() {
     var selectedFileName = $(this).prop("files")[0].name;
-    $(this).siblings(".custom-file-label").html(selectedFileName);
+    $(this).siblings(".custom-file-label").text(selectedFileName);
   });
 
   /*
