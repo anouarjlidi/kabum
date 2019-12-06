@@ -30,16 +30,15 @@ class FileUploader
     public function uploadProductImage(UploadedFile $image, Product $product)
     {
         $extension = $image->guessExtension();
-        $productId = $product->getId();
-        $randomInt = random_int(1, 100000);
         $imageDirectory = $product::IMAGE_DIR;
 
         if (!$extension) {
-            // Extension cannot be guessed
+            // When the extension cannot be guessed
             $extension = 'jpg';
         }
 
-        $filename = $productId . $randomInt . '.' . $extension;
+        // Set the filename and store the file
+        $filename = $product->getId() . '.' . $extension;
         $image->move($imageDirectory, $filename);
 
         return $filename;
