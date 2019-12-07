@@ -94,64 +94,6 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
   }
 }
 
-/*
- * Responsive 'highlight' section for special promotions
- */
-
-.highlight {
-  display: flex;
-  min-height: 20rem;
-  @include media-breakpoint-down(lg) {
-    flex-direction: column;
-  }
-}
-
-.highlight-description {
-  display: flex;
-  flex-basis: 60%;
-  flex-grow: 1;
-  // This margin compensates for the clip-path
-  margin-right: -8rem;
-  min-height: 20rem;
-  @include media-breakpoint-down(lg) {
-    flex-basis: 40%;
-    margin-right: 0;
-    // This margin compensates for the clip-path
-    margin-bottom: -2.5rem;
-  }
-}
-
-// Wrapper for the content inside the .highlight-description element
-.highlight-description-content {
-  text-align: center;
-  width: auto;
-  @include media-breakpoint-up(xl) {
-    text-align: left;
-    // Width is set to prevent overflow
-    width: 60%;
-  }
-}
-
-.highlight-picture {
-  background-image: url('../images/highlight.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  flex-basis: 40%;
-  flex-grow: 1;
-  min-height: 20rem;
-  clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%);
-  -webkit-clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%);
-  // This margin compensates for the clip-path
-  margin-left: -8rem;
-  @include media-breakpoint-down(lg) {
-    flex-basis: 60%;
-    clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
-    -webkit-clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
-    margin-left: 0;
-  }
-}
-
 #flash {
   position: fixed;
   top: 16px;

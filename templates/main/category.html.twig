@@ -22,11 +22,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ category.name }} - {{ parent() }}{% endblock %}
 
 {% block main %}
-  {{ include('main/_highlight.html.twig') }}
   <section class="container-fluid">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
       {% for product in category.products %}
-        <div class="col px-4 py-5">
+        <div class="col p-4">
           <article>
             <a href="{{ path('product_page', {slug: product.slug}) }}">
               <img src="{{ asset(product.image) }}" class="img-fluid" alt="Imagem do produto"/>
