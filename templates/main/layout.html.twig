@@ -64,12 +64,12 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {% endif %}
           </div>
         </div>
-        <div class="py-2">
+        <div class="mb-4">
           <form>
             <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"/>
           </form>
         </div>
-        <nav class="nav flex-column flex-nowrap py-2">
+        <nav class="nav flex-column flex-nowrap">
           {{ render(controller('App\\Controller\\MainController::categoryList')) }}
         </nav>
       </div>
