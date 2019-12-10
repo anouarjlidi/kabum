@@ -91,13 +91,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new CustomUserMessageAuthenticationException('Token CSRF inválido');
+            throw new CustomUserMessageAuthenticationException('invalid_csrf_token');
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException('Credenciais inválidas');
+            throw new CustomUserMessageAuthenticationException('invalid_credentials');
         }
 
         return $user;

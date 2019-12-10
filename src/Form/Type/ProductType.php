@@ -57,50 +57,51 @@ class ProductType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nome',
+                'label' => 'name',
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Descrição curta',
+                'label' => 'short_description',
                 'attr' => [
                     'rows' => 3,
                 ],
             ])
             ->add('longDescription', TextareaType::class, [
-                'label' => 'Descrição detalhada',
-                'help' => 'Você pode usar sintaxe Markdown aqui.',
+                'label' => 'long_description',
+                'help' => 'use_markdown_here',
                 'attr' => [
                     'rows' => 7,
                 ],
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'label' => 'Categoria',
+                'label' => 'category',
                 'choice_label' => 'name',
-                'placeholder' => 'Selecione uma categoria',
+                'placeholder' => 'select_category',
                 'attr' => [
                     'class' => 'custom-select',
                 ],
             ])
             ->add('price', TextType::class, [
-                'label' => 'Preço',
+                'label' => 'price',
                 'attr' => [
                     /*
                      * These attributes ensure that the virtual numeric keyboard
-                     * is used instead of the normal multi-character keyboard.
+                     * is used instead of the normal multi-character keyboard
+                     * (currently it doesn't work on every modern browser).
                      */
                     'pattern' => '[0-9,.]*',
                     'inputmode' => 'numeric',
                 ],
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Imagem',
+                'label' => 'image',
                 'required' => $options['required'],
                 'attr' => [
-                    'placeholder' => 'Selecione uma imagem',
+                    'placeholder' => 'select_image',
                 ],
                 'label_attr' => [
                     'class' => 'text-truncate',
-                    'data-browse' => 'Selecionar',
+                    'data-browse' => 'select',
                 ],
             ])
             /*

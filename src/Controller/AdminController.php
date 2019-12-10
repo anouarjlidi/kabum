@@ -76,7 +76,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'Produto adicionado.'
+                'product_added'
             );
 
             return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
@@ -133,7 +133,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'As alterações ao produto foram aplicadas.'
+                'product_changes_applied'
             );
 
             return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
@@ -175,7 +175,7 @@ class AdminController extends AbstractController
 
             $this->addFlash(
                 'kabum-light-blue',
-                'Categoria criada.'
+                'category_created'
             );
 
             return $this->redirectToRoute('admin_category_management');

@@ -36,7 +36,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Nome de usuário',
+                'label' => 'username',
                 'required' => true,
                 'attr' => [
                     'autofocus' => true,
@@ -45,16 +45,16 @@ class UserType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Confirme a senha novamente. Os campos divergem.',
+                'invalid_message' => 'reconfirm_password',
                 'required' => true,
                 'first_options' => [
-                    'label' => 'Senha',
+                    'label' => 'password',
                     'attr' => [
                         'aria-required' => 'true',
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Repita a senha',
+                    'label' => 'repeat_password',
                     'attr' => [
                         'aria-required' => 'true',
                     ],
@@ -62,7 +62,7 @@ class UserType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'required' => true,
-                'label' => 'Concordo com os termos de uso e privacidade e desejo me cadastrar.',
+                'label' => 'agree_terms',
                 'label_attr' => [
                     'class' => 'checkbox-custom',
                 ],

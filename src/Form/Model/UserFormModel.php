@@ -45,7 +45,7 @@ class UserFormModel
      * )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9_]+$/",
-     *     message="O nome de usuário só pode ser composto por caracteres alfanuméricos, a única exceção sendo o caractere sublinhado."
+     *     message="username_pattern"
      * )
      */
     private $username;
@@ -97,7 +97,7 @@ class UserFormModel
     }
 
     /**
-     * @Assert\IsTrue(message="Você deve estar de acordo com os termos para criar uma conta.")
+     * @Assert\IsTrue(message="must_agree_terms")
      */
     public function isAgreeTerms()
     {

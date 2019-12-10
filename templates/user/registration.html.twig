@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Cadastro - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registration'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -30,11 +30,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   <div class="container">
     <div class="text-center mb-3 mt-4">
       <a href="{{ path('main_page') }}">
-        <img src="{{ asset('images/kabum.png') }}" alt="Logotipo" width="200"/>
+        <img src="{{ asset('images/kabum.png') }}" alt="{{ 'logotype'|trans }}" width="200"/>
       </a>
     </div>
     <h4 class="text-kabum-dark-blue text-center mb-5">
-      Crie uma conta
+      {{ 'create_an_account'|trans }}
     </h4>
 
     {{ form_start(form) }}
@@ -60,7 +60,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {# The submit button is created here to preserve the form's reusability
             for other purposes #}
             <div class="text-md-right text-center">
-              <input type="submit" class="btn btn-block btn-lg btn-kabum-light-blue" value="Continuar"/>
+              <input type="submit" class="btn btn-block btn-lg btn-kabum-light-blue" value="{{ 'continue'|trans }}"/>
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'main/layout.html.twig' %}
 
-{% block title %}{{ parent() }} - Explosão de Preços Baixos!{% endblock %}
+{% block title %}{{ parent() }} - {{ 'low_price_explosion'|trans }}{% endblock %}
 
 {% block main %}
   <section class="container-fluid">
@@ -28,7 +28,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <div class="col p-4">
           <article>
             <a href="{{ path('product_page', {slug: product.slug}) }}">
-              <img src="{{ asset(product.image) }}" class="img-fluid" alt="Imagem do produto"/>
+              <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ 'product_image'|trans }}"/>
               <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
             </a>
             <div class="mb-3">

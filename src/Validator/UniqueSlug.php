@@ -46,7 +46,7 @@ class UniqueSlug extends Constraint
     /**
      * @var string
      */
-    public $message = 'Slug is not unique.';
+    public $message = 'slug_not_unique';
 
     /**
      * @var string The entity property to be associated to the violation

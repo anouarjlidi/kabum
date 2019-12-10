@@ -41,7 +41,7 @@ class UniqueUser extends Constraint
     /**
      * @var string
      */
-    public $message = 'The chosen username is not available.';
+    public $message = 'username_not_available';
 
     /**
      * Just like the "Target" annotation, this defines to what this constraint

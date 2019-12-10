@@ -46,7 +46,7 @@ class CategoryType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nome',
+                'label' => 'name',
             ])
             /*
              * In order to transform the name into a slug and make automatic

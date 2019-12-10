@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Adicionar um novo produto - {{ parent() }}{% endblock %}
+{% block title %}{{ 'add_new_product'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -41,7 +41,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}
       <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange" value="Criar"/>
+        <input type="submit" class="btn btn-kabum-orange" value="{{ 'create'|trans }}"/>
       </div>
     {{ form_end(form) }}
   </div>

@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="product_added">
+        <source>product_added</source>
+        <target>Produto adicionado.</target>
+      </trans-unit>
+      <trans-unit id="product_changes_applied">
+        <source>product_changes_applied</source>
+        <target>As alterações ao produto foram aplicadas.</target>
+      </trans-unit>
+      <trans-unit id="category_created">
+        <source>category_created</source>
+        <target>Categoria criada.</target>
+      </trans-unit>
+      <trans-unit id="username_pattern">
+        <source>username_pattern</source>
+        <target>O nome de usuário só pode ser composto por caracteres alfanuméricos, a única exceção sendo o caractere sublinhado.</target>
+      </trans-unit>
+      <trans-unit id="must_agree_terms">
+        <source>must_agree_terms</source>
+        <target>Você deve estar de acordo com os termos para criar uma conta.</target>
+      </trans-unit>
+      <trans-unit id="name">
+        <source>name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit id="short_description">
+        <source>short_description</source>
+        <target>Descrição curta</target>
+      </trans-unit>
+      <trans-unit id="long_description">
+        <source>long_description</source>
+        <target>Descrição detalhada</target>
+      </trans-unit>
+      <trans-unit id="use_markdown_here">
+        <source>use_markdown_here</source>
+        <target>Você pode usar sintaxe Markdown aqui.</target>
+      </trans-unit>
+      <trans-unit id="category">
+        <source>category</source>
+        <target>Categoria</target>
+      </trans-unit>
+      <trans-unit id="select_category">
+        <source>select_category</source>
+        <target>Selecione uma categoria</target>
+      </trans-unit>
+      <trans-unit id="price">
+        <source>price</source>
+        <target>Preço</target>
+      </trans-unit>
+      <trans-unit id="image">
+        <source>image</source>
+        <target>Imagem</target>
+      </trans-unit>
+      <trans-unit id="select_image">
+        <source>select_image</source>
+        <target>Selecione uma imagem</target>
+      </trans-unit>
+      <trans-unit id="select">
+        <source>select</source>
+        <target>Selecionar</target>
+      </trans-unit>
+      <trans-unit id="username">
+        <source>username</source>
+        <target>Nome de usuário</target>
+      </trans-unit>
+      <trans-unit id="reconfirm_password">
+        <source>reconfirm_password</source>
+        <target>Confirme a senha novamente. Os campos divergem.</target>
+      </trans-unit>
+      <trans-unit id="password">
+        <source>password</source>
+        <target>Senha</target>
+      </trans-unit>
+      <trans-unit id="repeat_password">
+        <source>repeat_password</source>
+        <target>Repita a senha</target>
+      </trans-unit>
+      <trans-unit id="agree_terms">
+        <source>agree_terms</source>
+        <target>Concordo com os termos de uso e privacidade e desejo me cadastrar.</target>
+      </trans-unit>
+      <trans-unit id="manage_categories">
+        <source>manage_categories</source>
+        <target>Gerenciar categorias</target>
+      </trans-unit>
+      <trans-unit id="add">
+        <source>add</source>
+        <target>Adicionar</target>
+      </trans-unit>
+      <trans-unit id="edit_product">
+        <source>edit_product</source>
+        <target>Editar um produto</target>
+      </trans-unit>
+      <trans-unit id="current_product_image">
+        <source>current_product_image</source>
+        <target>Current product image</target>
+      </trans-unit>
+      <trans-unit id="apply_changes">
+        <source>apply_changes</source>
+        <target>Aplicar alterações</target>
+      </trans-unit>
+      <trans-unit id="add_new_product">
+        <source>add_new_product</source>
+        <target>Adicionar um novo produto</target>
+      </trans-unit>
+      <trans-unit id="create">
+        <source>create</source>
+        <target>Criar</target>
+      </trans-unit>
+      <trans-unit id="product_image">
+        <source>product_image</source>
+        <target>Imagem do produto</target>
+      </trans-unit>
+      <trans-unit id="low_price_explosion">
+        <source>low_price_explosion</source>
+        <target>Explosão de Preços Baixos!</target>
+      </trans-unit>
+      <trans-unit id="go_home_page">
+        <source>go_home_page</source>
+        <target>Ir à página inicial</target>
+      </trans-unit>
+      <trans-unit id="logotype">
+        <source>logotype</source>
+        <target>Logotipo</target>
+      </trans-unit>
+      <trans-unit id="toggle_main_menu">
+        <source>toggle_main_menu</source>
+        <target>Abrir ou fechar o menu principal</target>
+      </trans-unit>
+      <trans-unit id="shopping_cart">
+        <source>shopping_cart</source>
+        <target>Carrinho de compras</target>
+      </trans-unit>
+      <trans-unit id="wishlist">
+        <source>wishlist</source>
+        <target>Lista de desejos</target>
+      </trans-unit>
+      <trans-unit id="user_menu">
+        <source>user_menu</source>
+        <target>Menu de usuário</target>
+      </trans-unit>
+      <trans-unit id="dashboard">
+        <source>dashboard</source>
+        <target>Dashboard</target>
+      </trans-unit>
+      <trans-unit id="settings">
+        <source>settings</source>
+        <target>Configurações</target>
+      </trans-unit>
+      <trans-unit id="sign_out">
+        <source>sign_out</source>
+        <target>Sair</target>
+      </trans-unit>
+      <trans-unit id="sign_in_kabum_account">
+        <source>sign_in_kabum_account</source>
+        <target>Entrar com uma conta do KaBuM!</target>
+      </trans-unit>
+      <trans-unit id="search">
+        <source>search</source>
+        <target>Pesquisar</target>
+      </trans-unit>
+      <trans-unit id="sign_in">
+        <source>sign_in</source>
+        <target>Entrar</target>
+      </trans-unit>
+      <trans-unit id="close">
+        <source>close</source>
+        <target>Fechar</target>
+      </trans-unit>
+      <trans-unit id="sign_in_your_account">
+        <source>sign_in_your_account</source>
+        <target>Entre com sua conta</target>
+      </trans-unit>
+      <trans-unit id="no_account_yet">
+        <source>no_account_yet</source>
+        <target>Ainda não possui uma conta?</target>
+      </trans-unit>
+      <trans-unit id="sign_up">
+        <source>sign_up</source>
+        <target>Cadastre-se</target>
+      </trans-unit>
+      <trans-unit id="registration">
+        <source>registration</source>
+        <target>Cadastro</target>
+      </trans-unit>
+      <trans-unit id="create_an_account">
+        <source>create_an_account</source>
+        <target>Crie uma conta</target>
+      </trans-unit>
+      <trans-unit id="continue">
+        <source>continue</source>
+        <target>Continuar</target>
+      </trans-unit>
+      <trans-unit id="kabum">
+        <source>kabum</source>
+        <target>KaBuM!</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

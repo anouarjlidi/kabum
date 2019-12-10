@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Entrar - {{ parent() }}{% endblock %}
+{% block title %}{{ 'sign_in'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -31,7 +31,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     {% if error %}
       <div id="flash" class="alert alert-banana alert-dismissible fade show shadow m-4" role="alert">
         {{ error.messageKey|trans(error.messageData, 'security') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ 'close'|trans }}">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -40,32 +40,32 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     <form method="post">
       <div class="text-center mb-4">
         <a href="{{ path('main_page') }}">
-          <img src="{{ asset('images/kabum.png') }}" alt="Logotipo" width="200"/>
+          <img src="{{ asset('images/kabum.png') }}" alt="{{ 'logotype'|trans }}" width="200"/>
         </a>
       </div>
       <p class="lead text-center text-kabum-dark-blue">
-        Entre com sua conta
+        {{ 'sign_in_your_account'|trans }}
       </p>
 
       <div class="form-group">
-        <label for="inputUsername" class="sr-only">Nome de usuário</label>
-        <input type="text" value="{{ last_username }}" name="username" placeholder="Nome de usuário" id="inputUsername" class="form-control" required="required" autofocus="autofocus">
-        <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" name="password" placeholder="Senha" id="inputPassword" class="form-control" required="required">
+        <label for="inputUsername" class="sr-only">{{ 'username'|trans }}</label>
+        <input type="text" value="{{ last_username }}" name="username" placeholder="{{ 'username'|trans }}" id="inputUsername" class="form-control" required="required" autofocus="autofocus">
+        <label for="inputPassword" class="sr-only">{{ 'password'|trans }}</label>
+        <input type="password" name="password" placeholder="{{ 'password'|trans }}" id="inputPassword" class="form-control" required="required">
       </div>
 
       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
       <div class="form-group">
         <button class="btn btn-lg btn-kabum-light-blue btn-block" type="submit">
-          Entrar
+          {{ 'sign_in'|trans }}
         </button>
       </div>
 
       <div class="border rounded text-center p-3 mt-5">
-        <p>Ainda não possui uma conta?</p>
+        <p>{{ 'no_account_yet'|trans }}</p>
         <a class="btn btn-block btn-outline-success" href="{{ path('user_register') }}">
-          Cadastre-se
+          {{ 'sign_up'|trans }}
         </a>
       </div>
 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="slug_not_unique">
+        <source>slug_not_unique</source>
+        <target>O slug "{value}" foi gerado a partir deste campo, porém esse não está disponível. Modifique os dados neste campo para que o slug gerado seja único.</target>
+      </trans-unit>
+      <trans-unit id="username_not_available">
+        <source>username_not_available</source>
+        <target>O nome de usuário escolhido não está disponível.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
