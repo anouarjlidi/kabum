@@ -1,0 +1,75 @@
+{#
+Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrar - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block body %}
+  <section class="d-flex login-form vh-100">
+    {% if error %}
+      <div id="flash" class="alert alert-banana alert-dismissible fade show shadow m-4" role="alert">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+
+    <form method="post">
+      <div class="text-center mb-4">
+        <a href="{{ path('main_page') }}">
+          <img src="{{ asset('images/kabum.png') }}" alt="Logotipo" width="200"/>
+        </a>
+      </div>
+      <p class="lead text-center text-kabum-dark-blue">
+        Entre com sua conta
+      </p>
+
+      <div class="form-group">
+        <label for="inputUsername" class="sr-only">Nome de usuário</label>
+        <input type="text" value="{{ last_username }}" name="username" placeholder="Nome de usuário" id="inputUsername" class="form-control" required="required" autofocus="autofocus">
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" name="password" placeholder="Senha" id="inputPassword" class="form-control" required="required">
+      </div>
+
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+      <div class="form-group">
+        <button class="btn btn-lg btn-kabum-light-blue btn-block" type="submit">
+          Entrar
+        </button>
+      </div>
+
+      <div class="text-center mt-4">
+        <small class="text-muted">Copyright &copy; <time>{{ 'now'|date('Y') }}</time> Douglas Silva</small>
+      </div>
+    </form>
+  </section>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('login') }}
+{% endblock %}

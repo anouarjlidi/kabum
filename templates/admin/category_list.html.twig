@@ -21,6 +21,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block title %}Gerenciar categorias - {{ parent() }}{% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
 {% block body %}
   <div class="container">
     {{ form_start(form) }}

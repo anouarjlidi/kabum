@@ -1,0 +1,80 @@
+@import "base/environment";
+
+.user-icon {
+  @extend %fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-user);
+    font-size: 1.5rem;
+  }
+}
+
+.shopping-cart-icon {
+  @extend %fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-shopping-cart);
+    font-size: 1.5rem;
+  }
+}
+
+.wishlist-icon {
+  @extend %fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-bookmark);
+    font-size: 1.5rem;
+  }
+}
+
+#header-brand {
+  width: 180px;
+  transition: transform .15s;
+  @include media-breakpoint-down(sm) {
+    width: 150px;
+  }
+}
+
+#header-brand:hover {
+  transform: scale(1.1);
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  @include media-breakpoint-up(md) {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 16px;
+    min-width: 250px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, .11);
+  }
+  @include media-breakpoint-up(xl) {
+    min-width: 300px;
+  }
+}
+
+#sidebar nav {
+  @include media-breakpoint-up(md) {
+    /*
+     * The max-height value below compensates for other elements taking up space
+     * on the sidebar. This nav element will display a scroll bar if it overflows,
+     * and this ensures it's rendered correctly.
+     */
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+  }
+}
+
+#sidebarContent {
+  @include media-breakpoint-up(md) {
+    // Ensures #sidebarContent is always displayed on larger viewport sizes
+    display: flex;
+    flex-direction: column;
+  }
+}

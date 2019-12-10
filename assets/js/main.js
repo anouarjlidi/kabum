@@ -17,6 +17,4 @@
  * along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-require('../scss/app.scss');
-
-require('bootstrap');
+require('../scss/main.scss');

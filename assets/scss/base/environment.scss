@@ -1,0 +1,18 @@
+/**
+ * This file imports all components and overrides some Bootstrap Sass
+ * variables with values that should be applied in most cases.
+ */
+
+@import "base/colors";
+
+$component-active-bg: map-get($theme-colors, 'kabum-orange');
+
+@import "base/bootstrap-required";
+
+$enable-responsive-font-sizes: true;
+$input-placeholder-color: theme-color('silver');
+$dropdown-link-hover-bg: theme-color-level('silver', -7);
+
+@import "base/bootstrap-optional";
+
+@import "base/fontawesome";

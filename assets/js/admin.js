@@ -17,6 +17,8 @@
  * along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+require('../scss/admin.scss');
+
 const $ = require('jquery');
 require('jquery-mask-plugin');
 

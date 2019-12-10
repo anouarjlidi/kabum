@@ -1,0 +1,48 @@
+@import "base/colors";
+
+$component-active-bg: map-get($theme-colors, 'kabum-orange');
+
+@import "base/bootstrap-required";
+
+$body-bg: theme-color('light');
+$enable-responsive-font-sizes: true;
+$input-placeholder-color: theme-color('silver');
+$dropdown-link-hover-bg: theme-color-level('silver', -7);
+
+@import "base/bootstrap-optional";
+
+@import "base/fontawesome";
+
+form {
+  width: 100%;
+  max-width: 20.6rem;
+  padding: 16px;
+  margin: auto;
+}
+
+.login-form .form-control {
+  // Relative positioning is required to make the focus fix below work
+  position: relative;
+
+  // Enlarges the input box
+  height: auto;
+  padding: 10px;
+}
+
+.login-form .form-control:focus {
+  // Prevents the focus styling from being hidden under the adjacent input box
+  z-index: 2;
+}
+
+#inputUsername {
+  // Merge the two input boxes' margins
+  margin-bottom: -1px;
+
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#inputPassword {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
