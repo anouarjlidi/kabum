@@ -23,18 +23,18 @@ namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 
 /**
- * Validates for the uniqueness of the slug.
+ * Validates for the uniqueness of the user.
  */
-class UniqueSlugValidator extends ConstraintValidator
+class UniqueUserValidator extends ConstraintValidator
 {
-    private $entityManager;
+    private $repository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(UserRepository $repository)
     {
-        $this->entityManager = $entityManager;
+        $this->repository = $repository;
     }
 
     /**
@@ -49,38 +49,33 @@ class UniqueSlugValidator extends ConstraintValidator
          * Ignore blank and null values to let other constraints
          * do their jobs.
          */
-        if (null === $object->getSlug() || '' === $object->getSlug()) {
+        if (null === $object->getUsername() || '' === $object->getUsername()) {
             return;
         }
 
-        // Retrieve the Doctrine repository of the respective entity
-        $repository = $this->entityManager->getRepository($object->getEntityClassName());
-
-        // Find an entity instance with the same slug
-        $entityWithSameSlug = $repository->findOneBy([
-            'slug' => $object->getSlug()
+        // Find a user with the same username
+        $userWithSameUsername = $this->repository->findOneBy([
+            'username' => $object->getUsername()
         ]);
 
         /*
-         * Will not add a violation if the slug being validated is unique.
+         * Will not add a violation if the chosen username is unique.
          */
-        if (!$entityWithSameSlug) {
+        if (!$userWithSameUsername) {
             return;
         }
 
         /*
-         * If the entity found with an identical slug is the exact same entity
+         * If the user found with an identical username is the exact same user
          * as the one currently being validated, don't trigger a violation.
-         * This allows edits to an entity without having to change the value
-         * of the unique field.
+         * This is useful when changing the username after registration.
          */
-        if ($entityWithSameSlug->getId() === $object->getId()) {
+        if ($userWithSameUsername->getId() === $object->getId()) {
             return;
         }
 
         $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $object->getSlug())
-            ->atPath($constraint->propertyPath)
+            ->atPath('username')
             ->addViolation()
         ;
     }
