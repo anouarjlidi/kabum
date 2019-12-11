@@ -38,7 +38,7 @@ class FileUploader
         }
 
         // Set the filename and store the file
-        $filename = $product->getId() . '.' . $extension;
+        $filename = $product->getSlug() . '.' . $extension;
         $image->move($imageDirectory, $filename);
 
         return $filename;
