@@ -104,7 +104,7 @@
       </trans-unit>
       <trans-unit id="add_new_product">
         <source>add_new_product</source>
-        <target>Adicionar um novo produto</target>
+        <target>Adicionar novo produto</target>
       </trans-unit>
       <trans-unit id="create">
         <source>create</source>
@@ -142,13 +142,9 @@
         <source>user_menu</source>
         <target>Menu de usuário</target>
       </trans-unit>
-      <trans-unit id="dashboard">
-        <source>dashboard</source>
-        <target>Dashboard</target>
-      </trans-unit>
-      <trans-unit id="settings">
-        <source>settings</source>
-        <target>Configurações</target>
+      <trans-unit id="your_account">
+        <source>your_account</source>
+        <target>Sua conta</target>
       </trans-unit>
       <trans-unit id="sign_out">
         <source>sign_out</source>
@@ -197,6 +193,10 @@
       <trans-unit id="kabum">
         <source>kabum</source>
         <target>KaBuM!</target>
+      </trans-unit>
+      <trans-unit id="edit">
+        <source>edit</source>
+        <target>Editar</target>
       </trans-unit>
     </body>
   </file>

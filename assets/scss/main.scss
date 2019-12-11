@@ -1,5 +1,15 @@
 @import "base/environment";
 
+.sign-in-icon {
+  @extend %fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-sign-in-alt);
+    font-size: 1.5rem;
+  }
+}
+
 .user-icon {
   @extend %fa-icon;
   @extend .fas;
