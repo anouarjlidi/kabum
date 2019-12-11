@@ -30,12 +30,20 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Form\Model\ProductFormModel;
 use App\Utils\Slugger;
 use App\Entity\Category;
 
 class ProductType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $listener = function (FormEvent $event) {
@@ -101,7 +109,7 @@ class ProductType extends AbstractType
                 ],
                 'label_attr' => [
                     'class' => 'text-truncate',
-                    'data-browse' => 'select',
+                    'data-browse' => $this->translator->trans('select'),
                 ],
             ])
             /*
