@@ -198,6 +198,14 @@
         <source>edit</source>
         <target>Editar</target>
       </trans-unit>
+      <trans-unit id="back_to_main_page">
+        <source>back_to_main_page</source>
+        <target>Voltar à página inicial</target>
+      </trans-unit>
+      <trans-unit id="control_panel">
+        <source>control_panel</source>
+        <target>Painel de controle</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

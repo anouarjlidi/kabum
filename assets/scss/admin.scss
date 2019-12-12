@@ -1,1 +1,25 @@
 @import "base/environment";
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  @include media-breakpoint-up(md) {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 16px;
+    min-width: 250px;
+  }
+  @include media-breakpoint-up(xl) {
+    min-width: 300px;
+  }
+}
+
+#sidebarContent {
+  @include media-breakpoint-up(md) {
+    // Ensures #sidebarContent is always displayed on larger viewport sizes
+    display: flex;
+    flex-direction: column;
+  }
+}

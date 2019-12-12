@@ -40,7 +40,6 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'autofocus' => true,
-                    'aria-required' => 'true',
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -49,15 +48,9 @@ class UserType extends AbstractType
                 'required' => true,
                 'first_options' => [
                     'label' => 'password',
-                    'attr' => [
-                        'aria-required' => 'true',
-                    ],
                 ],
                 'second_options' => [
                     'label' => 'repeat_password',
-                    'attr' => [
-                        'aria-required' => 'true',
-                    ],
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [

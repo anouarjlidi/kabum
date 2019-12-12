@@ -1,0 +1,59 @@
+{#
+Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block body %}
+  <div class="d-flex flex-column flex-md-row">
+    <div id="sidebar" class="bg-black">
+      <div class="d-flex justify-content-between mb-0 mb-md-3">
+        <a class="btn btn-black" href="{{ path('main_page') }}">
+          <i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i>
+          {{ 'back_to_main_page'|trans }}
+        </a>
+        <button class="navbar-toggler d-md-none px-4" type="button" data-toggle="collapse" data-target="#sidebarContent" aria-expanded="false" aria-controls="sidebarContent" aria-label="{{ 'toggle_main_menu'|trans }}">
+          <i class="fas fa-bars text-light" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="sidebarContent" class="collapse py-3">
+        <a class="nav-link font-weight-bold text-light" href="{{ path('admin_new_product') }}">
+          <i class="fas fa-plus fa-fw mr-1" aria-hidden="true"></i>
+          {{ 'add_new_product'|trans }}
+        </a>
+        <a class="nav-link font-weight-bold text-light" href="{{ path('admin_category_management') }}">
+          <i class="fas fa-tags fa-fw mr-1" aria-hidden="true"></i>
+          {{ 'manage_categories'|trans }}
+        </a>
+      </div>
+    </div>
+    <div class="d-flex flex-column w-100">
+      {% block main %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('admin') }}
+{% endblock %}

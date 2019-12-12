@@ -66,6 +66,9 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
+                'attr' => [
+                    'autofocus' => true,
+                ],
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'short_description',
