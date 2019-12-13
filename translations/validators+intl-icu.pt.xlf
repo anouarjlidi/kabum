@@ -22,6 +22,10 @@
         <source>must_agree_terms</source>
         <target>Você deve estar de acordo com os termos para criar uma conta.</target>
       </trans-unit>
+      <trans-unit id="wrong_password">
+        <source>wrong_password</source>
+        <target>Senha incorreta</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

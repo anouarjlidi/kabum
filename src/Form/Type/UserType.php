@@ -58,6 +58,7 @@ class UserType extends AbstractType
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $user = $event->getData();
                 $form = $event->getForm();
+                $options = $form->getConfig()->getOptions();
 
                 /*
                  * This ensures the agreeTerms field is only added when you're
@@ -70,6 +71,11 @@ class UserType extends AbstractType
                         'label_attr' => [
                             'class' => 'checkbox-custom',
                         ],
+                    ]);
+                } else {
+                    $form->add('currentPassword', PasswordType::class, [
+                        'label' => 'current_password',
+                        'required' => $options['requiredPassword'],
                     ]);
                 }
             })

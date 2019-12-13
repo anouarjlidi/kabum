@@ -22,6 +22,7 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\UserPassword;
 use App\Validator\UniqueUser;
 use App\Entity\User;
 
@@ -29,6 +30,7 @@ use App\Entity\User;
  * A DTO (Data Transfer Object) for the user entity.
  *
  * @UniqueUser(groups={"AccountSettings"})
+ * @UserPassword(groups={"AccountSettings"})
  */
 class UserFormModel
 {
@@ -46,9 +48,14 @@ class UserFormModel
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(max=255, groups={"AccountSettings"})
+     * @Assert\Length(max=4096, groups={"AccountSettings"})
      */
     private $password;
+
+    /**
+     * @Assert\Length(max=4096, groups={"AccountSettings"})
+     */
+    private $currentPassword;
 
     /**
      * @Assert\IsTrue(message="must_agree_terms")
@@ -87,6 +94,18 @@ class UserFormModel
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getCurrentPassword()
+    {
+        return $this->currentPassword;
+    }
+
+    public function setCurrentPassword($password)
+    {
+        $this->currentPassword = $password;
 
         return $this;
     }

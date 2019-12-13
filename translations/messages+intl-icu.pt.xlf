@@ -210,6 +210,10 @@
         <source>changes_applied</source>
         <target>As alterações foram aplicadas.</target>
       </trans-unit>
+      <trans-unit id="current_password">
+        <source>current_password</source>
+        <target>Senha atual</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
