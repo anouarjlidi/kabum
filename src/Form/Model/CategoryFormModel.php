@@ -42,9 +42,6 @@ class CategoryFormModel
      */
     private $name;
 
-    /**
-     * @Assert\NotBlank
-     */
     private $slug;
 
     public function getId()

@@ -22,13 +22,13 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\User;
 use App\Validator\UniqueUser;
+use App\Entity\User;
 
 /**
  * A DTO (Data Transfer Object) for the user entity.
  *
- * @UniqueUser
+ * @UniqueUser(groups={"AccountSettings"})
  */
 class UserFormModel
 {
@@ -38,26 +38,21 @@ class UserFormModel
     private $id;
 
     /**
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *     min = 3,
-     *     max = 25,
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9_]+$/",
-     *     message="username_pattern"
-     * )
+     * @Assert\NotBlank(groups={"AccountSettings"})
+     * @Assert\Length(min=3, max=25, groups={"AccountSettings"})
+     * @Assert\Regex(pattern="/^[a-zA-Z0-9_]+$/", message="username_pattern", groups={"AccountSettings"})
      */
     private $username;
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(
-     *     max = 255,
-     * )
+     * @Assert\Length(max=255, groups={"AccountSettings"})
      */
     private $password;
 
+    /**
+     * @Assert\IsTrue(message="must_agree_terms")
+     */
     private $agreeTerms;
 
     public function getId()
@@ -96,9 +91,6 @@ class UserFormModel
         return $this;
     }
 
-    /**
-     * @Assert\IsTrue(message="must_agree_terms")
-     */
     public function isAgreeTerms()
     {
         return $this->agreeTerms;

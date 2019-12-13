@@ -28,6 +28,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use App\Form\Model\UserFormModel;
 
 class UserType extends AbstractType
@@ -37,7 +39,7 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'username',
-                'required' => true,
+                'help' => 'username_allowed_characters',
                 'attr' => [
                     'autofocus' => true,
                 ],
@@ -45,7 +47,7 @@ class UserType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'reconfirm_password',
-                'required' => true,
+                'required' => $options['requiredPassword'],
                 'first_options' => [
                     'label' => 'password',
                 ],
@@ -53,13 +55,24 @@ class UserType extends AbstractType
                     'label' => 'repeat_password',
                 ],
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'required' => true,
-                'label' => 'agree_terms',
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
-            ])
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $user = $event->getData();
+                $form = $event->getForm();
+
+                /*
+                 * This ensures the agreeTerms field is only added when you're
+                 * creating a new User entity (on registration), and not when
+                 * editing it.
+                 */
+                if (!$user || null === $user->getId()) {
+                    $form->add('agreeTerms', CheckboxType::class, [
+                        'label' => 'agree_terms',
+                        'label_attr' => [
+                            'class' => 'checkbox-custom',
+                        ],
+                    ]);
+                }
+            })
         ;
     }
 
@@ -67,6 +80,8 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserFormModel::class,
+            'requiredPassword' => true,
+            'validation_groups' => ['Default', 'AccountSettings'],
         ]);
     }
 }

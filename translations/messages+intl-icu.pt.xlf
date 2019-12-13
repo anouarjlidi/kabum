@@ -14,13 +14,9 @@
         <source>category_created</source>
         <target>Categoria criada.</target>
       </trans-unit>
-      <trans-unit id="username_pattern">
-        <source>username_pattern</source>
-        <target>O nome de usuário só pode ser composto por caracteres alfanuméricos, a única exceção sendo o caractere sublinhado.</target>
-      </trans-unit>
-      <trans-unit id="must_agree_terms">
-        <source>must_agree_terms</source>
-        <target>Você deve estar de acordo com os termos para criar uma conta.</target>
+      <trans-unit id="username_allowed_characters">
+        <source>username_allowed_characters</source>
+        <target>O nome de usuário pode ser composto por letras, números e sublinhado. Deve ser maior que 2 e menor que 26 caracteres.</target>
       </trans-unit>
       <trans-unit id="name">
         <source>name</source>
@@ -65,10 +61,6 @@
       <trans-unit id="username">
         <source>username</source>
         <target>Nome de usuário</target>
-      </trans-unit>
-      <trans-unit id="reconfirm_password">
-        <source>reconfirm_password</source>
-        <target>Confirme a senha novamente. Os campos divergem.</target>
       </trans-unit>
       <trans-unit id="password">
         <source>password</source>
@@ -205,6 +197,18 @@
       <trans-unit id="control_panel">
         <source>control_panel</source>
         <target>Painel de controle</target>
+      </trans-unit>
+      <trans-unit id="back_to_store">
+        <source>back_to_store</source>
+        <target>Voltar à loja</target>
+      </trans-unit>
+      <trans-unit id="account_settings">
+        <source>account_settings</source>
+        <target>Configurações de conta</target>
+      </trans-unit>
+      <trans-unit id="changes_applied">
+        <source>changes_applied</source>
+        <target>As alterações foram aplicadas.</target>
       </trans-unit>
     </body>
   </file>

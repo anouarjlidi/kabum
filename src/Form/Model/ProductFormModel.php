@@ -28,7 +28,7 @@ use App\Validator\UniqueSlug;
 /**
  * A DTO (Data Transfer Object) for the product entity.
  *
- * @UniqueSlug(propertyPath="name")
+ * @UniqueSlug(propertyPath="name", groups={"EditProduct"})
  */
 class ProductFormModel
 {
@@ -38,38 +38,35 @@ class ProductFormModel
     private $id;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"EditProduct"})
      */
     private $name;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"EditProduct"})
      */
     private $description;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"EditProduct"})
      */
     private $longDescription;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"EditProduct"})
      */
     private $price;
 
-    /**
-     * @Assert\NotBlank
-     */
     private $slug;
 
     /**
      * @Assert\NotBlank
-     * @Assert\Image
+     * @Assert\Image(groups={"EditProduct"})
      */
     private $imageFile;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"EditProduct"})
      */
     private $category;
 

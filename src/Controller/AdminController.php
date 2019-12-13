@@ -110,7 +110,8 @@ class AdminController extends AbstractController
         $productModel->setCategory($product->getCategory());
 
         $form = $this->createForm(ProductType::class, $productModel, [
-            'required' => false,
+            'requiredImage' => false,
+            'validation_groups' => ['EditProduct'],
         ]);
         $form->handleRequest($request);
 

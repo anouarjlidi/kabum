@@ -56,11 +56,13 @@ class ProductType extends AbstractType
             }
 
             // Remove dots and commas from the price value (and store int)
-            $price = $productModel->getPrice();
-            $price = (string) $price;
-            $price = str_replace(array('.', ','), '', $price);
-            $price = (int) $price;
-            $productModel->setPrice($price);
+            if (null !== $productModel->getPrice()) {
+                $price = $productModel->getPrice();
+                $price = (string) $price;
+                $price = str_replace(array('.', ','), '', $price);
+                $price = (int) $price;
+                $productModel->setPrice($price);
+            }
         };
 
         $builder
@@ -106,7 +108,7 @@ class ProductType extends AbstractType
             ])
             ->add('imageFile', FileType::class, [
                 'label' => 'image',
-                'required' => $options['required'],
+                'required' => $options['requiredImage'],
                 'attr' => [
                     'placeholder' => 'select_image',
                 ],
@@ -127,7 +129,8 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProductFormModel::class,
-            'required' => true,
+            'requiredImage' => true,
+            'validation_groups' => ['Default', 'EditProduct'],
         ]);
     }
 }

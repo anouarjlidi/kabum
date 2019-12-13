@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Security\LoginFormAuthenticator;
 use App\Entity\User;
 use App\Form\Model\UserFormModel;
@@ -59,6 +60,50 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/registration.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/usuario/conta", name="user_account")
+     *
+     * @IsGranted("ROLE_USER")
+     */
+    public function accountSettings(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $userModel = new UserFormModel;
+
+        $userModel->setId($user->getId());
+        $userModel->setUsername($user->getUsername());
+
+        $form = $this->createForm(UserType::class, $userModel, [
+            'requiredPassword' => false,
+            'validation_groups' => ['AccountSettings'],
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userModel = $form->getData();
+
+            $user->setUsername($userModel->getUsername());
+            $password = $userModel->getPassword();
+
+            if ($password) {
+                $user->setPassword($passwordEncoder->encodePassword($user, $password));
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash(
+                'kabum-light-blue',
+                'changes_applied'
+            );
+
+            return $this->redirectToRoute('user_account');
+        }
+
+        return $this->render('user/account_settings.html.twig', [
             'form' => $form->createView(),
         ]);
     }

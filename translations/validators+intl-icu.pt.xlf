@@ -10,6 +10,18 @@
         <source>username_not_available</source>
         <target>O nome de usuário escolhido não está disponível.</target>
       </trans-unit>
+      <trans-unit id="username_pattern">
+        <source>username_pattern</source>
+        <target>Você utilizou caracteres não permitidos. Consulte o texto de ajuda abaixo.</target>
+      </trans-unit>
+      <trans-unit id="reconfirm_password">
+        <source>reconfirm_password</source>
+        <target>Confirme a senha novamente. Os campos divergem.</target>
+      </trans-unit>
+      <trans-unit id="must_agree_terms">
+        <source>must_agree_terms</source>
+        <target>Você deve estar de acordo com os termos para criar uma conta.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
