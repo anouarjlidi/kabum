@@ -24,6 +24,7 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use App\Repository\UserRepository;
+use App\Entity\User;
 
 /**
  * Validates for the uniqueness of the user.
@@ -40,22 +41,22 @@ class UniqueUserValidator extends ConstraintValidator
     /**
      * The constraint validator method.
      *
-     * @param $object The entity to be validated
+     * @param $user The user to be validated
      * @param Constraint $constraint
      */
-    public function validate($object, Constraint $constraint)
+    public function validate($user, Constraint $constraint)
     {
         /*
          * Ignore blank and null values to let other constraints
          * do their jobs.
          */
-        if (null === $object->getUsername() || '' === $object->getUsername()) {
+        if (null === $user->getUsername() || '' === $user->getUsername()) {
             return;
         }
 
         // Find a user with the same username
         $userWithSameUsername = $this->repository->findOneBy([
-            'username' => $object->getUsername()
+            'username' => $user->getUsername()
         ]);
 
         /*
@@ -69,8 +70,10 @@ class UniqueUserValidator extends ConstraintValidator
          * If the user found with an identical username is the exact same user
          * as the one currently being validated, don't trigger a violation.
          * This is useful when changing the username after registration.
+         *
+         * When the user hasn't been persisted yet, the id will be null.
          */
-        if ($userWithSameUsername->getId() === $object->getId()) {
+        if ($userWithSameUsername->getId() === $user->getId()) {
             return;
         }
 
