@@ -32,16 +32,18 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Form\Model\ProductFormModel;
-use App\Utils\Slugger;
+use App\Service\Slugger;
 use App\Entity\Category;
 
 class ProductType extends AbstractType
 {
     private $translator;
+    private $slugger;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, Slugger $slugger)
     {
         $this->translator = $translator;
+        $this->slugger = $slugger;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -107,7 +109,7 @@ class ProductType extends AbstractType
 
                 // Set the slug
                 if (null !== $productModel->getName()) {
-                    $slug = Slugger::slugify($productModel->getName());
+                    $slug = $this->slugger->slugify($productModel->getName());
                     $productModel->setSlug($slug);
                 }
 

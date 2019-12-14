@@ -19,7 +19,7 @@
  * along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Utils;
+namespace App\Service;
 
 /**
  * Formats a 'slug': a string used in the URL to point to a resource
@@ -38,7 +38,7 @@ class Slugger
      *
      * @return string
      */
-    public static function slugify(string $string): string
+    public function slugify(string $string): string
     {
         // Convert the string to lowercase
         $slug = strtolower($string);

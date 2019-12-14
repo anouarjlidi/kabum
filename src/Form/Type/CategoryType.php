@@ -28,10 +28,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Form\Model\CategoryFormModel;
-use App\Utils\Slugger;
+use App\Service\Slugger;
 
 class CategoryType extends AbstractType
 {
+    private $slugger;
+
+    public function __construct(Slugger $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -50,7 +57,7 @@ class CategoryType extends AbstractType
 
                 // Set the slug
                 if (null !== $categoryModel->getName()) {
-                    $slug = Slugger::slugify($categoryModel->getName());
+                    $slug = $this->slugger->slugify($categoryModel->getName());
                     $categoryModel->setSlug($slug);
                 }
             })
