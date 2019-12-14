@@ -22,8 +22,10 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProductRepository;
 use App\Entity\Product;
 use App\Repository\CategoryRepository;
@@ -62,15 +64,22 @@ class MainController extends AbstractController
     }
 
     /**
-     * @param Category $product
+     * @param Request $request
+     * @param Category $category
+     * @param PaginatorInterface $paginator
      *
      * @return Response
      *
      * @Route("/categoria/{slug}", name="category_page")
      */
-    public function categoryPage(Category $category): Response
+    public function categoryPage(Request $request, Category $category, PaginatorInterface $paginator): Response
     {
+        $products = $category->getProducts();
+
+        $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 3);
+
         return $this->render('main/category.html.twig', [
+            'pagination' => $pagination,
             'category' => $category,
         ]);
     }
