@@ -214,6 +214,10 @@
         <source>current_password</source>
         <target>Senha atual</target>
       </trans-unit>
+      <trans-unit id="new_password">
+        <source>new_password</source>
+        <target>Nova senha</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

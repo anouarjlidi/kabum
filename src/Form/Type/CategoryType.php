@@ -34,16 +34,6 @@ class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $listener = function (FormEvent $event) {
-            $categoryModel = $event->getData();
-
-            // Set the slug
-            if (null !== $categoryModel->getName()) {
-                $slug = Slugger::slugify($categoryModel->getName());
-                $categoryModel->setSlug($slug);
-            }
-        };
-
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
@@ -55,7 +45,15 @@ class CategoryType extends AbstractType
              * In order to transform the name into a slug and make automatic
              * form validation catch its violations, we must use Form Events.
              */
-            ->addEventListener(FormEvents::SUBMIT, $listener)
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+                $categoryModel = $event->getData();
+
+                // Set the slug
+                if (null !== $categoryModel->getName()) {
+                    $slug = Slugger::slugify($categoryModel->getName());
+                    $categoryModel->setSlug($slug);
+                }
+            })
         ;
     }
 

@@ -46,25 +46,6 @@ class ProductType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $listener = function (FormEvent $event) {
-            $productModel = $event->getData();
-
-            // Set the slug
-            if (null !== $productModel->getName()) {
-                $slug = Slugger::slugify($productModel->getName());
-                $productModel->setSlug($slug);
-            }
-
-            // Remove dots and commas from the price value (and store int)
-            if (null !== $productModel->getPrice()) {
-                $price = $productModel->getPrice();
-                $price = (string) $price;
-                $price = str_replace(array('.', ','), '', $price);
-                $price = (int) $price;
-                $productModel->setPrice($price);
-            }
-        };
-
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
@@ -121,7 +102,24 @@ class ProductType extends AbstractType
              * In order to transform the name into a slug and make automatic
              * form validation catch its violations, we must use Form Events.
              */
-            ->addEventListener(FormEvents::SUBMIT, $listener)
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+                $productModel = $event->getData();
+
+                // Set the slug
+                if (null !== $productModel->getName()) {
+                    $slug = Slugger::slugify($productModel->getName());
+                    $productModel->setSlug($slug);
+                }
+
+                // Remove dots and commas from the price value (and store int)
+                if (null !== $productModel->getPrice()) {
+                    $price = $productModel->getPrice();
+                    $price = (string) $price;
+                    $price = str_replace(array('.', ','), '', $price);
+                    $price = (int) $price;
+                    $productModel->setPrice($price);
+                }
+            })
         ;
     }
 

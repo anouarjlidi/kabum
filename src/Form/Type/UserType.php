@@ -44,39 +44,55 @@ class UserType extends AbstractType
                     'autofocus' => true,
                 ],
             ])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'reconfirm_password',
-                'required' => $options['requiredPassword'],
-                'first_options' => [
-                    'label' => 'password',
-                ],
-                'second_options' => [
-                    'label' => 'repeat_password',
-                ],
-            ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $user = $event->getData();
                 $form = $event->getForm();
                 $options = $form->getConfig()->getOptions();
 
                 /*
-                 * This ensures the agreeTerms field is only added when you're
-                 * creating a new User entity (on registration), and not when
-                 * editing it.
+                 * We make some changes to the form depending on whether
+                 * the user is being created or edited.
                  */
                 if (!$user || null === $user->getId()) {
-                    $form->add('agreeTerms', CheckboxType::class, [
-                        'label' => 'agree_terms',
-                        'label_attr' => [
-                            'class' => 'checkbox-custom',
-                        ],
-                    ]);
+                    // Creating a new user
+                    $form
+                        ->add('agreeTerms', CheckboxType::class, [
+                            'label' => 'agree_terms',
+                            'label_attr' => [
+                                'class' => 'checkbox-custom',
+                            ],
+                        ])
+                        ->add('password', RepeatedType::class, [
+                            'type' => PasswordType::class,
+                            'invalid_message' => 'reconfirm_password',
+                            'required' => $options['requiredPassword'],
+                            'first_options' => [
+                                'label' => 'password',
+                            ],
+                            'second_options' => [
+                                'label' => 'repeat_password',
+                            ],
+                        ])
+                    ;
                 } else {
-                    $form->add('currentPassword', PasswordType::class, [
-                        'label' => 'current_password',
-                        'required' => $options['requiredPassword'],
-                    ]);
+                    // Editing an existing user
+                    $form
+                        ->add('currentPassword', PasswordType::class, [
+                            'label' => 'current_password',
+                            'required' => $options['requiredPassword'],
+                        ])
+                        ->add('password', RepeatedType::class, [
+                            'type' => PasswordType::class,
+                            'invalid_message' => 'reconfirm_password',
+                            'required' => $options['requiredPassword'],
+                            'first_options' => [
+                                'label' => 'new_password',
+                            ],
+                            'second_options' => [
+                                'label' => 'repeat_password',
+                            ],
+                        ])
+                    ;
                 }
             })
         ;
