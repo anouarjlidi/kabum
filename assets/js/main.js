@@ -25,23 +25,28 @@ $(document).ready(function() {
   var page = 1;
   var slug = $('#see-more').data('slug');
 
+  // Load first page
   $.get(slug, {page: page}, function(data) {
     $('#product-grid').append(data);
 
-    var numResults = $('article').data('numResults');
+    var numberOfResults = $('article').data('numberOfResults');
     var pageSize = $('article').data('pageSize');
 
-    if (numResults > pageSize) {
+    if (numberOfResults > pageSize) {
+      // The next page contains results
       $('#see-more').show();
-    } else if (numResults == 0) {
-      // no results found
+    } else if (numberOfResults == 0) {
+      // There are no results
+      //$('#nothing-here').show();
     } else {
-      // no more results
+      // All available results were shown
+      //$('#nothing-else').show();
     }
   });
 
   page++;
 
+  // Load the next page
   $('#see-more').click(function() {
     $.get(slug, {page: page}, function(data) {
       $('#product-grid').append(data);
@@ -51,9 +56,13 @@ $(document).ready(function() {
       var lastPage = $('article').data('lastPage');
 
       if (page > lastPage) {
+        // There are no more pages
         $('#see-more').hide();
-        // no more results
+        //$('#nothing-else').show();
       }
+
+      // This will focus the first item of the last requested page
+      $('.focus-me').last().focus();
     });
   });
 });

@@ -17,12 +17,17 @@ You should have received a copy of the GNU Affero General Public License
 along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
+{# This is used to give a special class to the first item of the loop, so
+it can be focused when a new batch of items is loaded onto the page. #}
+{% set firstItem = true %}
+
 {% for product in pagination %}
   <div class="col p-4">
-    <article data-num-results="{{ pagination.getTotalItemCount }}"
+    <article data-number-of-results="{{ pagination.getTotalItemCount }}"
       data-page-size="{{ pagination.getItemNumberPerPage }}"
       data-last-page="{{ pagination.getTotalItemCount / pagination.getItemNumberPerPage }}">
-      <a href="{{ path('product_page', {slug: product.slug}) }}">
+      <a href="{{ path('product_page', {slug: product.slug}) }}"
+        class="{% if firstItem == true %}focus-me{% endif %}">
         <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ 'product_image'|trans }}"/>
         <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
       </a>
@@ -36,4 +41,5 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </article>
   </div>
+  {% set firstItem = false %}
 {% endfor %}
