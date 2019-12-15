@@ -18,3 +18,42 @@
  */
 
 require('../scss/main.scss');
+
+const $ = require('jquery');
+
+$(document).ready(function() {
+  var page = 1;
+  var slug = $('#see-more').data('slug');
+
+  $.get(slug, {page: page}, function(data) {
+    $('#product-grid').append(data);
+
+    var numResults = $('article').data('numResults');
+    var pageSize = $('article').data('pageSize');
+
+    if (numResults > pageSize) {
+      $('#see-more').show();
+    } else if (numResults == 0) {
+      // no results found
+    } else {
+      // no more results
+    }
+  });
+
+  page++;
+
+  $('#see-more').click(function() {
+    $.get(slug, {page: page}, function(data) {
+      $('#product-grid').append(data);
+
+      page++;
+
+      var lastPage = $('article').data('lastPage');
+
+      if (page > lastPage) {
+        $('#see-more').hide();
+        // no more results
+      }
+    });
+  });
+});

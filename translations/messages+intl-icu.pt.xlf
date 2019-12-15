@@ -214,6 +214,10 @@
         <source>new_password</source>
         <target>Nova senha</target>
       </trans-unit>
+      <trans-unit id="see_more">
+        <source>see_more</source>
+        <target>Ver mais</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

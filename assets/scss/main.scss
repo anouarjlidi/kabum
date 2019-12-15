@@ -81,10 +81,14 @@
   }
 }
 
-#sidebarContent {
+#sidebar-content {
   @include media-breakpoint-up(md) {
-    // Ensures #sidebarContent is always displayed on larger viewport sizes
+    // Ensures #sidebar-content is always displayed on larger viewport sizes
     display: flex;
     flex-direction: column;
   }
+}
+
+#see-more {
+  display: none;
 }

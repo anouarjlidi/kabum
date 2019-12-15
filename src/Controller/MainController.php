@@ -74,12 +74,16 @@ class MainController extends AbstractController
      */
     public function categoryPage(Request $request, Category $category, PaginatorInterface $paginator): Response
     {
-        $products = $category->getProducts();
+        if ($request->isXmlHttpRequest()) {
+            $products = $category->getProducts();
+            $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 2);
 
-        $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 3);
+            return $this->render('main/_products.html.twig', [
+                'pagination' => $pagination,
+            ]);
+        }
 
         return $this->render('main/category.html.twig', [
-            'pagination' => $pagination,
             'category' => $category,
         ]);
     }
