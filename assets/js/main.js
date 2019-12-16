@@ -25,8 +25,24 @@ $(document).ready(function() {
   var page = 1;
   var slug = $('#see-more').data('slug');
 
+  $(document).ajaxStart(function() {
+    $('#ready').hide();
+    $('#loading').show();
+  });
+
+  $(document).ajaxStop(function() {
+    $('#loading').hide();
+    $('#ready').show();
+  });
+
+  $(document).ajaxError(function() {
+    $('#loader').addClass('hidden');
+    $('#error').removeClass('hidden');
+  });
+
   // Load first page
   $.get(slug, {page: page}, function(data) {
+    $('#loader').addClass('hidden');
     $('#product-grid').append(data);
 
     var numberOfResults = $('article').data('numberOfResults');
@@ -35,12 +51,12 @@ $(document).ready(function() {
     if (numberOfResults > pageSize) {
       // The next page contains results
       $('#see-more').show();
-    } else if (numberOfResults == 0) {
+    } else if (numberOfResults === undefined) {
       // There are no results
-      //$('#nothing-here').show();
+      $('#nothing-here').removeClass('hidden');
     } else {
-      // All available results were shown
-      //$('#nothing-else').show();
+      // All results shown, nothing else to show
+      $('#nothing-else').show();
     }
   });
 
@@ -58,10 +74,10 @@ $(document).ready(function() {
       if (page > lastPage) {
         // There are no more pages
         $('#see-more').hide();
-        //$('#nothing-else').show();
+        $('#nothing-else').show();
       }
 
-      // This will focus the first item of the last requested page
+      // Focus the first item of the last requested page
       $('.focus-me').last().focus();
     });
   });

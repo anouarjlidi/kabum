@@ -92,3 +92,23 @@
 #see-more {
   display: none;
 }
+
+#loader {
+  min-height: 300px;
+}
+
+#error {
+  min-height: 300px;
+}
+
+#nothing-here {
+  min-height: 300px;
+}
+
+#nothing-else {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}

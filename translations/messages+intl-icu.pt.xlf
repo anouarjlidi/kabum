@@ -218,6 +218,22 @@
         <source>see_more</source>
         <target>Ver mais</target>
       </trans-unit>
+      <trans-unit id="loading">
+        <source>loading</source>
+        <target>Carregando</target>
+      </trans-unit>
+      <trans-unit id="request_failed">
+        <source>request_failed</source>
+        <target>Desculpe, algo deu errado. Tente recarregar a página.</target>
+      </trans-unit>
+      <trans-unit id="no_products_in_category">
+        <source>no_products_in_category</source>
+        <target>Não existem produtos nesta categoria.</target>
+      </trans-unit>
+      <trans-unit id="no_more_products">
+        <source>no_more_products</source>
+        <target>Não há mais produtos.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
