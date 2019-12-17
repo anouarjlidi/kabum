@@ -57,6 +57,7 @@
   flex-direction: column;
   padding: 16px;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, .11);
+  z-index: 1000;
   @include media-breakpoint-up(md) {
     position: sticky;
     top: 0;
@@ -87,6 +88,32 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+#instant-search-wrapper {
+  position: relative;
+}
+
+#instant-search-box {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  padding: 16px;
+  margin: 6px 0 0;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.175);
+  z-index: 100;
+  @include media-breakpoint-up(md) {
+    width: 175%;
+  }
+}
+
+#instant-search-result kbd {
+  background-color: theme-color('secondary');
 }
 
 #see-more {

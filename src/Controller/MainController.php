@@ -132,4 +132,28 @@ class MainController extends AbstractController
             'query' => $query,
         ]);
     }
+
+    /**
+     * Performs a search for products and returns the requested number of results.
+     *
+     * This controller is meant to be used by the instant search script,
+     * and can only be accessed through an AJAX request.
+     *
+     * @param Request $request
+     * @param ProductRepository $repository
+     *
+     * @return Response
+     *
+     * @Route("/search/instant", name="instant_search", condition="request.isXmlHttpRequest()")
+     */
+    public function instantSearch(Request $request, ProductRepository $repository): Response
+    {
+        $query = $request->query->get('query', '');
+
+        $products = $repository->findByInstantSearchQuery($query);
+
+        return $this->render('main/_instant_search_products.html.twig', [
+            'products' => $products,
+        ]);
+    }
 }

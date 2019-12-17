@@ -53,4 +53,16 @@ class ProductRepository extends ServiceEntityRepository
 
         return $this->paginator->paginate($stmt->fetchAll(), $page, $itemsPerPage);
     }
+
+    public function findByInstantSearchQuery(string $query)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM product WHERE MATCH (name) AGAINST (:searchTerm IN NATURAL LANGUAGE MODE) LIMIT 3';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':searchTerm', $query);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }

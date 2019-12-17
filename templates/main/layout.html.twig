@@ -27,7 +27,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block body %}
   <div class="d-flex flex-column flex-md-row">
     <div id="sidebar">
-      <div class="d-flex justify-content-md-center justify-content-between pb-2">
+      <div class="d-flex justify-content-md-center justify-content-between pb-1">
         <a href="{{ path('main_page') }}" aria-label="{{ 'go_home_page'|trans }}">
           <img src="{{ asset('images/kabum.png') }}" id="header-brand" alt="{{ 'logotype'|trans }}">
         </a>
@@ -68,10 +68,15 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {% endif %}
           </div>
         </div>
-        <div class="mb-4">
+        <div id="instant-search-wrapper" class="mb-4">
           <form action="{{ path('search') }}">
-            <input type="text" name="query" class="form-control" placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"/>
+            <input id="instant-search-input" type="text" name="query" class="form-control"
+              placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"
+              autocomplete="off"/>
           </form>
+          <div id="instant-search-box">
+            <div id="instant-search-result" class="list-group"></div>
+          </div>
         </div>
         <nav class="nav flex-column flex-nowrap">
           {{ render(controller('App\\Controller\\MainController::categoryList')) }}

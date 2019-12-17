@@ -90,4 +90,22 @@ $(document).ready(function() {
       });
     });
   }
+
+  // Instant Search
+  $('#instant-search-input').keyup(function() {
+    var query = $(this).val();
+
+    if (query === '') {
+      $('#instant-search-result').empty();
+      $('#instant-search-box').hide();
+
+      return;
+    }
+
+    $.get('/search/instant', {query: query}, function(data) {
+      $('#instant-search-result').html(data);
+    });
+
+    $('#instant-search-box').show();
+  });
 });

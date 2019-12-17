@@ -242,6 +242,10 @@
         <source>no_products_found</source>
         <target>Nenhum produto encontrado.</target>
       </trans-unit>
+      <trans-unit id="results_appear_as_you_type">
+        <source>results_appear_as_you_type</source>
+        <target><![CDATA[Alguns resultados aparecem conforme você digita. Aperte <kbd>Enter</kbd> para ver tudo.]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
