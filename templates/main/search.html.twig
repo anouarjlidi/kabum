@@ -19,11 +19,14 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% extends 'main/layout.html.twig' %}
 
-{% block title %}{{ category.name }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'search_for'|trans }}: {{ query }} - {{ parent() }}{% endblock %}
 
 {% block main %}
   <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">{{ category.name }}</h3>
+    <h3 class="font-weight-light text-kabum-dark-blue m-3">
+      <i class="fas fa-search" aria-hidden="true"></i>
+      {{ 'search_for'|trans }}: {{ query }}
+    </h3>
     <div id="loader" class="d-flex justify-content-center align-items-center">
       <div class="spinner-grow text-kabum-light-blue" role="status">
         <span class="sr-only">{{ 'loading'|trans }}</span>
@@ -39,15 +42,14 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </div>
     <div id="nothing-here" class="hidden d-flex justify-content-center align-items-center">
       <div class="d-flex flex-column align-items-center">
-        <i class="fas fa-box-open text-silver fa-4x" aria-hidden="true"></i>
+        <i class="fas fa-frown text-silver fa-4x" aria-hidden="true"></i>
         <p class="lead text-center text-secondary mt-4">
-          {{ 'no_products_in_category'|trans }}
+          {{ 'no_products_found'|trans }}
         </p>
       </div>
     </div>
     <div id="product-grid" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></div>
-    <button id="see-more" class="ajax-paginate btn btn-block btn-outline-kabum-light-blue my-4"
-      data-slug="{{ category.slug }}">
+    <button id="see-more" class="ajax-paginate btn btn-block btn-outline-kabum-light-blue my-4">
       <span id="loading">
         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
         <span class="sr-only">{{ 'loading'|trans }}</span>

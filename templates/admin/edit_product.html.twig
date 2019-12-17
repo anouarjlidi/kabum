@@ -38,7 +38,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
       <div class="row mb-3">
         <div class="col-sm-3 col-lg-2 text-center text-md-left my-3 my-md-0">
-          <img src="{{ asset(product.image) }}" width="200"
+          <img src="{{ asset(product_image_directory ~ product.image) }}" width="200"
             class="img-thumbnail" alt="{{ 'current_product_image'|trans }}">
         </div>
         <div class="col-sm-9 col-lg-10">

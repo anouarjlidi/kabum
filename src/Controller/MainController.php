@@ -105,4 +105,31 @@ class MainController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param ProductRepository $repository
+     *
+     * @return Response
+     *
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request, ProductRepository $repository): Response
+    {
+        $query = $request->query->get('query', '');
+
+        if ($request->isXmlHttpRequest()) {
+            $page = $request->query->get('page', 1);
+
+            $pagination = $repository->findBySearchQuery($query, $page, 2);
+
+            return $this->render('main/_products.html.twig', [
+                'pagination' => $pagination,
+            ]);
+        }
+
+        return $this->render('main/search.html.twig', [
+            'query' => $query,
+        ]);
+    }
 }

@@ -27,10 +27,16 @@ use App\Entity\Product;
 
 class FileUploader
 {
+    private $productImageDirectory;
+
+    public function __construct($productImageDirectory)
+    {
+        $this->productImageDirectory = $productImageDirectory;
+    }
+
     public function uploadProductImage(UploadedFile $image, Product $product)
     {
         $extension = $image->guessExtension();
-        $imageDirectory = $product::IMAGE_DIR;
 
         if (!$extension) {
             // When the extension cannot be guessed
@@ -39,7 +45,7 @@ class FileUploader
 
         // Set the filename and store the file
         $filename = $product->getSlug() . '.' . $extension;
-        $image->move($imageDirectory, $filename);
+        $image->move($this->productImageDirectory, $filename);
 
         return $filename;
     }

@@ -26,11 +26,10 @@ use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table(indexes={@ORM\Index(name="search_index", columns={"name"}, flags={"fulltext"})})
  */
 class Product
 {
-    public const IMAGE_DIR = 'images/products/';
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -131,7 +130,7 @@ class Product
 
     public function getImage(): ?string
     {
-        return self::IMAGE_DIR . $this->image;
+        return $this->image;
     }
 
     public function setImage(string $image): self

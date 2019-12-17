@@ -27,7 +27,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       <h3 class="font-weight-light text-kabum-dark-blue my-3">{{ product.name }}</h3>
       <div class="row mt-4">
         <div class="col-sm-5 col-lg-4 col-xl-3">
-          <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ 'product_image'|trans }}"/>
+          <img src="{{ asset(product_image_directory ~ product.image) }}"
+            class="img-fluid" alt="{{ 'product_image'|trans }}"/>
         </div>
         <div class="col-sm-7 col-lg-8 col-xl-9">
           {% if is_granted('ROLE_ADMIN') %}

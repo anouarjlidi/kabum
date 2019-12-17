@@ -69,8 +69,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           </div>
         </div>
         <div class="mb-4">
-          <form>
-            <input type="text" class="form-control" placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"/>
+          <form action="{{ path('search') }}">
+            <input type="text" name="query" class="form-control" placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"/>
           </form>
         </div>
         <nav class="nav flex-column flex-nowrap">

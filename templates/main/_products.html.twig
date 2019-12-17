@@ -25,10 +25,11 @@ it can be focused when a new batch of items is loaded onto the page. #}
   <div class="col p-4">
     <article data-number-of-results="{{ pagination.getTotalItemCount }}"
       data-page-size="{{ pagination.getItemNumberPerPage }}"
-      data-last-page="{{ pagination.getTotalItemCount / pagination.getItemNumberPerPage }}">
+      data-last-page="{{ (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') }}">
       <a href="{{ path('product_page', {slug: product.slug}) }}"
         class="{% if firstItem == true %}focus-me{% endif %}">
-        <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ 'product_image'|trans }}"/>
+        <img src="{{ asset(product_image_directory ~ product.image) }}"
+          class="img-fluid" alt="{{ 'product_image'|trans }}"/>
         <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
       </a>
       <div class="mb-3">

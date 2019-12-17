@@ -22,63 +22,72 @@ require('../scss/main.scss');
 const $ = require('jquery');
 
 $(document).ready(function() {
-  var page = 1;
-  var slug = $('#see-more').data('slug');
+  // AJAX Paginator
+  if ($('#see-more').hasClass('ajax-paginate')) {
+    /*
+     * The conditional above is a temporary solution to prevent the AJAX paginator
+     * from executing where it shouldn't.
+     */
+    var page = 1;
 
-  $(document).ajaxStart(function() {
-    $('#ready').hide();
-    $('#loading').show();
-  });
+    // The slug will be of type 'undefined' if it is not provided
+    var slug = $('#see-more').data('slug');
 
-  $(document).ajaxStop(function() {
-    $('#loading').hide();
-    $('#ready').show();
-  });
+    $(document).ajaxStart(function() {
+      $('#ready').hide();
+      $('#loading').show();
+    });
 
-  $(document).ajaxError(function() {
-    $('#loader').addClass('hidden');
-    $('#error').removeClass('hidden');
-  });
+    $(document).ajaxStop(function() {
+      $('#loading').hide();
+      $('#ready').show();
+    });
 
-  // Load first page
-  $.get(slug, {page: page}, function(data) {
-    $('#loader').addClass('hidden');
-    $('#product-grid').append(data);
+    $(document).ajaxError(function() {
+      $('#loader').addClass('hidden');
+      $('#error').removeClass('hidden');
+    });
 
-    var numberOfResults = $('article').data('numberOfResults');
-    var pageSize = $('article').data('pageSize');
-
-    if (numberOfResults > pageSize) {
-      // The next page contains results
-      $('#see-more').show();
-    } else if (numberOfResults === undefined) {
-      // There are no results
-      $('#nothing-here').removeClass('hidden');
-    } else {
-      // All results shown, nothing else to show
-      $('#nothing-else').show();
-    }
-  });
-
-  page++;
-
-  // Load the next page
-  $('#see-more').click(function() {
+    // Load first page
     $.get(slug, {page: page}, function(data) {
+      $('#loader').addClass('hidden');
       $('#product-grid').append(data);
 
-      page++;
+      var numberOfResults = $('article').data('numberOfResults');
+      var pageSize = $('article').data('pageSize');
 
-      var lastPage = $('article').data('lastPage');
-
-      if (page > lastPage) {
-        // There are no more pages
-        $('#see-more').hide();
+      if (numberOfResults > pageSize) {
+        // The next page contains results
+        $('#see-more').show();
+      } else if (numberOfResults === undefined) {
+        // There are no results
+        $('#nothing-here').removeClass('hidden');
+      } else {
+        // All results shown, nothing else to show
         $('#nothing-else').show();
       }
-
-      // Focus the first item of the last requested page
-      $('.focus-me').last().focus();
     });
-  });
+
+    page++;
+
+    // Load the next page
+    $('#see-more').click(function() {
+      $.get(slug, {page: page}, function(data) {
+        $('#product-grid').append(data);
+
+        page++;
+
+        var lastPage = $('article').data('lastPage');
+
+        if (page > lastPage) {
+          // There are no more pages
+          $('#see-more').hide();
+          $('#nothing-else').show();
+        }
+
+        // Focus the first item of the last requested page
+        $('.focus-me').last().focus();
+      });
+    });
+  }
 });

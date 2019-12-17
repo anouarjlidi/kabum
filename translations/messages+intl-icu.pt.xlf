@@ -234,6 +234,14 @@
         <source>no_more_products</source>
         <target>Não há mais produtos.</target>
       </trans-unit>
+      <trans-unit id="search_for">
+        <source>search_for</source>
+        <target>Busca por</target>
+      </trans-unit>
+      <trans-unit id="no_products_found">
+        <source>no_products_found</source>
+        <target>Nenhum produto encontrado.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
