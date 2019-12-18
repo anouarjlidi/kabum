@@ -72,7 +72,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           <form action="{{ path('search') }}">
             <input id="instant-search-input" type="text" name="query" class="form-control"
               placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"
-              autocomplete="off"/>
+              autocomplete="off" aria-describedby="instant-search-help" aria-expanded="false"/>
+            <span id="instant-search-help" class="sr-only">
+              {{ 'results_appear_as_you_type'|trans }}
+            </span>
           </form>
           <div id="instant-search-box">
             <div id="instant-search-result" class="list-group"></div>

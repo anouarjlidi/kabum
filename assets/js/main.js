@@ -98,6 +98,7 @@ $(document).ready(function() {
     if (query === '') {
       $('#instant-search-result').empty();
       $('#instant-search-box').hide();
+      $('#instant-search-input').attr('aria-expanded', false);
 
       return;
     }
@@ -107,5 +108,6 @@ $(document).ready(function() {
     });
 
     $('#instant-search-box').show();
+    $('#instant-search-input').attr('aria-expanded', true);
   });
 });

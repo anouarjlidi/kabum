@@ -17,6 +17,8 @@ You should have received a copy of the GNU Affero General Public License
 along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
+{% set numberOfResults = 0 %}
+
 {% for product in products %}
   <a href="{{ path('product_page', {slug: product.slug}) }}"
     class="list-group-item list-group-item-action">
@@ -30,11 +32,14 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </div>
   </a>
+  {% set numberOfResults = numberOfResults + 1 %}
 {% else %}
   <div class="text-center text-secondary mb-2">
     <i class="fas fa-keyboard fa-2x" aria-hidden="true"></i>
   </div>
   <div class="text-center text-secondary">
-    <span>{{ 'results_appear_as_you_type'|trans|raw }}</span>
+    <span>{{ 'results_appear_as_you_type'|trans }}</span>
   </div>
 {% endfor %}
+
+<span class="sr-only" role="status">{{ 'number_of_results_found'|trans({'results': numberOfResults}) }}</span>
