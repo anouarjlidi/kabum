@@ -36,17 +36,21 @@ $(document).ready(function() {
     // The slug is optional. It will be of type 'undefined' when it's not provided
     var slug = $seeMoreButton.data('slug');
 
-    /*
-     * These elements are used to inform screen readers about the status
-     * of the running request.
-     */
+    // Informs the screen reader about the status of the request
     var $requestStatus = $('#request-status');
-    var $requestError = $('#request-error');
 
     // Status messages
     var loading = $requestStatus.data('loading');
     var ready = $requestStatus.data('ready');
-    var error = $requestError.data('error');
+    var error = $requestStatus.data('error');
+
+    // Informs the screen reader of an error in the request
+    var $errorAlert = $('<span>', {
+      id: 'request-error',
+      class: 'sr-only',
+      role: 'alert',
+      text: error
+    });
 
     // Labels for the page loader button
     var $readyButtonLabel = $('#ready-btn-label');
@@ -88,7 +92,7 @@ $(document).ready(function() {
         $('#error').removeClass('hidden');
 
         $requestStatus.empty();
-        $requestError.text(error);
+        $errorAlert.insertAfter($requestStatus);
       });
 
     page++;
@@ -97,10 +101,11 @@ $(document).ready(function() {
     $seeMoreButton.click(function() {
       $requestStatus.text(loading);
 
-      // If the previous request failed, reset button color
-      if ($seeMoreButton.hasClass('btn-outline-strawberry')) {
+      // If the previous request failed, reset button color and remove alert
+      if ($errorAlert) {
         $seeMoreButton.removeClass('btn-outline-strawberry');
         $seeMoreButton.addClass('btn-outline-kabum-light-blue');
+        $errorAlert.remove();
       }
 
       $loadingButtonLabel.show();
@@ -139,7 +144,7 @@ $(document).ready(function() {
           $seeMoreButton.addClass('btn-outline-strawberry');
 
           $requestStatus.empty();
-          $requestError.text(error);
+          $errorAlert.insertAfter($requestStatus);
         });
     });
   }
