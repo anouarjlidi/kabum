@@ -24,24 +24,28 @@ require('jquery-mask-plugin');
 
 $(document).ready(function() {
   /*
-   * Display the file name when one is present in the image field.
+   * Filename Setter.
+   *
+   * Custom Bootstrap file input widgets don't display the currently selected
+   * filename in its label. This script takes care of that.
    */
-  var fileInputCount = $("#product_imageFile").prop("files").length;
+
+  var $fileInput = $('.custom-file-input');
+
+  var fileInputCount = $fileInput.prop("files").length;
 
   // If a file is already selected when the page loads, display its name
   if (fileInputCount) {
-    var fileInputName = $("#product_imageFile").prop("files")[0].name;
-    $("#product_imageFile").siblings(".custom-file-label").text(fileInputName);
+    var fileInputName = $fileInput.prop("files")[0].name;
+    $fileInput.siblings(".custom-file-label").text(fileInputName);
   }
 
-  // Change the displayed file name when the file changes
-  $("#product_imageFile").change(function() {
-    var selectedFileName = $(this).prop("files")[0].name;
-    $(this).siblings(".custom-file-label").text(selectedFileName);
+  // Change the displayed filename when the file changes
+  $fileInput.change(function() {
+    var selectedFileName = $fileInput.prop("files")[0].name;
+    $fileInput.siblings(".custom-file-label").text(selectedFileName);
   });
 
-  /*
-   * Apply money mask.
-   */
+  // Apply money mask
   $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
 });

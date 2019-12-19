@@ -69,15 +69,18 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           </div>
         </div>
         <div id="instant-search-wrapper" class="mb-4">
-          <form action="{{ path('search') }}">
+          <form action="{{ path('search') }}" role="search">
+            <label for="instant-search-input" class="sr-only">{{ 'search'|trans }}</label>
             <input id="instant-search-input" type="text" name="query" class="form-control"
-              placeholder="{{ 'search'|trans }}" aria-label="{{ 'search'|trans }}"
-              autocomplete="off" aria-describedby="instant-search-help" aria-expanded="false"/>
+              placeholder="{{ 'search'|trans }}" autocomplete="off" role="combobox"
+              aria-autocomplete="list" aria-describedby="instant-search-help"
+              aria-expanded="false" aria-controls="instant-search-box instant-search-status"/>
             <span id="instant-search-help" class="sr-only">
               {{ 'results_appear_as_you_type'|trans }}
             </span>
+            <span id="instant-search-status" class="sr-only" role="status"></span>
           </form>
-          <div id="instant-search-box">
+          <div id="instant-search-box" role="listbox">
             <div id="instant-search-result" class="list-group"></div>
           </div>
         </div>

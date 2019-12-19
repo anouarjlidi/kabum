@@ -22,92 +22,157 @@ require('../scss/main.scss');
 const $ = require('jquery');
 
 $(document).ready(function() {
-  // AJAX Paginator
-  if ($('#see-more').hasClass('ajax-paginate')) {
-    /*
-     * The conditional above is a temporary solution to prevent the AJAX paginator
-     * from executing where it shouldn't.
-     */
+  /*
+   * Ajax Paginator
+   */
+
+  // Button used to load the next page
+  var $seeMoreButton = $('#see-more');
+
+  // Detect if the current page uses the Ajax Paginator
+  if ($seeMoreButton.hasClass('ajax-paginate')) {
     var page = 1;
 
-    // The slug will be of type 'undefined' if it is not provided
-    var slug = $('#see-more').data('slug');
+    // The slug is optional. It will be of type 'undefined' when it's not provided
+    var slug = $seeMoreButton.data('slug');
 
-    $(document).ajaxStart(function() {
-      $('#ready').hide();
-      $('#loading').show();
-    });
+    /*
+     * These elements are used to inform screen readers about the status
+     * of the running request.
+     */
+    var $requestStatus = $('#request-status');
+    var $requestError = $('#request-error');
 
-    $(document).ajaxStop(function() {
-      $('#loading').hide();
-      $('#ready').show();
-    });
+    // Status messages
+    var loading = $requestStatus.data('loading');
+    var ready = $requestStatus.data('ready');
+    var error = $requestError.data('error');
 
-    $(document).ajaxError(function() {
-      $('#loader').addClass('hidden');
-      $('#error').removeClass('hidden');
-    });
+    // Labels for the page loader button
+    var $readyButtonLabel = $('#ready-btn-label');
+    var $loadingButtonLabel = $('#loading-btn-label');
+    var $errorButtonLabel = $('#error-btn-label');
+
+    $requestStatus.text(loading);
 
     // Load first page
-    $.get(slug, {page: page}, function(data) {
-      $('#loader').addClass('hidden');
-      $('#product-grid').append(data);
+    $.get(slug, {page: page})
+      .done(function(data) {
+        $('#loader').addClass('hidden');
 
-      var numberOfResults = $('article').data('numberOfResults');
-      var pageSize = $('article').data('pageSize');
+        $('#product-grid').append(data);
 
-      if (numberOfResults > pageSize) {
-        // The next page contains results
-        $('#see-more').show();
-      } else if (numberOfResults === undefined) {
-        // There are no results
-        $('#nothing-here').removeClass('hidden');
-      } else {
-        // All results shown, nothing else to show
-        $('#nothing-else').show();
-      }
-    });
+        /*
+         * The article element from the requested data provides important
+         * pagination information.
+         */
+        var $article = $('article');
+        var numberOfResults = $article.data('numberOfResults');
+        var pageSize = $article.data('pageSize');
+
+        if (numberOfResults > pageSize) {
+          // The next page contains results
+          $readyButtonLabel.show();
+          $seeMoreButton.show();
+        } else if (numberOfResults === undefined) {
+          // There are no results
+          $('#nothing-here').removeClass('hidden');
+        } else {
+          // All results shown, nothing else to show
+          $('#nothing-else').show();
+        }
+
+        $requestStatus.text(ready);
+      }).fail(function() {
+        $('#loader').addClass('hidden');
+        $('#error').removeClass('hidden');
+
+        $requestStatus.empty();
+        $requestError.text(error);
+      });
 
     page++;
 
     // Load the next page
-    $('#see-more').click(function() {
-      $.get(slug, {page: page}, function(data) {
-        $('#product-grid').append(data);
+    $seeMoreButton.click(function() {
+      $requestStatus.text(loading);
 
-        page++;
+      // If the previous request failed, reset button color
+      if ($seeMoreButton.hasClass('btn-outline-strawberry')) {
+        $seeMoreButton.removeClass('btn-outline-strawberry');
+        $seeMoreButton.addClass('btn-outline-kabum-light-blue');
+      }
 
-        var lastPage = $('article').data('lastPage');
+      $loadingButtonLabel.show();
+      $readyButtonLabel.hide();
+      $errorButtonLabel.hide();
 
-        if (page > lastPage) {
-          // There are no more pages
-          $('#see-more').hide();
-          $('#nothing-else').show();
-        }
+      $.get(slug, {page: page})
+        .done(function(data) {
+          $('#product-grid').append(data);
 
-        // Focus the first item of the last requested page
-        $('.focus-me').last().focus();
-      });
+          page++;
+
+          var $article = $('article');
+          var lastPage = $article.data('lastPage');
+
+          if (page > lastPage) {
+            // There are no more pages
+            $seeMoreButton.hide();
+            $('#nothing-else').show();
+          }
+
+          // Focus the first item in the newly loaded page
+          $('.focus-me').last().focus();
+
+          $loadingButtonLabel.hide();
+          $readyButtonLabel.show();
+
+          $requestStatus.text(ready);
+        }).fail(function() {
+          $loadingButtonLabel.hide();
+          $readyButtonLabel.hide();
+          $errorButtonLabel.show();
+
+          // Change the color of the button to help indicate an error has happened
+          $seeMoreButton.removeClass('btn-outline-kabum-light-blue');
+          $seeMoreButton.addClass('btn-outline-strawberry');
+
+          $requestStatus.empty();
+          $requestError.text(error);
+        });
     });
   }
 
-  // Instant Search
-  $('#instant-search-input').keyup(function() {
-    var query = $(this).val();
+  /*
+   * Instant Search
+   */
 
+  var $instantSearchInput = $('#instant-search-input');
+
+  $instantSearchInput.keyup(function() {
+    var query = $instantSearchInput.val();
+
+    // Detect empty query
     if (query === '') {
       $('#instant-search-result').empty();
+      $('#instant-search-status').empty();
+
       $('#instant-search-box').hide();
-      $('#instant-search-input').attr('aria-expanded', false);
+      $instantSearchInput.attr('aria-expanded', false);
 
       return;
     }
 
     $.get('/search/instant', {query: query}, function(data) {
       $('#instant-search-result').html(data);
-    });
+      $('#instant-search-box').show();
 
-    $('#instant-search-box').show();
-    $('#instant-search-input').attr('aria-expanded', true);
+      $instantSearchInput.attr('aria-expanded', true);
+
+      // Set status information
+      var resultCount = $('#result-count').data('instantSearchStatus');
+      $('#instant-search-status').text(resultCount);
+    });
   });
 });

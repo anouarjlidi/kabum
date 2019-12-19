@@ -116,6 +116,10 @@
   background-color: theme-color('secondary');
 }
 
+.hidden {
+  display: none !important;
+}
+
 #see-more {
   display: none;
 }
@@ -136,6 +140,14 @@
   display: none;
 }
 
-.hidden {
-  display: none !important;
+#loading-btn-label {
+  display: none;
+}
+
+#ready-btn-label {
+  display: none;
+}
+
+#error-btn-label {
+  display: none;
 }
