@@ -26,15 +26,15 @@ $(document).ready(function() {
    * Ajax Paginator
    */
 
-  // Button used to load the next page
-  var $seeMoreButton = $('#see-more');
+  var $productGrid = $('#product-grid');
 
   // Detect if the current page uses the Ajax Paginator
-  if ($seeMoreButton.hasClass('ajax-paginate')) {
+  if ($productGrid.hasClass('ajax-paginate')) {
     var page = 1;
+    var itemCount = 1;
 
     // The slug is optional. It will be of type 'undefined' when it's not provided
-    var slug = $seeMoreButton.data('slug');
+    var slug = $productGrid.data('slug');
 
     // Informs the screen reader about the status of the request
     var $requestStatus = $('#request-status');
@@ -52,32 +52,37 @@ $(document).ready(function() {
       text: error
     });
 
-    // Labels for the page loader button
-    var $readyButtonLabel = $('#ready-btn-label');
-    var $loadingButtonLabel = $('#loading-btn-label');
-    var $errorButtonLabel = $('#error-btn-label');
-
     $requestStatus.text(loading);
+    $productGrid.attr('aria-busy', true);
 
     // Load first page
     $.get(slug, {page: page})
       .done(function(data) {
         $('#loader').addClass('hidden');
 
-        $('#product-grid').append(data);
+        $productGrid.append(data);
+
+        // Set 'aria-posinset' for each item
+        $('.new-feed-item').each(function() {
+          $(this).attr('aria-posinset', itemCount);
+          itemCount++;
+
+          // Remove the selector class so it is never processed again
+          $(this).removeClass('new-feed-item');
+        });
 
         /*
          * The article element from the requested data provides important
          * pagination information.
          */
-        var $article = $('article');
+        var $article = $('.ajax-paginate > article').first();
         var numberOfResults = $article.data('numberOfResults');
         var pageSize = $article.data('pageSize');
 
         if (numberOfResults > pageSize) {
           // The next page contains results
-          $readyButtonLabel.show();
-          $seeMoreButton.show();
+          $('#ready-btn-label').show();
+          $('#see-more').show();
         } else if (numberOfResults === undefined) {
           // There are no results
           $('#nothing-here').removeClass('hidden');
@@ -87,66 +92,107 @@ $(document).ready(function() {
         }
 
         $requestStatus.text(ready);
+        $productGrid.attr('aria-busy', false);
+
+        getNextPage();
       }).fail(function() {
         $('#loader').addClass('hidden');
         $('#error').removeClass('hidden');
 
         $requestStatus.empty();
         $errorAlert.insertAfter($requestStatus);
+        $productGrid.attr('aria-busy', false);
       });
 
-    page++;
-
     // Load the next page
-    $seeMoreButton.click(function() {
-      $requestStatus.text(loading);
+    function getNextPage() {
+      page++;
 
-      // If the previous request failed, reset button color and remove alert
-      if ($errorAlert) {
-        $seeMoreButton.removeClass('btn-outline-strawberry');
-        $seeMoreButton.addClass('btn-outline-kabum-light-blue');
-        $errorAlert.remove();
-      }
+      /*
+       * Attach the click event handler to all elements with
+       * class .see-more-button within the product grid.
+       */
+      $productGrid.on('click', '.see-more-button', function() {
+        $requestStatus.text(loading);
+        $productGrid.attr('aria-busy', true);
 
-      $loadingButtonLabel.show();
-      $readyButtonLabel.hide();
-      $errorButtonLabel.hide();
+        var $seeMoreButton = $('.see-more-button');
 
-      $.get(slug, {page: page})
-        .done(function(data) {
-          $('#product-grid').append(data);
+        $seeMoreButton.prop('disabled', true);
 
-          page++;
+        var $loadingButtonLabel = $('#loading-btn-label');
+        var $readyButtonLabel = $('#ready-btn-label');
+        var $errorButtonLabel = $('#error-btn-label');
 
-          var $article = $('article');
-          var lastPage = $article.data('lastPage');
+        $loadingButtonLabel.show();
+        $readyButtonLabel.hide();
+        $errorButtonLabel.hide();
 
-          if (page > lastPage) {
-            // There are no more pages
-            $seeMoreButton.hide();
-            $('#nothing-else').show();
-          }
+        // If the previous request failed, reset button color and remove alert
+        if ($errorAlert) {
+          $seeMoreButton.removeClass('text-strawberry');
+          $seeMoreButton.addClass('text-kabum-light-blue');
+          $errorAlert.remove();
+        }
 
-          // Focus the first item in the newly loaded page
-          $('.focus-me').last().focus();
+        $.get(slug, {page: page})
+          .done(function(data) {
+            // Delete the obsolete "Load More" button container
+            $('#see-more').remove();
 
-          $loadingButtonLabel.hide();
-          $readyButtonLabel.show();
+            /*
+             * Append a new set of products to the product grid, including
+             * a new "Load More" button.
+             */
+            $productGrid.append(data);
 
-          $requestStatus.text(ready);
-        }).fail(function() {
-          $loadingButtonLabel.hide();
-          $readyButtonLabel.hide();
-          $errorButtonLabel.show();
+            page++;
 
-          // Change the color of the button to help indicate an error has happened
-          $seeMoreButton.removeClass('btn-outline-kabum-light-blue');
-          $seeMoreButton.addClass('btn-outline-strawberry');
+            // Set 'aria-posinset' for each new item
+            $('.new-feed-item').each(function() {
+              $(this).attr('aria-posinset', itemCount);
+              itemCount++;
 
-          $requestStatus.empty();
-          $errorAlert.insertAfter($requestStatus);
-        });
-    });
+              // Remove the selector class so it is never processed again
+              $(this).removeClass('new-feed-item');
+            });
+
+            var $article = $('.ajax-paginate > article').first();
+            var lastPage = $article.data('lastPage');
+
+            // The newly added element that holds a "Load More" button
+            var $seeMore = $('#see-more');
+
+            if (page > lastPage) {
+              // There are no more pages
+              $('#nothing-else').show();
+            } else {
+              // The next page contains results
+              $seeMore.show();
+              $('#ready-btn-label').show();
+            }
+
+            // Focus the first item in the newly loaded page
+            $('.focus-me').last().focus();
+
+            $requestStatus.text(ready);
+            $productGrid.attr('aria-busy', false);
+          }).fail(function() {
+            $loadingButtonLabel.hide();
+            $readyButtonLabel.hide();
+            $errorButtonLabel.show();
+
+            // Change the color of the button to help indicate an error has happened
+            $seeMoreButton.removeClass('text-kabum-light-blue');
+            $seeMoreButton.addClass('text-strawberry');
+
+            $requestStatus.empty();
+            $errorAlert.insertAfter($requestStatus);
+            $productGrid.attr('aria-busy', false);
+            $seeMoreButton.prop('disabled', false);
+          });
+      });
+    }
   }
 
   /*

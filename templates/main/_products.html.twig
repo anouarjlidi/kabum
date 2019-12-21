@@ -21,26 +21,61 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 it can be focused when a new batch of items is loaded onto the page. #}
 {% set firstItem = true %}
 
+{# To always get an integer, we use Twig's round filter. This way, when there are
+10 pages and the last one is only half-full, we get 10 instead of 9.5. #}
+{% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
+
+{# FIXME: give <article> focus styling, same for the "Load More" button,
+remove default outline #}
+{# FIXME: alternative label and description for articles to enable skim
+reading #}
+{# FIXME: create keyboard commands to navigate the feed of products #}
+
 {% for product in pagination %}
-  <div class="col p-4">
-    <article data-number-of-results="{{ pagination.getTotalItemCount }}"
-      data-page-size="{{ pagination.getItemNumberPerPage }}"
-      data-last-page="{{ (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') }}">
-      <a href="{{ path('product_page', {slug: product.slug}) }}"
-        class="{% if firstItem == true %}focus-me{% endif %}">
-        <img src="{{ asset(product_image_directory ~ product.image) }}"
-          class="img-fluid" alt="{{ 'product_image'|trans }}"/>
-        <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
-      </a>
-      <div class="mb-3">
-        <small class="text-secondary">{{ product.description }}</small>
-      </div>
-      <div class="bg-kabum-orange rounded text-center py-1">
-        <h5 class="font-weight-bold text-white">
-          R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
-        </h5>
-      </div>
-    </article>
-  </div>
+  <article class="col new-feed-item p-4" tabindex="-1" aria-setsize="{{ pagination.getTotalItemCount }}"
+    data-number-of-results="{{ pagination.getTotalItemCount }}"
+    data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}">
+    <a href="{{ path('product_page', {slug: product.slug}) }}"
+      class="{% if firstItem == true %}focus-me{% endif %}">
+      <img src="{{ asset(product_image_directory ~ product.image) }}"
+        class="img-fluid" alt="{{ 'product_image'|trans }}"/>
+      <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
+    </a>
+    <div class="mb-3">
+      <small class="text-secondary">{{ product.description }}</small>
+    </div>
+    <div class="bg-kabum-orange rounded text-center py-1">
+      <h5 class="font-weight-bold text-white">
+        R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+      </h5>
+    </div>
+  </article>
   {% set firstItem = false %}
 {% endfor %}
+
+<article id="see-more" class="col p-4">
+  <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+    <button class="see-more-button text-kabum-light-blue bg-transparent border-0 p-4"
+      role="button">
+      <div id="loading-btn-label">
+        <div class="d-flex flex-column">
+          <div class="spinner-grow text-kabum-orange">
+            <span class="sr-only">{{ 'loading'|trans }}</span>
+          </div>
+        </div>
+      </div>
+      <div id="ready-btn-label">
+        <div class="d-flex flex-column">
+          <i class="fas fa-plus fa-4x text-center mb-4" aria-hidden="true"></i>
+          <span class="text-center">{{ 'see_more'|trans }}</span>
+        </div>
+      </div>
+      <div id="error-btn-label">
+        <div class="d-flex flex-column">
+          <i class="fas fa-exclamation-triangle fa-4x text-center mb-4" aria-hidden="true"></i>
+          <span class="text-center">{{ 'something_wrong_click_try_again'|trans }}</span>
+        </div>
+      </div>
+    </button>
+  </div>
+</article>

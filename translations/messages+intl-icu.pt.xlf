@@ -222,8 +222,8 @@
         <source>loading</source>
         <target>Carregando</target>
       </trans-unit>
-      <trans-unit id="request_failed">
-        <source>request_failed</source>
+      <trans-unit id="something_wrong">
+        <source>something_wrong</source>
         <target>Desculpe, algo deu errado. Tente recarregar a página.</target>
       </trans-unit>
       <trans-unit id="no_products_in_category">
@@ -254,9 +254,9 @@
         <source>loading_complete</source>
         <target>Carregamento concluído.</target>
       </trans-unit>
-      <trans-unit id="something_wrong_try_again">
-        <source>something_wrong_try_again</source>
-        <target>Algo deu errado. Tente novamente.</target>
+      <trans-unit id="something_wrong_click_try_again">
+        <source>something_wrong_click_try_again</source>
+        <target>Algo deu errado. Clique aqui para tentar novamente.</target>
       </trans-unit>
     </body>
   </file>

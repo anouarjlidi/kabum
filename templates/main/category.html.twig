@@ -27,7 +27,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
     {# Status indicators for screen readers #}
     <span id="request-status" class="sr-only" role="status" data-loading="{{ 'loading'|trans }}"
-      data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'request_failed'|trans }}"></span>
+      data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'something_wrong'|trans }}"></span>
 
     <div id="loader" class="d-flex justify-content-center align-items-center">
       <div class="spinner-grow text-kabum-light-blue"></div>
@@ -36,7 +36,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       <div class="d-flex flex-column align-items-center">
         <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
         <p class="lead text-center text-secondary mt-4">
-          {{ 'request_failed'|trans }}
+          {{ 'something_wrong'|trans }}
         </p>
       </div>
     </div>
@@ -49,7 +49,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </div>
 
-    <div id="product-grid" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></div>
+    <section id="product-grid" role="feed" aria-busy="false" data-slug="{{ category.slug }}"
+      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></section>
 
     <div id="nothing-else" class="pb-4 pt-2 text-center">
       <hr/>
@@ -57,21 +58,5 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         {{ 'no_more_products'|trans }}
       </small>
     </div>
-
-    <button id="see-more" class="ajax-paginate btn btn-block btn-outline-kabum-light-blue my-4"
-      data-slug="{{ category.slug }}">
-      <span id="loading-btn-label">
-        <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
-        <span class="sr-only">{{ 'loading'|trans }}</span>
-      </span>
-      <span id="ready-btn-label">
-        <i class="fas fa-arrow-circle-down" aria-hidden="true"></i>
-        {{ 'see_more'|trans }}
-      </span>
-      <span id="error-btn-label">
-        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-        {{ 'something_wrong_try_again'|trans }}
-      </span>
-    </button>
   </section>
 {% endblock %}
