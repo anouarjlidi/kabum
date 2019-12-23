@@ -23,7 +23,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block main %}
   <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">{{ category.name }}</h3>
+    <h3 id="feed-label" class="font-weight-light text-kabum-dark-blue m-3">
+      {{ category.name }}
+      <span class="sr-only">{{ 'feed_help'|trans }}</span>
+    </h3>
 
     {# Status indicators for screen readers #}
     <span id="request-status" class="sr-only" role="status" data-loading="{{ 'loading'|trans }}"
@@ -50,7 +53,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </div>
 
     <section id="product-grid" role="feed" aria-busy="false" data-slug="{{ category.slug }}"
-      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></section>
+      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
+      aria-labelledby="feed-label"></section>
 
     <div id="nothing-else" class="pb-4 pt-2 text-center">
       <hr/>

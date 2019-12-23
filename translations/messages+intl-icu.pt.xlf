@@ -258,6 +258,10 @@
         <source>something_wrong_click_try_again</source>
         <target>Algo deu errado. Clique aqui para tentar novamente.</target>
       </trans-unit>
+      <trans-unit id="feed_help">
+        <source>feed_help</source>
+        <target>Navegue pelos produtos usando as teclas PAGE UP e PAGE DOWN. Para ir ao primeiro item, segure CONTROL e aperte a tecla END. Para ir ao último item, segure CONTROL e aperte a tecla HOME.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -23,9 +23,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block main %}
   <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">
+    <h3 id="feed-label" class="font-weight-light text-kabum-dark-blue m-3">
       <i class="fas fa-search" aria-hidden="true"></i>
       {{ 'search_for'|trans }}: {{ query }}
+      <span class="sr-only">{{ 'feed_help'|trans }}</span>
     </h3>
 
     {# Status indicators for screen readers #}
@@ -53,7 +54,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </div>
 
     <section id="product-grid" role="feed" aria-busy="false"
-      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></section>
+      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
+      aria-labelledby="feed-label"></section>
 
     <div id="nothing-else" class="pb-4 pt-2 text-center">
       <hr/>

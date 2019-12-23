@@ -67,9 +67,12 @@ $(document).ready(function() {
           $(this).attr('aria-posinset', itemCount);
           itemCount++;
 
-          // Remove the selector class so it is never processed again
+          // Prevent any further modifications to the aria-posinset attribute on the current item
           $(this).removeClass('new-feed-item');
         });
+
+        // Decrease one to compensate for the last article which is the "Load More" button
+        itemCount--;
 
         /*
          * The article element from the requested data provides important
@@ -82,13 +85,28 @@ $(document).ready(function() {
         if (numberOfResults > pageSize) {
           // The next page contains results
           $('#ready-btn-label').show();
+          $('#see-more').attr('aria-labelledby', 'ready-btn-label');
           $('#see-more').show();
+
+          // Set 'aria-setsize' for each item
+          $productGrid.children().each(function() {
+            $(this).attr('aria-setsize', itemCount);
+          });
         } else if (numberOfResults === undefined) {
           // There are no results
+          $productGrid.hide();
           $('#nothing-here').removeClass('hidden');
         } else {
           // All results shown, nothing else to show
           $('#nothing-else').show();
+
+          // Under this condition, the button from the latest request will be hidden, so account for it
+          itemCount--;
+
+          // Set 'aria-setsize' for each item
+          $productGrid.children().each(function() {
+            $(this).attr('aria-setsize', itemCount);
+          });
         }
 
         $requestStatus.text(ready);
@@ -125,6 +143,7 @@ $(document).ready(function() {
         var $errorButtonLabel = $('#error-btn-label');
 
         $loadingButtonLabel.show();
+        $('#see-more').attr('aria-labelledby', 'loading-btn-label');
         $readyButtonLabel.hide();
         $errorButtonLabel.hide();
 
@@ -153,9 +172,12 @@ $(document).ready(function() {
               $(this).attr('aria-posinset', itemCount);
               itemCount++;
 
-              // Remove the selector class so it is never processed again
+              // Prevent any further modifications to the aria-posinset attribute on the current item
               $(this).removeClass('new-feed-item');
             });
+
+            // Decrease one to compensate for the last article which is the "Load More" button
+            itemCount--;
 
             var $article = $('.ajax-paginate > article').first();
             var lastPage = $article.data('lastPage');
@@ -166,10 +188,24 @@ $(document).ready(function() {
             if (page > lastPage) {
               // There are no more pages
               $('#nothing-else').show();
+
+              // Under this condition, the button from the latest request will be hidden, so account for it
+              itemCount--;
+
+              // Set 'aria-setsize' for each item
+              $productGrid.children().each(function() {
+                $(this).attr('aria-setsize', itemCount);
+              });
             } else {
               // The next page contains results
               $seeMore.show();
               $('#ready-btn-label').show();
+              $('#see-more').attr('aria-labelledby', 'ready-btn-label');
+
+              // Set 'aria-setsize' for each item
+              $productGrid.children().each(function() {
+                $(this).attr('aria-setsize', itemCount);
+              });
             }
 
             // Focus the first item in the newly loaded page
@@ -181,6 +217,7 @@ $(document).ready(function() {
             $loadingButtonLabel.hide();
             $readyButtonLabel.hide();
             $errorButtonLabel.show();
+            $('#see-more').attr('aria-labelledby', 'error-btn-label');
 
             // Change the color of the button to help indicate an error has happened
             $seeMoreButton.removeClass('text-kabum-light-blue');
@@ -193,6 +230,58 @@ $(document).ready(function() {
           });
       });
     }
+
+    $productGrid.keydown(function(event) {
+      var $focusedItem = $(event.target);
+
+      // If the item in focus is not an <article>, find the closest <article>
+      if ($focusedItem.is(':not(article)')) {
+        $focusedItem = $focusedItem.closest('article');
+      }
+
+      var itemIndex = $focusedItem.attr('aria-posinset');
+
+      switch(event.which) {
+        case 33: // PAGE_UP
+          event.preventDefault();
+
+          if (itemIndex > 1) {
+            itemIndex--;
+            $('[aria-posinset="' + itemIndex + '"]').focus();
+          }
+
+          break;
+        case 34: // PAGE_DOWN
+          event.preventDefault();
+
+          if (itemIndex < itemCount) {
+            itemIndex++;
+            $('[aria-posinset="' + itemIndex + '"]').focus();
+          }
+
+          break;
+        case 35: // CTRL + END
+          if (event.ctrlKey) {
+            event.preventDefault();
+
+            if (itemIndex !== itemCount) {
+              $('[aria-posinset="' + itemCount + '"]').focus();
+            }
+          }
+
+          break;
+        case 36: // CTRL + HOME
+          if (event.ctrlKey) {
+            event.preventDefault();
+
+            if (itemIndex !== 1) {
+              $('[aria-posinset="1"]').focus();
+            }
+          }
+
+          break;
+      }
+    });
   }
 
   /*

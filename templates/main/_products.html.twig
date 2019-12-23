@@ -25,20 +25,17 @@ it can be focused when a new batch of items is loaded onto the page. #}
 10 pages and the last one is only half-full, we get 10 instead of 9.5. #}
 {% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
 
-{# FIXME: give <article> focus styling, same for the "Load More" button,
-remove default outline #}
-{# FIXME: create keyboard commands to navigate the feed of products #}
-
 {% for product in pagination %}
-  <article class="col new-feed-item p-4" tabindex="-1" aria-setsize="{{ pagination.getTotalItemCount }}"
-    data-number-of-results="{{ pagination.getTotalItemCount }}"
+  <article class="col new-feed-item p-4 {% if firstItem == true %}focus-me{% endif %}"
+    tabindex="-1" data-number-of-results="{{ pagination.getTotalItemCount }}"
     data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}"
     aria-labelledby="{{ product.id ~ '_label' }}">
-    <a href="{{ path('product_page', {slug: product.slug}) }}"
-      class="{% if firstItem == true %}focus-me{% endif %}">
+    <a href="{{ path('product_page', {slug: product.slug}) }}">
       <img src="{{ asset(product_image_directory ~ product.image) }}"
         class="img-fluid" alt="{{ 'product_image'|trans }}"/>
-      <p id="{{ product.id ~ '_label' }}" class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
+      <p id="{{ product.id ~ '_label' }}" class="text-kabum-dark-blue lead text-break">
+        {{ product.name }}
+      </p>
     </a>
     <div class="mb-3">
       <small class="text-secondary">{{ product.description }}</small>
@@ -52,7 +49,7 @@ remove default outline #}
   {% set firstItem = false %}
 {% endfor %}
 
-<article id="see-more" class="col p-4">
+<article id="see-more" class="col new-feed-item p-4" tabindex="-1">
   <div class="d-flex flex-column h-100 justify-content-center align-items-center">
     <button class="see-more-button text-kabum-light-blue bg-transparent border-0 p-0 w-100 h-100"
       role="button">
