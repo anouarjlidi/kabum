@@ -19,14 +19,23 @@
 
 const $ = require('jquery');
 
-export default function SearchBox() {
-  this.input = $('.instant-search-input');
-  this.query = '';
-  this.startup = function() {
-    this.input.keyup(() => {
-      this.getQuery();
+export default class SearchBox {
+  constructor() {
+    this.input = $('.instant-search-input');
+    this.query = '';
+  }
 
-      if (this.isQueryEmpty()) {
+  startup() {
+    /*
+     * Inside this event handler, 'this' has a different context, which means
+     * method calls won't refer to our class, but to the event listener
+     * selector. Passing an Arrow function, 'this' maintains the context of
+     * the enclosing class.
+     */
+    this.input.keyup(() => {
+      this.inputValue = this.input.val();
+
+      if (this.isInputEmpty()) {
         this.close();
 
         return;
@@ -36,34 +45,40 @@ export default function SearchBox() {
       this.open();
       this.setStatus();
     });
-  };
-  this.getQuery = function() {
-    this.query = this.input.val();
-  };
-  this.isQueryEmpty = function() {
+  }
+
+  set inputValue(query) {
+    this.query = query;
+  }
+
+  isInputEmpty() {
     if (this.query === '') {
       return true;
     }
 
     return false;
-  };
-  this.close = function() {
+  }
+
+  close() {
     $('.instant-search-result').empty();
     $('.instant-search-status').empty();
     $('.instant-search-box').hide();
     this.input.attr('aria-expanded', false);
-  };
-  this.open = function() {
+  }
+
+  open() {
     $('.instant-search-box').show();
     this.input.attr('aria-expanded', true);
-  };
-  this.setStatus = function() {
+  }
+
+  setStatus() {
     var resultCount = $('.result-count').data('instantSearchStatus');
     $('.instant-search-status').text(resultCount);
-  };
-  this.execute = function() {
+  }
+
+  execute() {
     $.get('/search/instant', {query: this.query}, function(data) {
       $('.instant-search-result').html(data);
     });
-  };
-};
+  }
+}
