@@ -19,6 +19,9 @@
 
 const $ = require('jquery');
 
+/**
+ * Implements the combobox pattern to quickly display search results as you type.
+ */
 export default class SearchBox {
   constructor() {
     this.input = $('.instant-search-input');
@@ -27,10 +30,8 @@ export default class SearchBox {
 
   startup() {
     /*
-     * Inside this event handler, 'this' has a different context, which means
-     * method calls won't refer to our class, but to the event listener
-     * selector. Passing an Arrow function, 'this' maintains the context of
-     * the enclosing class.
+     * Because of the Arrow function, 'this' refers to SearchBox within
+     * this event handler.
      */
     this.input.keyup(() => {
       this.inputValue = this.input.val();
@@ -41,7 +42,7 @@ export default class SearchBox {
         return;
       }
 
-      this.execute();
+      this.getSearchResults();
       this.open();
       this.setStatus();
     });
@@ -51,6 +52,11 @@ export default class SearchBox {
     this.query = query;
   }
 
+  /**
+   * Test for an empty search query.
+   *
+   * Returns true if the input is empty, false otherwise.
+   */
   isInputEmpty() {
     if (this.query === '') {
       return true;
@@ -71,12 +77,18 @@ export default class SearchBox {
     this.input.attr('aria-expanded', true);
   }
 
+  /**
+   * Informs the request status to assistive technologies.
+   */
   setStatus() {
-    var resultCount = $('.result-count').data('instantSearchStatus');
+    let resultCount = $('.result-count').data('instantSearchStatus');
     $('.instant-search-status').text(resultCount);
   }
 
-  execute() {
+  /**
+   * Performs an Ajax request and populates the combobox with its result.
+   */
+  getSearchResults() {
     $.get('/search/instant', {query: this.query}, function(data) {
       $('.instant-search-result').html(data);
     });
