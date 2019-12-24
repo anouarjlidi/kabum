@@ -21,30 +21,11 @@ require('../scss/admin.scss');
 
 const $ = require('jquery');
 require('jquery-mask-plugin');
+import CustomFileInput from './filename-setter/custom_file_input.js';
 
 $(document).ready(function() {
-  /*
-   * Filename Setter.
-   *
-   * Custom Bootstrap file input widgets don't display the currently selected
-   * filename in its label. This script takes care of that.
-   */
-
-  var $fileInput = $('.custom-file-input');
-
-  var fileInputCount = $fileInput.prop("files").length;
-
-  // If a file is already selected when the page loads, display its name
-  if (fileInputCount) {
-    var fileInputName = $fileInput.prop("files")[0].name;
-    $fileInput.siblings(".custom-file-label").text(fileInputName);
-  }
-
-  // Change the displayed filename when the file changes
-  $fileInput.change(function() {
-    var selectedFileName = $fileInput.prop("files")[0].name;
-    $fileInput.siblings(".custom-file-label").text(selectedFileName);
-  });
+  var customFileInput = new CustomFileInput();
+  customFileInput.startup();
 
   // Apply money mask
   $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
