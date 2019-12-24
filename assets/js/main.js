@@ -20,12 +20,15 @@
 require('../scss/main.scss');
 
 const $ = require('jquery');
+import SearchBox from './instant-search/searchbox.js';
 
 $(document).ready(function() {
+  var searchbox = new SearchBox();
+  searchbox.startup();
+
   /*
    * Ajax Paginator
    */
-
   var $productGrid = $('#product-grid');
 
   // Detect if the current page uses the Ajax Paginator
@@ -283,36 +286,4 @@ $(document).ready(function() {
       }
     });
   }
-
-  /*
-   * Instant Search
-   */
-
-  var $instantSearchInput = $('#instant-search-input');
-
-  $instantSearchInput.keyup(function() {
-    var query = $instantSearchInput.val();
-
-    // Detect empty query
-    if (query === '') {
-      $('#instant-search-result').empty();
-      $('#instant-search-status').empty();
-
-      $('#instant-search-box').hide();
-      $instantSearchInput.attr('aria-expanded', false);
-
-      return;
-    }
-
-    $.get('/search/instant', {query: query}, function(data) {
-      $('#instant-search-result').html(data);
-      $('#instant-search-box').show();
-
-      $instantSearchInput.attr('aria-expanded', true);
-
-      // Set status information
-      var resultCount = $('#result-count').data('instantSearchStatus');
-      $('#instant-search-status').text(resultCount);
-    });
-  });
 });

@@ -68,20 +68,21 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {% endif %}
           </div>
         </div>
-        <div id="instant-search-wrapper" class="mb-4">
+        <div class="instant-search-wrapper mb-4">
           <form action="{{ path('search') }}" role="search">
             <label for="instant-search-input" class="sr-only">{{ 'search'|trans }}</label>
-            <input id="instant-search-input" type="search" name="query" class="form-control"
-              placeholder="{{ 'search'|trans }}" autocomplete="off" role="combobox"
-              aria-autocomplete="list" aria-describedby="instant-search-help"
-              aria-expanded="false" aria-controls="instant-search-box instant-search-status"/>
+            <input id="instant-search-input" type="search" name="query"
+              class="instant-search-input form-control" placeholder="{{ 'search'|trans }}"
+              autocomplete="off" role="combobox" aria-autocomplete="list"
+              aria-describedby="instant-search-help" aria-expanded="false"
+              aria-controls="instant-search-box instant-search-status"/>
             <span id="instant-search-help" class="sr-only">
               {{ 'results_appear_as_you_type'|trans }}
             </span>
-            <span id="instant-search-status" class="sr-only" role="status"></span>
+            <span id="instant-search-status" class="instant-search-status sr-only" role="status"></span>
           </form>
-          <div id="instant-search-box" role="listbox">
-            <div id="instant-search-result" class="list-group"></div>
+          <div id="instant-search-box" role="listbox" class="instant-search-box">
+            <div class="instant-search-result list-group"></div>
           </div>
         </div>
         <nav class="nav flex-column flex-nowrap">

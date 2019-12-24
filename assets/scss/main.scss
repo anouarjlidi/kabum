@@ -90,11 +90,11 @@
   }
 }
 
-#instant-search-wrapper {
+.instant-search-wrapper {
   position: relative;
 }
 
-#instant-search-box {
+.instant-search-box {
   position: absolute;
   display: none;
   left: 0;
@@ -110,10 +110,6 @@
   @include media-breakpoint-up(md) {
     width: 175%;
   }
-}
-
-#instant-search-result kbd {
-  background-color: theme-color('secondary');
 }
 
 .hidden {
