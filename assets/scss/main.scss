@@ -116,35 +116,19 @@
   display: none !important;
 }
 
-#see-more {
+.feed-control {
   display: none;
   min-height: 300px;
 }
 
-#loader {
+.feed-screen {
   min-height: 300px;
 }
 
-#error {
-  min-height: 300px;
-}
-
-#nothing-here {
-  min-height: 300px;
-}
-
-#nothing-else {
+.feed-nothing-else-screen {
   display: none;
 }
 
-#loading-btn-label {
-  display: none;
-}
-
-#ready-btn-label {
-  display: none;
-}
-
-#error-btn-label {
+.feed-label {
   display: none;
 }

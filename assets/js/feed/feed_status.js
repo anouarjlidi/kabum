@@ -20,10 +20,10 @@
 const $ = require('jquery');
 
 export default class FeedStatus {
-  constructor(feed) {
+  constructor(feed, feedData) {
     this.feed = feed;
+    this.feedData = feedData;
     this.request = this.feed.children('.feed-request-status');
-    this.feedData = this.feed.children('.feed-data');
     this.messages = {
       ready: this.request.data('ready'),
       loading: this.request.data('loading'),
@@ -48,5 +48,80 @@ export default class FeedStatus {
     this.feedData.attr('aria-busy', true);
   }
 
-  // FIXME: find a way to hide the loading screen
+  ready() {
+    this.request.text(this.messages.ready);
+    this.feedData.attr('aria-busy', false);
+  }
+
+  error() {
+    this.request.empty();
+    this.alert.insertAfter(this.request);
+    this.feedData.attr('aria-busy', false);
+  }
+
+  hideLoadingScreen() {
+    this.screens.loading.addClass('hidden');
+  }
+
+  showNothingHereScreen() {
+    this.screens.nothingHere.removeClass('hidden');
+  }
+
+  showNothingElseScreen() {
+    this.screens.nothingElse.show();
+  }
+
+  showErrorScreen() {
+    this.screens.error.removeClass('hidden');
+  }
+
+  buttonReady(feedControl) {
+    var button = feedControl.children('.feed-load-more');
+
+    button.children('.feed-ready-label').show();
+    button.children('.feed-loading-label').hide();
+    button.children('.feed-error-label').hide();
+
+    feedControl.attr('aria-labelledby', 'feed-ready-label');
+    button.prop('disabled', false);
+    feedControl.show();
+  }
+
+  buttonLoading(feedControl) {
+    var button = feedControl.children('.feed-load-more');
+
+    button.children('.feed-loading-label').show();
+    button.children('.feed-ready-label').hide();
+    button.children('.feed-error-label').hide();
+
+    feedControl.attr('aria-labelledby', 'feed-loading-label');
+    button.prop('disabled', true);
+    feedControl.show();
+  }
+
+  buttonError(feedControl) {
+    var button = feedControl.children('.feed-load-more');
+
+    button.children('.feed-error-label').show();
+    button.children('.feed-loading-label').hide();
+    button.children('.feed-ready-label').hide();
+
+    button.removeClass('text-kabum-light-blue');
+    button.addClass('text-strawberry');
+
+    feedControl.attr('aria-labelledby', 'feed-error-label');
+    button.prop('disabled', false);
+    feedControl.show();
+  }
+
+  errorCheck(feedControl) {
+    if (this.alert) {
+      let button = feedControl.children('.feed-load-more');
+
+      button.removeClass('text-strawberry');
+      button.addClass('text-kabum-light-blue');
+
+      this.alert.remove();
+    }
+  }
 }
