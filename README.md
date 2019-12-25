@@ -31,6 +31,11 @@ Create the database you specified in the last step and execute the doctrine migr
 $ php bin/console doctrine:migrations:migrate
 ```
 
+You can add an administrator user with the command:
+```
+php bin/console app:create-admin <username> <password>
+```
+
 ## Recommendations
 - Use the `UTC` timezone in your PHP configuration. Localized time will be generated from UTC time as configured by the user or automatically detected by client-side scripting.
 
