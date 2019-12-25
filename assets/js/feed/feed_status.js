@@ -21,17 +21,32 @@ const $ = require('jquery');
 
 export default class FeedStatus {
   constructor(feed) {
-    this.request = feed.children('.request-status');
+    this.feed = feed;
+    this.request = this.feed.children('.feed-request-status');
+    this.feedData = this.feed.children('.feed-data');
     this.messages = {
       ready: this.request.data('ready'),
       loading: this.request.data('loading'),
       error: this.request.data('error')
     };
+    this.screens = {
+      loading = this.feed.children('.feed-loading-screen'),
+      error = this.feed.children('.feed-error-screen'),
+      nothingHere = this.feed.children('.feed-nothing-here-screen'),
+      nothingElse = this.feed.children('.feed-nothing-else-screen')
+    };
     this.alert = $('<span>', {
-      id: 'request-error',
+      id: 'feed-request-error',
       class: 'sr-only',
       role: 'alert',
       text: this.messages.error
     });
   }
+
+  loading() {
+    this.request.text(this.messages.loading);
+    this.feedData.attr('aria-busy', true);
+  }
+
+  // FIXME: find a way to hide the loading screen
 }

@@ -31,10 +31,17 @@ class Feed {
   setup() {
     var status = new FeedStatus(this.feed);
 
+    status.loading();
     this.loadPage();
   }
 
   loadPage() {
-    //
+    $.get(slug, {page: this.page})
+      .done(function(data) { // arrow function?
+        //
+      })
+      .fail(function(data) {
+        //
+      });
   }
 }

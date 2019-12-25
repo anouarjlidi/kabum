@@ -49,24 +49,24 @@ it can be focused when a new batch of items is loaded onto the page. #}
   {% set firstItem = false %}
 {% endfor %}
 
-<article id="see-more" class="col new-feed-item p-4" tabindex="-1">
+<article class="feed-control col feed-new-item p-4" tabindex="-1">
   <div class="d-flex flex-column h-100 justify-content-center align-items-center">
-    <button class="see-more-button text-kabum-light-blue bg-transparent border-0 p-0 w-100 h-100"
+    <button class="feed-load-more text-kabum-light-blue bg-transparent border-0 p-0 w-100 h-100"
       role="button">
-      <div id="loading-btn-label">
+      <div class="feed-loading-label">
         <div class="d-flex flex-column">
           <div class="spinner-grow text-kabum-orange">
             <span class="sr-only">{{ 'loading'|trans }}</span>
           </div>
         </div>
       </div>
-      <div id="ready-btn-label">
+      <div class="feed-ready-label">
         <div class="d-flex flex-column">
           <i class="fas fa-plus fa-4x text-center mb-4" aria-hidden="true"></i>
           <span class="text-center">{{ 'see_more'|trans }}</span>
         </div>
       </div>
-      <div id="error-btn-label">
+      <div class="feed-error-label">
         <div class="d-flex flex-column">
           <i class="fas fa-exclamation-triangle fa-4x text-center mb-4" aria-hidden="true"></i>
           <span class="text-center">{{ 'something_wrong_click_try_again'|trans }}</span>

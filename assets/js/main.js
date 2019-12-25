@@ -21,10 +21,14 @@ require('../scss/main.scss');
 
 const $ = require('jquery');
 import SearchBox from './instant-search/searchbox.js';
+import Feed from './feed/feed.js';
 
 $(document).ready(function() {
   var searchbox = new SearchBox();
   searchbox.startup();
+
+  var feed = new Feed('feed');
+  feed.setup();
 
   /*
    * Ajax Paginator

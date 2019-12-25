@@ -30,13 +30,13 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </h3>
 
       {# Status indicators for screen readers #}
-      <span class="request-status sr-only" role="status" data-loading="{{ 'loading'|trans }}"
+      <span class="feed-request-status sr-only" role="status" data-loading="{{ 'loading'|trans }}"
         data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'something_wrong'|trans }}"></span>
 
-      <div class="loading-screen d-flex justify-content-center align-items-center">
+      <div class="feed-loading-screen d-flex justify-content-center align-items-center">
         <div class="spinner-grow text-kabum-light-blue"></div>
       </div>
-      <div class="error-screen hidden d-flex justify-content-center align-items-center">
+      <div class="feed-error-screen hidden d-flex justify-content-center align-items-center">
         <div class="d-flex flex-column align-items-center">
           <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
           <p class="lead text-center text-secondary mt-4">
@@ -44,7 +44,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           </p>
         </div>
       </div>
-      <div class="nothing-here-screen hidden d-flex justify-content-center align-items-center">
+      <div class="feed-nothing-here-screen hidden d-flex justify-content-center align-items-center">
         <div class="d-flex flex-column align-items-center">
           <i class="fas fa-box-open text-silver fa-4x" aria-hidden="true"></i>
           <p class="lead text-center text-secondary mt-4">
@@ -54,10 +54,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
 
       <section role="feed" aria-busy="false" data-slug="{{ category.slug }}"
-        class="feed-container row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
+        class="feed-data row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
         aria-labelledby="feed-label"></section>
 
-      <div class="nothing-else-screen pb-4 pt-2 text-center">
+      <div class="feed-nothing-else-screen pb-4 pt-2 text-center">
         <hr/>
         <small class="text-secondary">
           {{ 'no_more_products'|trans }}
