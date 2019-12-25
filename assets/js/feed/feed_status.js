@@ -30,10 +30,10 @@ export default class FeedStatus {
       error: this.request.data('error')
     };
     this.screens = {
-      loading = this.feed.children('.feed-loading-screen'),
-      error = this.feed.children('.feed-error-screen'),
-      nothingHere = this.feed.children('.feed-nothing-here-screen'),
-      nothingElse = this.feed.children('.feed-nothing-else-screen')
+      loading: this.feed.children('.feed-loading-screen'),
+      error: this.feed.children('.feed-error-screen'),
+      nothingHere: this.feed.children('.feed-nothing-here-screen'),
+      nothingElse: this.feed.children('.feed-nothing-else-screen')
     };
     this.alert = $('<span>', {
       id: 'feed-request-error',

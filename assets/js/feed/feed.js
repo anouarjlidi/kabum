@@ -18,7 +18,7 @@
  */
 
 const $ = require('jquery');
-import FeedStatus from '.feed_status.js';
+import FeedStatus from './feed_status.js';
 
 export default class Feed {
   constructor(name) {
