@@ -23,44 +23,46 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block main %}
   <section class="container-fluid">
-    <h3 id="feed-label" class="font-weight-light text-kabum-dark-blue m-3">
-      {{ category.name }}
-      <span class="sr-only">{{ 'feed_help'|trans }}</span>
-    </h3>
+    <div id="feed">
+      <h3 id="feed-label" class="font-weight-light text-kabum-dark-blue m-3">
+        {{ category.name }}
+        <span class="sr-only">{{ 'feed_help'|trans }}</span>
+      </h3>
 
-    {# Status indicators for screen readers #}
-    <span id="request-status" class="sr-only" role="status" data-loading="{{ 'loading'|trans }}"
-      data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'something_wrong'|trans }}"></span>
+      {# Status indicators for screen readers #}
+      <span class="request-status sr-only" role="status" data-loading="{{ 'loading'|trans }}"
+        data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'something_wrong'|trans }}"></span>
 
-    <div id="loader" class="d-flex justify-content-center align-items-center">
-      <div class="spinner-grow text-kabum-light-blue"></div>
-    </div>
-    <div id="error" class="hidden d-flex justify-content-center align-items-center">
-      <div class="d-flex flex-column align-items-center">
-        <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
-        <p class="lead text-center text-secondary mt-4">
-          {{ 'something_wrong'|trans }}
-        </p>
+      <div class="loading-screen d-flex justify-content-center align-items-center">
+        <div class="spinner-grow text-kabum-light-blue"></div>
       </div>
-    </div>
-    <div id="nothing-here" class="hidden d-flex justify-content-center align-items-center">
-      <div class="d-flex flex-column align-items-center">
-        <i class="fas fa-box-open text-silver fa-4x" aria-hidden="true"></i>
-        <p class="lead text-center text-secondary mt-4">
-          {{ 'no_products_in_category'|trans }}
-        </p>
+      <div class="error-screen hidden d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column align-items-center">
+          <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
+          <p class="lead text-center text-secondary mt-4">
+            {{ 'something_wrong'|trans }}
+          </p>
+        </div>
       </div>
-    </div>
+      <div class="nothing-here-screen hidden d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column align-items-center">
+          <i class="fas fa-box-open text-silver fa-4x" aria-hidden="true"></i>
+          <p class="lead text-center text-secondary mt-4">
+            {{ 'no_products_in_category'|trans }}
+          </p>
+        </div>
+      </div>
 
-    <section id="product-grid" role="feed" aria-busy="false" data-slug="{{ category.slug }}"
-      class="ajax-paginate row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
-      aria-labelledby="feed-label"></section>
+      <section role="feed" aria-busy="false" data-slug="{{ category.slug }}"
+        class="feed-container row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"
+        aria-labelledby="feed-label"></section>
 
-    <div id="nothing-else" class="pb-4 pt-2 text-center">
-      <hr/>
-      <small class="text-secondary">
-        {{ 'no_more_products'|trans }}
-      </small>
+      <div class="nothing-else-screen pb-4 pt-2 text-center">
+        <hr/>
+        <small class="text-secondary">
+          {{ 'no_more_products'|trans }}
+        </small>
+      </div>
     </div>
   </section>
 {% endblock %}
