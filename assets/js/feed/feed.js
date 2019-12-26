@@ -20,39 +20,86 @@
 const $ = require('jquery');
 import FeedStatus from './feed_status.js';
 
+/**
+ * An implementation of the W3C Feed Pattern.
+ *
+ * This component is responsible for managing the display of content that is
+ * loaded via infinite scrolling (with a button).
+ */
 export default class Feed {
+  /**
+   * The 'feed' parameter is a unique identifier for the feed instance.
+   *
+   * Give the feed a unique name on instantiation. This represents a wrapper
+   * element that must have an id of the same name. This isolates the instance
+   * and allows you to have multiple feeds on the same page.
+   */
   constructor(name) {
-    this.feed = $(name);
+    this.feed = $('#' + name);
+
+    /**
+     * The container feed items are pushed into.
+     */
     this.feedData = this.feed.children('.feed-data');
+
+    /**
+     * The last feed article, which holds the button that triggers another request.
+     *
+     * This element is removed on every request after the first, so it must be
+     * retrieved again with updateFeedControl().
+     */
     this.feedControl = null;
+
     this.page = 1;
     this.itemCount = 1;
     this.status = new FeedStatus(this.feed, this.feedData);
+
+    /**
+     * A slug used to make the request.
+     *
+     * The slug is optional, unless the target route contains a wildcard.
+     */
     this.slug = this.feedData.data('slug');
   }
 
+  /**
+   * Requests the first page and initializes the feed control and navigation.
+   */
   setup() {
+    // Abort if the feed wrapper specified by name was not found
+    if (!this.feed.length) {
+      return;
+    }
+
     this.status.loading();
     var request = this.loadPage();
 
     request
       .done(data => {
         this.status.hideLoadingScreen();
+
+        // Push loaded items onto the page
         this.feedData.append(data);
+
         this.setItemPosition();
+        this.updateFeedControl();
+        var metadata = this.getPaginationMetadata();
 
-        var metadata = this.feedData.children('article').first();
-        this.feedControl = this.feedData.children('.feed-control');
-
+        // Check pagination metadata and prepare the feed for the next strategy
         if (metadata.data('numberOfResults') > metadata.data('pageSize')) {
           this.status.buttonReady(this.feedControl);
           this.setItemCount();
         } else if (metadata.data('numberOfResults') === undefined) {
-          this.feedData.hide();
           this.status.showNothingHereScreen();
         } else {
           this.status.showNothingElseScreen();
+
+          /*
+           * Item count is decremented to account for the absence of the
+           * feed control item under this condition.
+           */
           this.itemCount--;
+
           this.setItemCount();
         }
 
@@ -67,44 +114,61 @@ export default class Feed {
       });
   }
 
-  loadPage() {
-    var jqxhr = $.get(this.slug, {page: this.page});
-
-    return jqxhr;
-  }
-
+  /**
+   * Configure the event listener for subsequent requests.
+   *
+   * This will also setup the button that controls infinite scrolling.
+   */
   setupFeedControl() {
+    // Page 2 will be next
     this.page++;
 
     this.feedData.on('click', '.feed-load-more', () => {
       this.status.loading();
-
-      var button = this.feedControl.children('.feed-load-more');
-
       this.status.buttonLoading(this.feedControl);
       this.status.errorCheck(this.feedControl);
 
       var request = this.loadPage();
 
       request
-        .done((data, button) => {
-          button.remove();
+        .done(data => {
+          /*
+           * A new feed control element will be loaded onto the page.
+           * The one loaded in the previous request must be removed.
+           */
+          this.feedControl.remove();
+
+          // Push newly loaded items onto the page
           this.feedData.append(data);
+
+          // New page loaded. Increment page number for the next request.
           this.page++;
+
           this.setItemPosition();
+          this.updateFeedControl();
+          var metadata = this.getPaginationMetadata();
 
-          var metadata = this.feedData.children('article').first();
-
+          // Check pagination metadata and prepare the feed for the next strategy
           if (this.page > metadata.data('lastPage')) {
             this.status.showNothingElseScreen();
+
+            /*
+             * Item count is decremented to account for the absence of the
+             * feed control item under this condition.
+             */
             this.itemCount--;
+
             this.setItemCount();
           } else {
             this.status.buttonReady(this.feedControl);
             this.setItemCount();
           }
 
-          $('.focus-me').last().focus();
+          /*
+           * After requesting a page through the button, focus will be put on
+           * the first item of the new set of items.
+           */
+          this.feedData.children('.focus-me').last().focus();
 
           this.status.ready();
         })
@@ -115,18 +179,35 @@ export default class Feed {
     });
   }
 
+  /**
+   * Performs an Ajax request and returns the jqXHR object.
+   */
+  loadPage() {
+    var jqxhr = $.get(this.slug, {page: this.page});
+
+    return jqxhr;
+  }
+
+  /**
+   * Configures keyboard commands to browse feed items.
+   *
+   * The W3C Feed Pattern requires keyboard shortcuts to facilitate navigation
+   * between article items for users of assistive technologies.
+   */
   setupNavigation() {
     this.feedData.keydown(event => {
       var target = $(event.target);
 
+      // If the item in focus is not an <article>, find the closest <article>
       if (target.is(':not(article)')) {
         target = target.closest('article');
       }
 
+      // Current position in the set of items
       var itemPosition = target.attr('aria-posinset');
 
       switch(event.which) {
-        case 33: // PAGE_UP
+        case 33: // PAGE_UP, move back
           event.preventDefault();
 
           if (itemPosition > 1) {
@@ -135,7 +216,7 @@ export default class Feed {
           }
 
           break;
-        case 34: // PAGE_DOWN
+        case 34: // PAGE_DOWN, move forward
           event.preventDefault();
 
           if (itemPosition < this.itemCount) {
@@ -144,7 +225,7 @@ export default class Feed {
           }
 
           break;
-        case 35: // CTRL + END
+        case 35: // CTRL + END, last item
           if (event.ctrlKey) {
             event.preventDefault();
 
@@ -154,7 +235,7 @@ export default class Feed {
           }
 
           break;
-        case 36: // CTRL + HOME
+        case 36: // CTRL + HOME, first item
           if (event.ctrlKey) {
             event.preventDefault();
 
@@ -168,22 +249,56 @@ export default class Feed {
     });
   }
 
+  /**
+   * Retrieves an article element which contains pagination metadata.
+   *
+   * Important pagination metadata is attached to all article elements.
+   * This method returns the first of them, on which you can use data()
+   * to retrieve the needed data attributes.
+   */
+  getPaginationMetadata() {
+    var metadata = this.feedData.children('article').first();
+
+    return metadata;
+  }
+
+  /**
+   * Update the feedControl property with a new feed control element.
+   *
+   * A new feed control element comes with each request, while the old one is
+   * deleted. This will retrieve the feed control of the current request and
+   * make it available for use.
+   */
+  updateFeedControl() {
+    this.feedControl = this.feedData.children('.feed-control');
+  }
+
+  /**
+   * Set each item's position in the set of items, represented by the
+   * attribute 'aria-posinset'.
+   */
   setItemPosition() {
     var feed = this;
 
-    $('.feed-new-item').each(function(feed) {
+    this.feedData.children('.feed-new-item').each(function() {
       $(this).attr('aria-posinset', feed.itemCount);
       feed.itemCount++;
+
+      // Prevent this item from being selected again
       $(this).removeClass('feed-new-item');
     });
 
     this.itemCount--;
   }
 
+  /**
+   * Set the total number of items in the set onto each <article>. The attribute
+   * 'aria-setsize' is used for that.
+   */
   setItemCount() {
     var feed = this;
 
-    this.feedData.children().each(function(feed) {
+    this.feedData.children().each(function() {
       $(this).attr('aria-setsize', feed.itemCount);
     });
   }

@@ -26,7 +26,7 @@ it can be focused when a new batch of items is loaded onto the page. #}
 {% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
 
 {% for product in pagination %}
-  <article class="col new-feed-item p-4 {% if firstItem == true %}focus-me{% endif %}"
+<article class="col feed-new-item p-4 {% if firstItem == true %}focus-me{% endif %}"
     tabindex="-1" data-number-of-results="{{ pagination.getTotalItemCount }}"
     data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}"
     aria-labelledby="{{ product.id ~ '_label' }}">
@@ -49,12 +49,12 @@ it can be focused when a new batch of items is loaded onto the page. #}
   {% set firstItem = false %}
 {% endfor %}
 
-<article class="feed-control col feed-new-item p-4" tabindex="-1">
+<article class="feed-control feed-new-item col p-4" tabindex="-1">
   <div class="d-flex flex-column h-100 justify-content-center align-items-center">
     <button class="feed-load-more text-kabum-light-blue bg-transparent border-0 p-0 w-100 h-100"
       role="button">
       <div class="feed-loading-label feed-label">
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column align-items-center">
           <div class="spinner-grow text-kabum-orange">
             <span class="sr-only">{{ 'loading'|trans }}</span>
           </div>
