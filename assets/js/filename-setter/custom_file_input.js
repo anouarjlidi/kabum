@@ -30,46 +30,57 @@ const $ = require('jquery');
 export default class CustomFileInput {
   constructor() {
     this.input = $('.custom-file-input');
-    this.label = $('.custom-file-label');
-    this.files = this.input.prop('files');
   }
 
   startup() {
+    // Abort if no custom file input was found
     if (!this.findCustomFileInput()) {
       return;
     }
+
+    var customFileInput = this;
 
     /*
      * If you select a file and refresh the page, it will continue there, but
      * the label won't show its filename anymore. This sets the filename again.
      */
-    if (this.files.length) {
-      this.setFilename();
-    }
+    this.input.each(function() {
+      var files = $(this).prop('files');
+      var label = $(this).siblings('.custom-file-label');
+
+      if (files.length) {
+        customFileInput.setFilename(files, label);
+      }
+    });
 
     /*
      * Set the filename whenever a file is selected.
-     *
-     * Because of the Arrow function, 'this' refers to CustomFileInput within
-     * this event handler.
      */
-    this.input.change(() => {
-      this.setFilename();
+    this.input.each(function() {
+      $(this).change(function() {
+        var files = $(this).prop('files');
+        var label = $(this).siblings('.custom-file-label');
+
+        customFileInput.setFilename(files, label);
+      });
     });
   }
 
-  setFilename() {
-    let filename = this.files[0].name;
-    this.label.text(filename);
+  /**
+   * Write a filename to a label.
+   *
+   * The 'files' parameter refers to the 'files' property of the input element.
+   * The 'label' parameter refers to where the filename will be displayed.
+   */
+  setFilename(files, label) {
+    let filename = files[0].name;
+    label.text(filename);
   }
 
   /**
-   * Look for a custom file input on the current page.
+   * Look for custom file input components on the current page.
    *
-   * This is useful to prevent this script from running where a custom file input
-   * is not found.
-   *
-   * Returns true if one is found, false otherwise.
+   * Returns true if at least one is found, false otherwise.
    */
   findCustomFileInput() {
     let customFileWrapper = $('.custom-file');
