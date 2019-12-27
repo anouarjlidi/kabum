@@ -36,22 +36,6 @@ You can add an administrator user with the command:
 php bin/console app:create-admin <username> <password>
 ```
 
-## Recommendations
-- Use the `UTC` timezone in your PHP configuration. Localized time will be generated from UTC time as configured by the user or automatically detected by client-side scripting.
-
-## Security
-The `var` directory in any Symfony web app comes with 777 permission to ensure PHP will be able to write to it. You can improve the security of this directory by changing its GID to the same user that the web server is running as; or, if applicable, the PHP-FPM process, and then remove "others" write permission. For example, on a Debian based system it will look like this:
-```
-UID | GID
-doug:www-data
-```
-
-After that, you may remove "others" write permission. Just be sure that the group can write to `var`.
-```
-chmod -R g+w var
-chmod -R o-w var
-```
-
 ## License
 Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
 
