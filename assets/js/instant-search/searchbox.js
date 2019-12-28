@@ -38,7 +38,7 @@ export default class SearchBox {
     var searchbox = this;
 
     this.input.each(function() {
-      $(this).keyup(function() {
+      $(this).on('input', function() {
         var input = $(this);
 
         searchbox.query = input.val();
