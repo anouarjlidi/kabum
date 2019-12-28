@@ -68,22 +68,22 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {% endif %}
           </div>
         </div>
-        <div class="instant-search-wrapper mb-4">
+        <div class="instant-search mb-4">
           <form action="{{ path('search') }}" role="search">
-            <label for="instant-search-input" class="sr-only">{{ 'search'|trans }}</label>
-            <input id="instant-search-input" type="search" name="query"
+            <label for="is-input" class="sr-only">{{ 'search'|trans }}</label>
+            <input id="is-input" type="search" name="query" data-target="{{ path('instant_search') }}"
               class="instant-search-input form-control" placeholder="{{ 'search'|trans }}"
               autocomplete="off" role="combobox" aria-autocomplete="list"
-              aria-describedby="instant-search-help" aria-expanded="false"
-              aria-controls="instant-search-box instant-search-status"/>
-            <span id="instant-search-help" class="sr-only">
+              aria-describedby="is-help" aria-expanded="false"
+              aria-controls="is-box is-status"/>
+            <span id="is-help" class="sr-only">
               {{ 'results_appear_as_you_type'|trans }}
             </span>
-            <span id="instant-search-status" class="instant-search-status sr-only" role="status"></span>
+            <span id="is-status" class="instant-search-status sr-only" role="status"></span>
+            <div id="is-box" class="instant-search-box" role="listbox">
+              <div class="instant-search-result list-group"></div>
+            </div>
           </form>
-          <div id="instant-search-box" role="listbox" class="instant-search-box">
-            <div class="instant-search-result list-group"></div>
-          </div>
         </div>
         <nav class="nav flex-column flex-nowrap">
           {{ render(controller('App\\Controller\\MainController::categoryList')) }}

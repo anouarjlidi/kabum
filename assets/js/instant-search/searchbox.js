@@ -25,31 +25,36 @@ const $ = require('jquery');
 export default class SearchBox {
   constructor() {
     this.input = $('.instant-search-input');
-    this.query = '';
+    this.query = null;
+    this.target = null;
   }
 
   startup() {
-    /*
-     * Because of the Arrow function, 'this' refers to SearchBox within
-     * this event handler.
-     */
-    this.input.keyup(() => {
-      this.inputValue = this.input.val();
+    // Abort if instant search is not implemented in the current page
+    if (!this.findInstantSearch()) {
+      return;
+    }
 
-      if (this.isInputEmpty()) {
-        this.close();
+    var searchbox = this;
 
-        return;
-      }
+    this.input.each(function() {
+      $(this).keyup(function() {
+        var input = $(this);
 
-      this.getSearchResults();
-      this.open();
-      this.setStatus();
+        searchbox.query = input.val();
+        searchbox.target = input.data('target');
+
+        if (searchbox.isInputEmpty()) {
+          searchbox.close(input);
+
+          return;
+        }
+
+        searchbox.getSearchResults(input);
+        searchbox.open(input);
+        searchbox.setStatus(input);
+      });
     });
-  }
-
-  set inputValue(query) {
-    this.query = query;
   }
 
   /**
@@ -65,32 +70,54 @@ export default class SearchBox {
     return false;
   }
 
-  close() {
-    $('.instant-search-result').empty();
-    $('.instant-search-status').empty();
-    $('.instant-search-box').hide();
-    this.input.attr('aria-expanded', false);
+  /**
+   * Look for the instant search component in the current page.
+   *
+   * Returns true if at least one is found, false otherwise.
+   */
+  findInstantSearch() {
+    var instantSearchWrapper = $('.instant-search');
+
+    if (instantSearchWrapper.length) {
+      return true;
+    }
+
+    return false;
   }
 
-  open() {
-    $('.instant-search-box').show();
-    this.input.attr('aria-expanded', true);
+  close(input) {
+    var instantSearchBox = input.siblings('.instant-search-box');
+
+    instantSearchBox.children('.instant-search-result').empty();
+    instantSearchBox.hide();
+    input.siblings('.instant-search-status').empty();
+    input.attr('aria-expanded', false);
+  }
+
+  open(input) {
+    input.siblings('.instant-search-box').show();
+    input.attr('aria-expanded', true);
   }
 
   /**
    * Informs the request status to assistive technologies.
    */
-  setStatus() {
-    let resultCount = $('.result-count').data('instantSearchStatus');
-    $('.instant-search-status').text(resultCount);
+  setStatus(input) {
+    var instantSearchStatus = input.siblings('.instant-search-status');
+    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+    var resultCount = instantSearchResult.children('.result-count').data('instantSearchStatus');
+
+    instantSearchStatus.text(resultCount);
   }
 
   /**
    * Performs an Ajax request and populates the combobox with its result.
    */
-  getSearchResults() {
-    $.get('/search/instant', {query: this.query}, function(data) {
-      $('.instant-search-result').html(data);
+  getSearchResults(input) {
+    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+
+    $.get(this.target, {query: this.query}, function(data) {
+      instantSearchResult.html(data);
     });
   }
 }
