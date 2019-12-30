@@ -61,16 +61,8 @@ export default class SearchBox {
             searchbox.setStatus(input);
 
             var suggestions = instantSearchResult.children('.instant-search-suggestion');
-            var selected = instantSearchResult.children('.instant-search-cursor');
 
-            if (!selected.length) {
-              selected = suggestions.first();
-              selected.addClass('instant-search-cursor');
-              selected.attr('aria-selected', true);
-              input.attr('aria-activedescendant', selected.attr('id'));
-            }
-
-            searchbox.setupNavigation(input, suggestions, selected);
+            searchbox.setupNavigation(input, suggestions);
           });
       });
     });
@@ -111,6 +103,7 @@ export default class SearchBox {
     instantSearchBox.hide();
     input.siblings('.instant-search-status').empty();
     input.attr('aria-expanded', false);
+    input.removeAttr('aria-activedescendant');
   }
 
   open(input) {
@@ -143,52 +136,66 @@ export default class SearchBox {
     return jqxhr;
   }
 
-  /**
-   * Focus remains on the input element. When the arrows keys are pressed,
-   * the input will change its aria-activedescendant to point to one of the
-   * suggestions. Instead of moving focus, the selected suggestion will receive
-   * focus styling. If one of the suggestions is selected when the ENTER key
-   * is pressed, the link on that suggestion will be followed. If no suggestion
-   * is selected, the form will be submitted with the current search terms.
-   */
-  setupNavigation(input, suggestions, selected) {
+  setupNavigation(input, suggestions) {
     // Unbind the previous event handler
     input.off('keydown');
+
+    var selected = false;
 
     input.keydown(() => {
       switch(event.which) {
         case 38: // ARROW UP
           event.preventDefault();
 
-          selected.removeClass('instant-search-cursor');
-          selected.removeAttr('aria-selected');
-
-          if (selected.is(suggestions.first())) {
+          if (selected === false) {
             selected = suggestions.last();
-          } else {
-            selected = selected.prev('.instant-search-suggestion');
-          }
 
-          selected.addClass('instant-search-cursor');
-          selected.attr('aria-selected', true);
-          input.attr('aria-activedescendant', selected.attr('id'));
+            selected.addClass('instant-search-cursor');
+            selected.attr('aria-selected', true);
+            input.attr('aria-activedescendant', selected.attr('id'));
+          } else if (selected.is(suggestions.first())) {
+            selected.removeClass('instant-search-cursor');
+            selected.removeAttr('aria-selected');
+            input.removeAttr('aria-activedescendant');
+
+            selected = false;
+          } else {
+            selected.removeClass('instant-search-cursor');
+            selected.removeAttr('aria-selected');
+
+            selected = selected.prev('.instant-search-suggestion');
+
+            selected.addClass('instant-search-cursor');
+            selected.attr('aria-selected', true);
+            input.attr('aria-activedescendant', selected.attr('id'));
+          }
 
           break;
         case 40: // ARROW DOWN
           event.preventDefault();
 
-          selected.removeClass('instant-search-cursor');
-          selected.removeAttr('aria-selected');
-
-          if (selected.is(suggestions.last())) {
+          if (selected === false) {
             selected = suggestions.first();
-          } else {
-            selected = selected.next('.instant-search-suggestion');
-          }
 
-          selected.addClass('instant-search-cursor');
-          selected.attr('aria-selected', true);
-          input.attr('aria-activedescendant', selected.attr('id'));
+            selected.addClass('instant-search-cursor');
+            selected.attr('aria-selected', true);
+            input.attr('aria-activedescendant', selected.attr('id'));
+          } else if (selected.is(suggestions.last())) {
+            selected.removeClass('instant-search-cursor');
+            selected.removeAttr('aria-selected');
+            input.removeAttr('aria-activedescendant');
+
+            selected = false;
+          } else {
+            selected.removeClass('instant-search-cursor');
+            selected.removeAttr('aria-selected');
+
+            selected = selected.next('.instant-search-suggestion');
+
+            selected.addClass('instant-search-cursor');
+            selected.attr('aria-selected', true);
+            input.attr('aria-activedescendant', selected.attr('id'));
+          }
 
           break;
         case 27: // ESC
@@ -206,6 +213,10 @@ export default class SearchBox {
             var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
             instantSearchResult.children('#' + selectedSuggestion).get(0).click();
           }
+
+          break;
+        case 9: // TAB
+          this.close(input);
 
           break;
       }
