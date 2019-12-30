@@ -50,12 +50,29 @@ export default class SearchBox {
           return;
         }
 
-        searchbox.getSearchResults(input);
-        searchbox.open(input);
-        searchbox.setStatus(input);
-      });
+        var request = searchbox.requestData();
 
-      searchbox.setupNavigation(input);
+        request
+          .done(data => {
+            var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+            instantSearchResult.html(data);
+
+            searchbox.open(input);
+            searchbox.setStatus(input);
+
+            var suggestions = instantSearchResult.children('.instant-search-suggestion');
+            var selected = instantSearchResult.children('.instant-search-cursor');
+
+            if (!selected.length) {
+              selected = suggestions.first();
+              selected.addClass('instant-search-cursor');
+              selected.attr('aria-selected', true);
+              input.attr('aria-activedescendant', selected.attr('id'));
+            }
+
+            searchbox.setupNavigation(input, suggestions, selected);
+          });
+      });
     });
   }
 
@@ -97,6 +114,11 @@ export default class SearchBox {
   }
 
   open(input) {
+    // Abort if the combobox is already open
+    if (input.attr('aria-expanded') == 'true') {
+      return;
+    }
+
     input.siblings('.instant-search-box').show();
     input.attr('aria-expanded', true);
   }
@@ -113,14 +135,12 @@ export default class SearchBox {
   }
 
   /**
-   * Performs an Ajax request and populates the combobox with its result.
+   * Performs the Ajax request and returns the jqXHR object.
    */
-  getSearchResults(input) {
-    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+  requestData() {
+    var jqxhr = $.get(this.target, {query: this.query});
 
-    $.get(this.target, {query: this.query}, function(data) {
-      instantSearchResult.html(data);
-    });
+    return jqxhr;
   }
 
   /**
@@ -131,20 +151,11 @@ export default class SearchBox {
    * is pressed, the link on that suggestion will be followed. If no suggestion
    * is selected, the form will be submitted with the current search terms.
    */
-  setupNavigation(input) {
+  setupNavigation(input, suggestions, selected) {
+    // Unbind the previous event handler
+    input.off('keydown');
+
     input.keydown(() => {
-      var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
-
-      var selected = instantSearchResult.children('.instant-search-cursor');
-      var suggestions = instantSearchResult.children('.instant-search-suggestion');
-
-      if (!selected.length) {
-        selected = suggestions.first();
-        selected.addClass('instant-search-cursor');
-        selected.attr('aria-selected', true);
-        input.attr('aria-activedescendant', selected.attr('id'));
-      }
-
       switch(event.which) {
         case 38: // ARROW UP
           event.preventDefault();
