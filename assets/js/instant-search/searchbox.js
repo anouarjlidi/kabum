@@ -163,7 +163,11 @@ export default class SearchBox {
           selected.removeClass('instant-search-cursor');
           selected.removeAttr('aria-selected');
 
-          selected = selected.prev('.instant-search-suggestion');
+          if (selected.is(suggestions.first())) {
+            selected = suggestions.last();
+          } else {
+            selected = selected.prev('.instant-search-suggestion');
+          }
 
           selected.addClass('instant-search-cursor');
           selected.attr('aria-selected', true);
@@ -176,7 +180,11 @@ export default class SearchBox {
           selected.removeClass('instant-search-cursor');
           selected.removeAttr('aria-selected');
 
-          selected = selected.next('.instant-search-suggestion');
+          if (selected.is(suggestions.last())) {
+            selected = suggestions.first();
+          } else {
+            selected = selected.next('.instant-search-suggestion');
+          }
 
           selected.addClass('instant-search-cursor');
           selected.attr('aria-selected', true);
@@ -187,6 +195,17 @@ export default class SearchBox {
           event.preventDefault();
 
           this.close(input);
+
+          break;
+        case 13: // ENTER
+          var selectedSuggestion = input.attr('aria-activedescendant');
+
+          if (selectedSuggestion) {
+            event.preventDefault();
+
+            var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+            instantSearchResult.children('#' + selectedSuggestion).get(0).click();
+          }
 
           break;
       }
