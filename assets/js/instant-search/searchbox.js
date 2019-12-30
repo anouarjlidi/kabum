@@ -38,9 +38,9 @@ export default class SearchBox {
     var searchbox = this;
 
     this.input.each(function() {
-      $(this).on('input', function() {
-        var input = $(this);
+      var input = $(this);
 
+      input.on('input', function() {
         searchbox.query = input.val();
         searchbox.target = input.data('target');
 
@@ -54,6 +54,8 @@ export default class SearchBox {
         searchbox.open(input);
         searchbox.setStatus(input);
       });
+
+      searchbox.setupNavigation(input);
     });
   }
 
@@ -118,6 +120,65 @@ export default class SearchBox {
 
     $.get(this.target, {query: this.query}, function(data) {
       instantSearchResult.html(data);
+    });
+  }
+
+  /**
+   * Focus remains on the input element. When the arrows keys are pressed,
+   * the input will change its aria-activedescendant to point to one of the
+   * suggestions. Instead of moving focus, the selected suggestion will receive
+   * focus styling. If one of the suggestions is selected when the ENTER key
+   * is pressed, the link on that suggestion will be followed. If no suggestion
+   * is selected, the form will be submitted with the current search terms.
+   */
+  setupNavigation(input) {
+    input.keydown(() => {
+      var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+
+      var selected = instantSearchResult.children('.instant-search-cursor');
+      var suggestions = instantSearchResult.children('.instant-search-suggestion');
+
+      if (!selected.length) {
+        selected = suggestions.first();
+        selected.addClass('instant-search-cursor');
+        selected.attr('aria-selected', true);
+        input.attr('aria-activedescendant', selected.attr('id'));
+      }
+
+      switch(event.which) {
+        case 38: // ARROW UP
+          event.preventDefault();
+
+          selected.removeClass('instant-search-cursor');
+          selected.removeAttr('aria-selected');
+
+          selected = selected.prev('.instant-search-suggestion');
+
+          selected.addClass('instant-search-cursor');
+          selected.attr('aria-selected', true);
+          input.attr('aria-activedescendant', selected.attr('id'));
+
+          break;
+        case 40: // ARROW DOWN
+          event.preventDefault();
+
+          selected.removeClass('instant-search-cursor');
+          selected.removeAttr('aria-selected');
+
+          selected = selected.next('.instant-search-suggestion');
+
+          selected.addClass('instant-search-cursor');
+          selected.attr('aria-selected', true);
+          input.attr('aria-activedescendant', selected.attr('id'));
+
+          break;
+        case 27: // ESC
+          event.preventDefault();
+
+          this.close(input);
+
+          break;
+      }
     });
   }
 }

@@ -20,8 +20,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% set numberOfResults = 0 %}
 
 {% for product in products %}
-  <a href="{{ path('product_page', {slug: product.slug}) }}"
-    class="list-group-item list-group-item-action">
+  <a id="suggestion-{{ numberOfResults }}" href="{{ path('product_page', {slug: product.slug}) }}"
+    class="instant-search-suggestion list-group-item list-group-item-action" role="option">
     <div class="row">
       <div class="col-3 align-self-center">
         <img src="{{ asset(product_image_directory ~ product.image) }}"
