@@ -144,8 +144,8 @@ export default class SearchBox {
   }
 
   setupNavigation(suggestions) {
-    // Unbind the previous event handler
-    this.input.off('keydown');
+    // Unbind the previous event handlers
+    this.input.off('keydown blur mousedown');
 
     this.input.blur(() => {
       this.close();
