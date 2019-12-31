@@ -140,6 +140,20 @@ export default class SearchBox {
     // Unbind the previous event handler
     input.off('keydown');
 
+    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
+
+    input.blur(() => {
+      this.close(input);
+    });
+
+    instantSearchResult.on('mousedown', '.instant-search-suggestion', function() {
+      if (event.which == 1) {
+        $(this).get(0).click();
+      }
+
+      event.preventDefault();
+    });
+
     var selected = false;
 
     input.keydown(() => {
@@ -210,7 +224,6 @@ export default class SearchBox {
           if (selectedSuggestion) {
             event.preventDefault();
 
-            var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
             instantSearchResult.children('#' + selectedSuggestion).get(0).click();
           }
 
