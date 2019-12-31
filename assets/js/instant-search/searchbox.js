@@ -54,6 +54,8 @@ export default class SearchBox {
 
         request
           .done(data => {
+            input.removeAttr('aria-activedescendant');
+
             var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
             instantSearchResult.html(data);
 
@@ -99,9 +101,12 @@ export default class SearchBox {
   close(input) {
     var instantSearchBox = input.siblings('.instant-search-box');
 
-    instantSearchBox.children('.instant-search-result').empty();
+    if (this.isInputEmpty()) {
+      instantSearchBox.children('.instant-search-result').empty();
+      input.siblings('.instant-search-status').empty();
+    }
+
     instantSearchBox.hide();
-    input.siblings('.instant-search-status').empty();
     input.attr('aria-expanded', false);
     input.removeAttr('aria-activedescendant');
   }
@@ -109,6 +114,10 @@ export default class SearchBox {
   open(input) {
     // Abort if the combobox is already open
     if (input.attr('aria-expanded') == 'true') {
+      return;
+    }
+
+    if (this.isInputEmpty()) {
       return;
     }
 
@@ -161,6 +170,13 @@ export default class SearchBox {
         case 38: // ARROW UP
           event.preventDefault();
 
+          if (input.attr('aria-expanded') == 'false') {
+            this.open(input);
+            input.attr('aria-activedescendant', selected.attr('id'));
+
+            break;
+          }
+
           if (selected === false) {
             selected = suggestions.last();
 
@@ -187,6 +203,13 @@ export default class SearchBox {
           break;
         case 40: // ARROW DOWN
           event.preventDefault();
+
+          if (input.attr('aria-expanded') == 'false') {
+            this.open(input);
+            input.attr('aria-activedescendant', selected.attr('id'));
+
+            break;
+          }
 
           if (selected === false) {
             selected = suggestions.first();
