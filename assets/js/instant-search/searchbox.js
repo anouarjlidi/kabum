@@ -168,7 +168,9 @@ export default class SearchBox {
 
           if (this.input.attr('aria-expanded') == 'false') {
             this.open();
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            if (!this.isInputEmpty()) {
+              this.input.attr('aria-activedescendant', selected.attr('id'));
+            }
 
             break;
           }
@@ -202,7 +204,9 @@ export default class SearchBox {
 
           if (this.input.attr('aria-expanded') == 'false') {
             this.open();
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            if (!this.isInputEmpty()) {
+              this.input.attr('aria-activedescendant', selected.attr('id'));
+            }
 
             break;
           }
