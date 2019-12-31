@@ -41,9 +41,8 @@ export default class SearchBox {
     var searchbox = this;
 
     this.instances.each(function() {
-      searchbox.input = $(this);
-
-      searchbox.input.on('input', function() {
+      $(this).on('input', function() {
+        searchbox.input = $(this);
         searchbox.query = searchbox.input.val();
         searchbox.target = searchbox.input.data('target');
         searchbox.box = searchbox.input.siblings('.instant-search-box');
