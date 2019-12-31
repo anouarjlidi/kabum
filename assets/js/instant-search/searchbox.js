@@ -24,9 +24,12 @@ const $ = require('jquery');
  */
 export default class SearchBox {
   constructor() {
-    this.input = $('.instant-search-input');
-    this.query = null;
-    this.target = null;
+    this.instances = $('.instant-search-input');
+    this.input;
+    this.query;
+    this.target;
+    this.box;
+    this.result;
   }
 
   startup() {
@@ -37,15 +40,17 @@ export default class SearchBox {
 
     var searchbox = this;
 
-    this.input.each(function() {
-      var input = $(this);
+    this.instances.each(function() {
+      searchbox.input = $(this);
 
-      input.on('input', function() {
-        searchbox.query = input.val();
-        searchbox.target = input.data('target');
+      searchbox.input.on('input', function() {
+        searchbox.query = searchbox.input.val();
+        searchbox.target = searchbox.input.data('target');
+        searchbox.box = searchbox.input.siblings('.instant-search-box');
+        searchbox.result = searchbox.box.children('.instant-search-result');
 
         if (searchbox.isInputEmpty()) {
-          searchbox.close(input);
+          searchbox.close();
 
           return;
         }
@@ -54,17 +59,14 @@ export default class SearchBox {
 
         request
           .done(data => {
-            input.removeAttr('aria-activedescendant');
+            searchbox.input.removeAttr('aria-activedescendant');
 
-            var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
-            instantSearchResult.html(data);
+            searchbox.result.html(data);
+            searchbox.open();
+            searchbox.setStatus();
 
-            searchbox.open(input);
-            searchbox.setStatus(input);
-
-            var suggestions = instantSearchResult.children('.instant-search-suggestion');
-
-            searchbox.setupNavigation(input, suggestions);
+            var suggestions = searchbox.result.children('.instant-search-suggestion');
+            searchbox.setupNavigation(suggestions);
           });
       });
     });
@@ -98,22 +100,20 @@ export default class SearchBox {
     return false;
   }
 
-  close(input) {
-    var instantSearchBox = input.siblings('.instant-search-box');
-
+  close() {
     if (this.isInputEmpty()) {
-      instantSearchBox.children('.instant-search-result').empty();
-      input.siblings('.instant-search-status').empty();
+      this.result.empty();
+      this.input.siblings('.instant-search-status').empty();
     }
 
-    instantSearchBox.hide();
-    input.attr('aria-expanded', false);
-    input.removeAttr('aria-activedescendant');
+    this.box.hide();
+    this.input.attr('aria-expanded', false);
+    this.input.removeAttr('aria-activedescendant');
   }
 
-  open(input) {
+  open() {
     // Abort if the combobox is already open
-    if (input.attr('aria-expanded') == 'true') {
+    if (this.input.attr('aria-expanded') == 'true') {
       return;
     }
 
@@ -121,17 +121,16 @@ export default class SearchBox {
       return;
     }
 
-    input.siblings('.instant-search-box').show();
-    input.attr('aria-expanded', true);
+    this.box.show();
+    this.input.attr('aria-expanded', true);
   }
 
   /**
    * Informs the request status to assistive technologies.
    */
-  setStatus(input) {
-    var instantSearchStatus = input.siblings('.instant-search-status');
-    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
-    var resultCount = instantSearchResult.children('.result-count').data('instantSearchStatus');
+  setStatus() {
+    var instantSearchStatus = this.input.siblings('.instant-search-status');
+    var resultCount = this.result.children('.result-count').data('instantSearchStatus');
 
     instantSearchStatus.text(resultCount);
   }
@@ -145,17 +144,15 @@ export default class SearchBox {
     return jqxhr;
   }
 
-  setupNavigation(input, suggestions) {
+  setupNavigation(suggestions) {
     // Unbind the previous event handler
-    input.off('keydown');
+    this.input.off('keydown');
 
-    var instantSearchResult = input.siblings('.instant-search-box').children('.instant-search-result');
-
-    input.blur(() => {
-      this.close(input);
+    this.input.blur(() => {
+      this.close();
     });
 
-    instantSearchResult.on('mousedown', '.instant-search-suggestion', function() {
+    this.result.on('mousedown', '.instant-search-suggestion', function() {
       if (event.which == 1) {
         $(this).get(0).click();
       }
@@ -165,14 +162,14 @@ export default class SearchBox {
 
     var selected = false;
 
-    input.keydown(() => {
+    this.input.keydown(() => {
       switch(event.which) {
         case 38: // ARROW UP
           event.preventDefault();
 
-          if (input.attr('aria-expanded') == 'false') {
-            this.open(input);
-            input.attr('aria-activedescendant', selected.attr('id'));
+          if (this.input.attr('aria-expanded') == 'false') {
+            this.open();
+            this.input.attr('aria-activedescendant', selected.attr('id'));
 
             break;
           }
@@ -182,11 +179,11 @@ export default class SearchBox {
 
             selected.addClass('instant-search-cursor');
             selected.attr('aria-selected', true);
-            input.attr('aria-activedescendant', selected.attr('id'));
+            this.input.attr('aria-activedescendant', selected.attr('id'));
           } else if (selected.is(suggestions.first())) {
             selected.removeClass('instant-search-cursor');
             selected.removeAttr('aria-selected');
-            input.removeAttr('aria-activedescendant');
+            this.input.removeAttr('aria-activedescendant');
 
             selected = false;
           } else {
@@ -197,16 +194,16 @@ export default class SearchBox {
 
             selected.addClass('instant-search-cursor');
             selected.attr('aria-selected', true);
-            input.attr('aria-activedescendant', selected.attr('id'));
+            this.input.attr('aria-activedescendant', selected.attr('id'));
           }
 
           break;
         case 40: // ARROW DOWN
           event.preventDefault();
 
-          if (input.attr('aria-expanded') == 'false') {
-            this.open(input);
-            input.attr('aria-activedescendant', selected.attr('id'));
+          if (this.input.attr('aria-expanded') == 'false') {
+            this.open();
+            this.input.attr('aria-activedescendant', selected.attr('id'));
 
             break;
           }
@@ -216,11 +213,11 @@ export default class SearchBox {
 
             selected.addClass('instant-search-cursor');
             selected.attr('aria-selected', true);
-            input.attr('aria-activedescendant', selected.attr('id'));
+            this.input.attr('aria-activedescendant', selected.attr('id'));
           } else if (selected.is(suggestions.last())) {
             selected.removeClass('instant-search-cursor');
             selected.removeAttr('aria-selected');
-            input.removeAttr('aria-activedescendant');
+            this.input.removeAttr('aria-activedescendant');
 
             selected = false;
           } else {
@@ -231,28 +228,28 @@ export default class SearchBox {
 
             selected.addClass('instant-search-cursor');
             selected.attr('aria-selected', true);
-            input.attr('aria-activedescendant', selected.attr('id'));
+            this.input.attr('aria-activedescendant', selected.attr('id'));
           }
 
           break;
         case 27: // ESC
           event.preventDefault();
 
-          this.close(input);
+          this.close();
 
           break;
         case 13: // ENTER
-          var selectedSuggestion = input.attr('aria-activedescendant');
+          var selectedSuggestion = this.input.attr('aria-activedescendant');
 
           if (selectedSuggestion) {
             event.preventDefault();
 
-            instantSearchResult.children('#' + selectedSuggestion).get(0).click();
+            this.result.children('#' + selectedSuggestion).get(0).click();
           }
 
           break;
         case 9: // TAB
-          this.close(input);
+          this.close();
 
           break;
       }
