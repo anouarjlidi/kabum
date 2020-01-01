@@ -24,11 +24,35 @@ const $ = require('jquery');
  */
 export default class SearchBox {
   constructor() {
+    /**
+     * All SearchBox widgets found on the page.
+     */
     this.instances = $('.instant-search-input');
+
+    /**
+     * The currently selected input element.
+     */
     this.input;
+
+    /**
+     * The search terms used in the database query.
+     */
     this.query;
+
+    /**
+     * Path to the server-side controller responsible for answering
+     * the request.
+     */
     this.target;
+
+    /**
+     * The combobox popup menu.
+     */
     this.box;
+
+    /**
+     * The container the requested data gets pushed into.
+     */
     this.result;
   }
 
@@ -58,30 +82,22 @@ export default class SearchBox {
 
         request
           .done(data => {
+            // Wipe aria-activedescendant when a new query is made
             searchbox.input.removeAttr('aria-activedescendant');
 
             searchbox.result.html(data);
             searchbox.open();
             searchbox.setStatus();
 
+            /*
+             * Select all search results returned by the server, which are
+             * then used in keyboard navigation.
+             */
             var suggestions = searchbox.result.children('.instant-search-suggestion');
             searchbox.setupNavigation(suggestions);
           });
       });
     });
-  }
-
-  /**
-   * Test for an empty search query.
-   *
-   * Returns true if the input is empty, false otherwise.
-   */
-  isInputEmpty() {
-    if (this.query === '') {
-      return true;
-    }
-
-    return false;
   }
 
   /**
@@ -99,6 +115,25 @@ export default class SearchBox {
     return false;
   }
 
+  /**
+   * Test for an empty search query.
+   *
+   * Returns true if the input is empty, false otherwise.
+   */
+  isInputEmpty() {
+    if (this.query === '') {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Close the combobox popup menu.
+   *
+   * If the search query is empty, it will also discard the currently
+   * loaded search results.
+   */
   close() {
     if (this.isInputEmpty()) {
       this.result.empty();
@@ -110,18 +145,57 @@ export default class SearchBox {
     this.input.removeAttr('aria-activedescendant');
   }
 
+  /**
+   * Open the combobox popup menu.
+   */
   open() {
-    // Abort if the combobox is already open
+    // Abort if the combobox is already expanded
     if (this.input.attr('aria-expanded') == 'true') {
       return;
     }
 
+    /*
+     * Keyboard navigation event handlers will want to abort when the
+     * search query is empty.
+     */
     if (this.isInputEmpty()) {
       return;
     }
 
     this.box.show();
     this.input.attr('aria-expanded', true);
+  }
+
+  /**
+   * Opens the combobox popup menu.
+   *
+   * The difference between this and open() is that this method is meant to
+   * be called from the keyboard navigation event handlers. It is used to open
+   * the popup menu at the press of navigation keys.
+   *
+   * This method makes sure the last selected item is remembered when
+   * the menu opens, as recommended by the W3C standards on Managing Focus.
+   *
+   * It returns a boolean to allow further action when it is called. True is
+   * returned when the menu opens, otherwise it returns false.
+   *
+   * The 'selected' parameter is a jQuery object that represents the currently
+   * selected menu item.
+   */
+  reopen(selected) {
+    // Open the menu only if it's collapsed
+    if (this.input.attr('aria-expanded') == 'false') {
+      this.open();
+
+      // Set the last aria-activedescendant value, unless the search query is empty
+      if (!this.isInputEmpty()) {
+        this.input.attr('aria-activedescendant', selected.attr('id'));
+      }
+
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -143,22 +217,43 @@ export default class SearchBox {
     return jqxhr;
   }
 
+  /**
+   * Configures navigation event handlers.
+   *
+   * The 'suggestions' parameter is a jQuery object that represents all
+   * currently loaded menu items.
+   */
   setupNavigation(suggestions) {
-    // Unbind the previous event handlers
+    /*
+     * Unbind any previously bound navigation event handlers, as they are
+     * reattached on every 'input' event.
+     */
     this.input.off('keydown blur mousedown');
 
+    // Close the menu when it loses focus
     this.input.blur(() => {
       this.close();
     });
 
+    /*
+     * Because of the blur event handler, clicking on any menu items will
+     * cause the menu to close without executing the expected action. Using
+     * the 'mousedown' event and listening for a left button press will
+     * allow the client to activate these items with the mouse.
+     */
     this.result.on('mousedown', '.instant-search-suggestion', function() {
-      if (event.which == 1) {
+      if (event.which == 1) { // Left mouse button key code
         $(this).get(0).click();
       }
 
       event.preventDefault();
     });
 
+    /*
+     * The 'false' value represents a selection void - a state in which none of
+     * the menu items are selected. If the form is activated like this, it will
+     * execute the form action and it won't read the aria-activedescendant value.
+     */
     var selected = false;
 
     this.input.keydown(() => {
@@ -166,74 +261,40 @@ export default class SearchBox {
         case 38: // ARROW UP
           event.preventDefault();
 
-          if (this.input.attr('aria-expanded') == 'false') {
-            this.open();
-
-            if (!this.isInputEmpty()) {
-              this.input.attr('aria-activedescendant', selected.attr('id'));
-            }
-
+          if (this.reopen(selected)) {
             break;
           }
 
           if (selected === false) {
             selected = suggestions.last();
-
-            selected.addClass('instant-search-cursor');
-            selected.attr('aria-selected', true);
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            this.setCursor(selected);
           } else if (selected.is(suggestions.first())) {
-            selected.removeClass('instant-search-cursor');
-            selected.removeAttr('aria-selected');
-            this.input.removeAttr('aria-activedescendant');
-
+            this.removeCursor(selected);
             selected = false;
           } else {
-            selected.removeClass('instant-search-cursor');
-            selected.removeAttr('aria-selected');
-
+            this.removeCursor(selected);
             selected = selected.prev('.instant-search-suggestion');
-
-            selected.addClass('instant-search-cursor');
-            selected.attr('aria-selected', true);
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            this.setCursor(selected);
           }
 
           break;
         case 40: // ARROW DOWN
           event.preventDefault();
 
-          if (this.input.attr('aria-expanded') == 'false') {
-            this.open();
-
-            if (!this.isInputEmpty()) {
-              this.input.attr('aria-activedescendant', selected.attr('id'));
-            }
-
+          if (this.reopen(selected)) {
             break;
           }
 
           if (selected === false) {
             selected = suggestions.first();
-
-            selected.addClass('instant-search-cursor');
-            selected.attr('aria-selected', true);
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            this.setCursor(selected);
           } else if (selected.is(suggestions.last())) {
-            selected.removeClass('instant-search-cursor');
-            selected.removeAttr('aria-selected');
-            this.input.removeAttr('aria-activedescendant');
-
+            this.removeCursor(selected);
             selected = false;
           } else {
-            selected.removeClass('instant-search-cursor');
-            selected.removeAttr('aria-selected');
-
+            this.removeCursor(selected);
             selected = selected.next('.instant-search-suggestion');
-
-            selected.addClass('instant-search-cursor');
-            selected.attr('aria-selected', true);
-            this.input.attr('aria-activedescendant', selected.attr('id'));
+            this.setCursor(selected);
           }
 
           break;
@@ -246,6 +307,10 @@ export default class SearchBox {
         case 13: // ENTER
           var selectedSuggestion = this.input.attr('aria-activedescendant');
 
+          /*
+           * If aria-activedescendant is set, it will find the menu item to
+           * which it refers and trigger a click on it.
+           */
           if (selectedSuggestion) {
             event.preventDefault();
 
@@ -253,11 +318,26 @@ export default class SearchBox {
           }
 
           break;
-        case 9: // TAB
-          this.close();
-
-          break;
       }
     });
+  }
+
+  /**
+   * Applies visual and accessible identification of the currently selected
+   * menu item.
+   */
+  setCursor(selected) {
+    selected.addClass('instant-search-cursor');
+    selected.attr('aria-selected', true);
+    this.input.attr('aria-activedescendant', selected.attr('id'));
+  }
+
+  /**
+   * Removes menu item selection cues.
+   */
+  removeCursor(selected) {
+    selected.removeClass('instant-search-cursor');
+    selected.removeAttr('aria-selected');
+    this.input.removeAttr('aria-activedescendant');
   }
 }
