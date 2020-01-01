@@ -70,16 +70,16 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         </div>
         <div class="instant-search mb-4">
           <form action="{{ path('search') }}" role="search">
-            <div class="d-flex justify-content-between align-items-center p-2 border rounded">
-              <label for="is-input" class="sr-only">{{ 'search'|trans }}</label>
+            <div class="d-flex justify-content-between align-items-center search-input-wrapper">
+              <label for="is-input" class="mr-2 mb-0">
+                <span class="sr-only">{{ 'search'|trans }}</span>
+                <i class="fas fa-search text-secondary" aria-hidden="true"></i>
+              </label>
               <input id="is-input" type="search" name="query" data-target="{{ path('instant_search') }}"
-                class="instant-search-input border-0" placeholder="{{ 'search'|trans }}"
+                class="instant-search-input search-input" placeholder="{{ 'search'|trans }}"
                 autocomplete="off" role="combobox" aria-autocomplete="list"
                 aria-describedby="is-help" aria-expanded="false"
                 aria-controls="is-box is-status"/>
-              <div>
-                <i class="fas fa-search text-secondary" aria-hidden="true"></i>
-              </div>
               <span id="is-help" class="sr-only">
                 {{ 'results_appear_as_you_type'|trans }}
               </span>
