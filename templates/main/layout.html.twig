@@ -70,18 +70,23 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         </div>
         <div class="instant-search mb-4">
           <form action="{{ path('search') }}" role="search">
-            <label for="is-input" class="sr-only">{{ 'search'|trans }}</label>
-            <input id="is-input" type="search" name="query" data-target="{{ path('instant_search') }}"
-              class="instant-search-input form-control" placeholder="{{ 'search'|trans }}"
-              autocomplete="off" role="combobox" aria-autocomplete="list"
-              aria-describedby="is-help" aria-expanded="false"
-              aria-controls="is-box is-status"/>
-            <span id="is-help" class="sr-only">
-              {{ 'results_appear_as_you_type'|trans }}
-            </span>
-            <span id="is-status" class="instant-search-status sr-only" role="status"></span>
-            <div id="is-box" class="instant-search-box" role="listbox">
-              <div class="instant-search-result list-group"></div>
+            <div class="d-flex justify-content-between align-items-center p-2 border rounded">
+              <label for="is-input" class="sr-only">{{ 'search'|trans }}</label>
+              <input id="is-input" type="search" name="query" data-target="{{ path('instant_search') }}"
+                class="instant-search-input border-0" placeholder="{{ 'search'|trans }}"
+                autocomplete="off" role="combobox" aria-autocomplete="list"
+                aria-describedby="is-help" aria-expanded="false"
+                aria-controls="is-box is-status"/>
+              <div>
+                <i class="fas fa-search text-secondary" aria-hidden="true"></i>
+              </div>
+              <span id="is-help" class="sr-only">
+                {{ 'results_appear_as_you_type'|trans }}
+              </span>
+              <span id="is-status" class="instant-search-status sr-only" role="status"></span>
+              <div id="is-box" class="instant-search-box" role="listbox">
+                <div class="instant-search-result list-group"></div>
+              </div>
             </div>
           </form>
         </div>
