@@ -26,7 +26,7 @@ it can be focused when a new batch of items is loaded onto the page. #}
 {% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
 
 {% for product in pagination %}
-<article class="col feed-new-item p-4 {% if firstItem == true %}focus-me{% endif %}"
+  <article class="col feed-new-item p-4 {% if firstItem == true %}focus-me{% endif %}"
     tabindex="-1" data-number-of-results="{{ pagination.getTotalItemCount }}"
     data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}"
     aria-labelledby="{{ product.id ~ '_label' }}">
