@@ -1,5 +1,14 @@
 @import "base/environment";
 
+.navbar-toggler {
+  color: theme-color('light');
+}
+
+.navbar-toggler:hover, .navbar-toggler:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
+
 #sidebar {
   display: flex;
   flex-direction: column;

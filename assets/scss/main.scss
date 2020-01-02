@@ -4,6 +4,15 @@
   font-size: 1.5rem;
 }
 
+.navbar-toggler {
+  color: theme-color('kabum-orange');
+}
+
+.navbar-toggler:hover, .navbar-toggler:focus {
+  color: theme-color('kabum-dark-blue');
+  outline: 0;
+}
+
 #header-brand {
   width: 180px;
   transition: transform .15s;
