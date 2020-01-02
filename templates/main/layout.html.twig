@@ -90,9 +90,12 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             </div>
           </form>
         </div>
-        <nav class="nav flex-column flex-nowrap">
-          {{ render(controller('App\\Controller\\MainController::categoryList')) }}
-        </nav>
+        <div class="bg-light rounded p-2">
+          <p class="lead text-kabum-orange mb-2">{{ 'departments'|trans }}</p>
+          <nav class="nav flex-column flex-nowrap">
+            {{ render(controller('App\\Controller\\MainController::categoryList')) }}
+          </nav>
+        </div>
       </div>
     </div>
     <div class="d-flex flex-column w-100">

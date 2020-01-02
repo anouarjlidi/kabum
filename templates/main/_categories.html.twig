@@ -18,7 +18,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
 {% for category in categories %}
-  <a class="nav-link text-black" href="{{ path('category_page', {slug: category.slug}) }}">
+  <a class="category" href="{{ path('category_page', {slug: category.slug}) }}">
     {{ category.name }}
   </a>
 {% endfor %}

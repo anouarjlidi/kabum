@@ -70,7 +70,7 @@
   }
 }
 
-#sidebar nav {
+#sidebar .nav {
   @include media-breakpoint-up(md) {
     /*
      * The max-height value below compensates for other elements taking up space
@@ -88,6 +88,22 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.category {
+  padding: 5px;
+  text-decoration: none !important;
+  color: theme-color('secondary');
+  font-weight: light;
+}
+
+.category:hover {
+  color: theme-color('kabum-light-blue');
+}
+
+.category:focus {
+  color: theme-color('kabum-dark-blue');
+  outline: 0;
 }
 
 .instant-search {
