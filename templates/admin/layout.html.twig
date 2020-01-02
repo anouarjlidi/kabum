@@ -24,6 +24,35 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {{ encore_entry_link_tags('admin') }}
 {% endblock %}
 
+{% macro renderPanelItem(targetRoute, label, iconClasses) %}
+  {% set currentRouteName = app.request.attributes.get('_route') %}
+
+  {% if currentRouteName == targetRoute %}
+    <a class="control-panel-item control-panel-current-item nav-link text-light"
+      href="{{ path(targetRoute) }}" aria-current="page">
+      <div class="d-flex">
+        <div class="align-self-center mr-2">
+          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        </div>
+        <div>
+          {{ label|trans }}
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <a class="control-panel-item nav-link text-light" href="{{ path(targetRoute) }}">
+      <div class="d-flex">
+        <div class="align-self-center mr-2">
+          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        </div>
+        <div>
+          {{ label|trans }}
+        </div>
+      </div>
+    </a>
+  {% endif %}
+{% endmacro %}
+
 {% block body %}
   <div class="d-flex flex-column flex-md-row">
     <div id="sidebar" class="bg-black">
@@ -37,14 +66,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         </button>
       </div>
       <div id="sidebar-content" class="collapse py-3">
-        <a class="nav-link font-weight-bold text-light" href="{{ path('admin_new_product') }}">
-          <i class="fas fa-plus fa-fw mr-1" aria-hidden="true"></i>
-          {{ 'add_new_product'|trans }}
-        </a>
-        <a class="nav-link font-weight-bold text-light" href="{{ path('admin_category_management') }}">
-          <i class="fas fa-tags fa-fw mr-1" aria-hidden="true"></i>
-          {{ 'manage_categories'|trans }}
-        </a>
+        {{ _self.renderPanelItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+        {{ _self.renderPanelItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
       </div>
     </div>
     <div class="d-flex flex-column w-100">

@@ -23,3 +23,12 @@
     flex-direction: column;
   }
 }
+
+.control-panel-item:hover, .control-panel-item:focus {
+  background-color: theme-color('black-light');
+  outline: 0;
+}
+
+.control-panel-current-item {
+  box-shadow: -2px 0 0 0 theme-color('kabum-orange');
+}
