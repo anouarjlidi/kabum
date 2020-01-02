@@ -77,7 +77,7 @@
      * on the sidebar. This nav element will display a scroll bar if it overflows,
      * and this ensures it's rendered correctly.
      */
-    max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 300px);
     overflow-y: auto;
   }
 }
