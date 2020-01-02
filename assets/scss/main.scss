@@ -137,15 +137,23 @@
   height: 100%;
   min-width: 0;
   border: none;
-  box-shadow: 0px 2px 0px 0px theme-color('kabum-dark-blue');
+  box-shadow: 0 2px 0 0 theme-color('kabum-dark-blue');
 }
 
 .search-input:focus {
-  box-shadow: 0px 3px 0px 0px theme-color('kabum-orange');
+  box-shadow: 0 3px 0 0 theme-color('kabum-orange');
 }
 
 .instant-search-cursor {
-  box-shadow: 0px 0px 0px 2px theme-color('kabum-orange');
+  box-shadow: 0 0 0 2px theme-color('kabum-orange');
+
+  /*
+   * A higher z-index makes sure the box shadow is properly shown when there
+   * are adjacent elements that would otherwise overlap the effect. Relative
+   * positioning is necessary for z-index to work.
+   */
+  position: relative;
+  z-index: 100;
 }
 
 .hidden {
