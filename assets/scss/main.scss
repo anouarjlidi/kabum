@@ -4,15 +4,6 @@
   font-size: 1.5rem;
 }
 
-.navbar-toggler {
-  color: theme-color('kabum-orange');
-}
-
-.navbar-toggler:hover, .navbar-toggler:focus {
-  color: theme-color('kabum-dark-blue');
-  outline: 0;
-}
-
 #header-brand {
   width: 180px;
   transition: transform .15s;
@@ -147,10 +138,6 @@
   min-height: 300px;
 }
 
-.feed-nothing-else-screen {
-  display: none;
-}
-
 .feed-label {
   display: none;
 }
@@ -160,11 +147,12 @@
   outline: 0;
 }
 
-.feed-load-more {
+.kabum-button {
   color: theme-color('kabum-light-blue');
   transition: color 0.3s;
 }
 
-.feed-load-more:hover {
+.kabum-button:hover, .kabum-button:focus {
   color: theme-color('kabum-orange');
+  outline: 0;
 }

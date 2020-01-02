@@ -92,14 +92,7 @@ export default class Feed {
         } else if (metadata.data('numberOfResults') === undefined) {
           this.status.showNothingHereScreen();
         } else {
-          this.status.showNothingElseScreen();
-
-          /*
-           * Item count is decremented to account for the absence of the
-           * feed control item under this condition.
-           */
-          this.itemCount--;
-
+          this.status.buttonNothingElse(this.feedControl);
           this.setItemCount();
         }
 
@@ -150,14 +143,7 @@ export default class Feed {
 
           // Check pagination metadata and prepare the feed for the next strategy
           if (this.page > metadata.data('lastPage')) {
-            this.status.showNothingElseScreen();
-
-            /*
-             * Item count is decremented to account for the absence of the
-             * feed control item under this condition.
-             */
-            this.itemCount--;
-
+            this.status.buttonNothingElse(this.feedControl);
             this.setItemCount();
           } else {
             this.status.buttonReady(this.feedControl);
@@ -294,6 +280,11 @@ export default class Feed {
       $(this).removeClass('feed-new-item');
     });
 
+    /*
+     * The feedControl element is removed and reinserted after every request.
+     * In order to have an accurate item count, we have to decrement it here;
+     * otherwise there will be a gap in the item position sequence.
+     */
     this.itemCount--;
   }
 

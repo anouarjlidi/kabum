@@ -230,10 +230,6 @@
         <source>no_products_in_category</source>
         <target>Não existem produtos nesta categoria.</target>
       </trans-unit>
-      <trans-unit id="no_more_products">
-        <source>no_more_products</source>
-        <target>Não há mais produtos.</target>
-      </trans-unit>
       <trans-unit id="search_for">
         <source>search_for</source>
         <target>Busca por</target>
@@ -265,6 +261,10 @@
       <trans-unit id="departments">
         <source>departments</source>
         <target>Departamentos</target>
+      </trans-unit>
+      <trans-unit id="this_is_all">
+        <source>this_is_all</source>
+        <target>Isso é tudo o que temos</target>
       </trans-unit>
     </body>
   </file>
