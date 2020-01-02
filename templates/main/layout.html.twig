@@ -93,7 +93,18 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <div class="bg-light rounded p-2">
           <p class="lead text-kabum-orange mb-2">{{ 'departments'|trans }}</p>
           <nav class="nav flex-column flex-nowrap">
-            {{ render(controller('App\\Controller\\MainController::categoryList')) }}
+            {# This is used to set the current page indicator on items of the
+            departments list. If defined, it will retrieve the category slug
+            from the current request. If it's not, an empty string is passed
+            to the controller instead, which effectively prevents the indicator
+            from being set. #}
+            {% if app.request.attributes.get('_route_params').category_slug is defined %}
+              {% set slug = app.request.attributes.get('_route_params').category_slug %}
+            {% else %}
+              {% set slug = '' %}
+            {% endif %}
+
+            {{ render(controller('App\\Controller\\MainController::categoryList', {currentPageSlug: slug})) }}
           </nav>
         </div>
       </div>

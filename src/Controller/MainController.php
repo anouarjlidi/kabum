@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProductRepository;
 use App\Entity\Product;
@@ -70,7 +71,8 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/categoria/{slug}", name="category_page")
+     * @Route("/categoria/{category_slug}", name="category_page")
+     * @ParamConverter("category", options={"mapping": {"category_slug": "slug"}})
      */
     public function categoryPage(Request $request, Category $category, PaginatorInterface $paginator): Response
     {
@@ -94,15 +96,17 @@ class MainController extends AbstractController
      * This controller is meant to be embedded on templates.
      *
      * @param CategoryRepository $repository
+     * @param string $currentPageSlug The category slug retrieved from the current request
      *
      * @return Response
      */
-    public function categoryList(CategoryRepository $repository): Response
+    public function categoryList(CategoryRepository $repository, string $currentPageSlug): Response
     {
         $categories = $repository->findAll();
 
         return $this->render('main/_categories.html.twig', [
             'categories' => $categories,
+            'currentPageSlug' => $currentPageSlug,
         ]);
     }
 

@@ -90,11 +90,15 @@
   }
 }
 
+.current {
+  font-weight: bold !important;
+}
+
 .category {
   padding: 5px;
   text-decoration: none !important;
   color: theme-color('secondary');
-  font-weight: light;
+  font-weight: lighter;
 }
 
 .category:hover {
