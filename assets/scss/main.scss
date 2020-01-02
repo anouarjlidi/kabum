@@ -1,43 +1,7 @@
 @import "base/environment";
 
-.sign-in-icon {
-  @extend %fa-icon;
-  @extend .fas;
-
-  &:before {
-    content: fa-content($fa-var-sign-in-alt);
-    font-size: 1.5rem;
-  }
-}
-
-.user-icon {
-  @extend %fa-icon;
-  @extend .fas;
-
-  &:before {
-    content: fa-content($fa-var-user);
-    font-size: 1.5rem;
-  }
-}
-
-.shopping-cart-icon {
-  @extend %fa-icon;
-  @extend .fas;
-
-  &:before {
-    content: fa-content($fa-var-shopping-cart);
-    font-size: 1.5rem;
-  }
-}
-
-.wishlist-icon {
-  @extend %fa-icon;
-  @extend .fas;
-
-  &:before {
-    content: fa-content($fa-var-bookmark);
-    font-size: 1.5rem;
-  }
+.action-button {
+  font-size: 1.5rem;
 }
 
 #header-brand {
@@ -49,7 +13,7 @@
 }
 
 #header-brand:hover {
-  transform: scale(1.1);
+  transform: scale(1.05) rotate(-5deg);
 }
 
 #sidebar {
@@ -142,10 +106,11 @@
   min-width: 0;
   border: none;
   box-shadow: 0 2px 0 0 theme-color('kabum-dark-blue');
+  transition: box-shadow 0.3s;
 }
 
 .search-input:focus {
-  box-shadow: 0 3px 0 0 theme-color('kabum-orange');
+  box-shadow: 0 2px 0 0 theme-color('kabum-orange');
 }
 
 .instant-search-cursor {
@@ -179,4 +144,18 @@
 
 .feed-label {
   display: none;
+}
+
+.feed-item:focus {
+  box-shadow: 0 0 0 1px theme-color('kabum-orange');
+  outline: 0;
+}
+
+.feed-load-more {
+  color: theme-color('kabum-light-blue');
+  transition: color 0.3s;
+}
+
+.feed-load-more:hover {
+  color: theme-color('kabum-orange');
 }

@@ -212,7 +212,7 @@ export default class Feed {
 
           if (itemPosition > 1) {
             itemPosition--;
-            $('[aria-posinset="' + itemPosition + '"]').focus();
+            this.moveFocus(itemPosition);
           }
 
           break;
@@ -221,7 +221,7 @@ export default class Feed {
 
           if (itemPosition < this.itemCount) {
             itemPosition++;
-            $('[aria-posinset="' + itemPosition + '"]').focus();
+            this.moveFocus(itemPosition);
           }
 
           break;
@@ -230,7 +230,8 @@ export default class Feed {
             event.preventDefault();
 
             if (itemPosition !== this.itemCount) {
-              $('[aria-posinset="' + this.itemCount + '"]').focus();
+              itemPosition = this.itemCount;
+              this.moveFocus(itemPosition);
             }
           }
 
@@ -240,13 +241,18 @@ export default class Feed {
             event.preventDefault();
 
             if (itemPosition !== 1) {
-              $('[aria-posinset="1"]').focus();
+              itemPosition = 1;
+              this.moveFocus(itemPosition);
             }
           }
 
           break;
       }
     });
+  }
+
+  moveFocus(targetPosition) {
+    $('[aria-posinset="' + targetPosition + '"]').focus();
   }
 
   /**

@@ -18,9 +18,15 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
 {% for category in categories %}
-  <a class="category {% if currentPageSlug == category.slug %}current{% endif %}"
-    href="{{ path('category_page', {category_slug: category.slug}) }}"
-    {% if currentPageSlug == category.slug %}aria-current="page"{% endif %}>
-    {{ category.name }}
-  </a>
+  {% if currentPageSlug == category.slug %}
+    <a class="category current" href="{{ path('category_page', {category_slug: category.slug}) }}"
+      aria-current="page">
+      <i class="fas fa-caret-right fa-xs fa-fw" aria-hidden="true"></i>
+      {{ category.name }}
+    </a>
+  {% else %}
+    <a class="category" href="{{ path('category_page', {category_slug: category.slug}) }}">
+      {{ category.name }}
+    </a>
+  {% endif %}
 {% endfor %}

@@ -39,17 +39,17 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <div class="py-2">
           <div class="d-flex justify-content-center">
             <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="{{ 'shopping_cart'|trans }}">
-              <i class="shopping-cart-icon" aria-hidden="true"></i>
+              <i class="fas fa-shopping-cart action-button" aria-hidden="true"></i>
             </a>
             {% if app.user %}
               <a class="nav-link text-kabum-orange" role="button" href="#" aria-label="{{ 'wishlist'|trans }}">
-                <i class="wishlist-icon" aria-hidden="true"></i>
+                <i class="fas fa-bookmark action-button" aria-hidden="true"></i>
               </a>
             {% endif %}
             {% if app.user %}
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle text-kabum-orange" href="#" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{{ 'user_menu'|trans }}">
-                  <i class="user-icon" aria-hidden="true"></i>
+                  <i class="fas fa-user action-button" aria-hidden="true"></i>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
@@ -63,7 +63,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
               </div>
             {% else %}
               <a class="nav-link text-kabum-orange" href="{{ path('app_login') }}" aria-label="{{ 'sign_in_kabum_account'|trans }}">
-                <i class="sign-in-icon" aria-hidden="true"></i>
+                <i class="fas fa-sign-in-alt action-button" aria-hidden="true"></i>
               </a>
             {% endif %}
           </div>

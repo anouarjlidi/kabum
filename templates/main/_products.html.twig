@@ -26,7 +26,7 @@ it can be focused when a new batch of items is loaded onto the page. #}
 {% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
 
 {% for product in pagination %}
-  <article class="col feed-new-item p-4 {% if firstItem == true %}focus-me{% endif %}"
+<article class="col feed-item feed-new-item p-4 {% if firstItem == true %}focus-me{% endif %}"
     tabindex="-1" data-number-of-results="{{ pagination.getTotalItemCount }}"
     data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}"
     aria-labelledby="{{ product.id ~ '_label' }}">
@@ -49,9 +49,9 @@ it can be focused when a new batch of items is loaded onto the page. #}
   {% set firstItem = false %}
 {% endfor %}
 
-<article class="feed-control feed-new-item col p-4" tabindex="-1">
+<article class="feed-control feed-item feed-new-item col p-4" tabindex="-1">
   <div class="d-flex flex-column h-100 justify-content-center align-items-center">
-    <button class="feed-load-more text-kabum-light-blue bg-transparent border-0 p-0 w-100 h-100"
+    <button class="feed-load-more bg-transparent border-0 p-0 w-100 h-100"
       role="button">
       <div class="feed-loading-label feed-label">
         <div class="d-flex flex-column align-items-center">
@@ -62,8 +62,8 @@ it can be focused when a new batch of items is loaded onto the page. #}
       </div>
       <div class="feed-ready-label feed-label">
         <div class="d-flex flex-column">
-          <i class="fas fa-plus fa-4x text-center mb-4" aria-hidden="true"></i>
-          <span class="text-center">{{ 'see_more'|trans }}</span>
+          <i class="fas fa-boxes fa-4x text-center mb-4" aria-hidden="true"></i>
+          <span class="text-center lead">{{ 'see_more_products'|trans }}</span>
         </div>
       </div>
       <div class="feed-error-label feed-label">
