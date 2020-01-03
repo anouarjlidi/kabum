@@ -111,6 +111,7 @@
 
 .search-input:focus {
   box-shadow: 0 2px 0 0 theme-color('kabum-orange');
+  outline: 0;
 }
 
 .instant-search-cursor {
