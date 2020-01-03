@@ -87,12 +87,12 @@ export default class Feed {
 
         // Check pagination metadata and prepare the feed for the next strategy
         if (metadata.data('numberOfResults') > metadata.data('pageSize')) {
-          this.status.buttonReady(this.feedControl);
+          this.status.feedControlReady(this.feedControl);
           this.setItemCount();
         } else if (metadata.data('numberOfResults') === undefined) {
           this.status.showNothingHereScreen();
         } else {
-          this.status.buttonNothingElse(this.feedControl);
+          this.status.feedControlNothingElse(this.feedControl);
           this.setItemCount();
         }
 
@@ -118,7 +118,7 @@ export default class Feed {
 
     this.feedData.on('click', '.feed-button', () => {
       this.status.loading();
-      this.status.buttonLoading(this.feedControl);
+      this.status.feedControlLoading(this.feedControl);
       this.status.errorCheck();
 
       var request = this.loadPage();
@@ -143,10 +143,10 @@ export default class Feed {
 
           // Check pagination metadata and prepare the feed for the next strategy
           if (this.page > metadata.data('lastPage')) {
-            this.status.buttonNothingElse(this.feedControl);
+            this.status.feedControlNothingElse(this.feedControl);
             this.setItemCount();
           } else {
-            this.status.buttonReady(this.feedControl);
+            this.status.feedControlReady(this.feedControl);
             this.setItemCount();
           }
 
@@ -159,7 +159,7 @@ export default class Feed {
           this.status.ready();
         })
         .fail(() => {
-          this.status.buttonError(this.feedControl);
+          this.status.feedControlError(this.feedControl);
           this.status.error();
         });
     });

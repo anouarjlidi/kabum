@@ -106,62 +106,58 @@ export default class FeedStatus {
   }
 
   /**
-   * Button used to indicate that the feed is ready.
+   * Set the feed control label to the ready state.
    */
-  buttonReady(feedControl) {
-    var button = feedControl.children('.feed-button-ready');
+  feedControlReady(feedControl) {
+    var button = feedControl.children('.feed-control-label-ready');
     var label = button.data('label');
 
     button.show();
-    button.siblings('.feed-button').hide();
+    button.siblings('.feed-control-label').hide();
 
     feedControl.attr('aria-labelledby', label);
-    button.prop('disabled', false);
     feedControl.show();
   }
 
   /**
-   * Button used to indicate that the feed is busy.
+   * Set the feed control label to the loading state.
    */
-  buttonLoading(feedControl) {
-    var button = feedControl.children('.feed-button-loading');
+  feedControlLoading(feedControl) {
+    var button = feedControl.children('.feed-control-label-loading');
     var label = button.data('label');
 
     button.show();
-    button.siblings('.feed-button').hide();
+    button.siblings('.feed-control-label').hide();
 
     feedControl.attr('aria-labelledby', label);
-    button.prop('disabled', true);
     feedControl.show();
   }
 
   /**
-   * Button used to indicate that an error has occurred.
+   * Set the feed control label to the error state.
    */
-  buttonError(feedControl) {
-    var button = feedControl.children('.feed-button-error');
+  feedControlError(feedControl) {
+    var button = feedControl.children('.feed-control-label-error');
     var label = button.data('label');
 
     button.show();
-    button.siblings('.feed-button').hide();
+    button.siblings('.feed-control-label').hide();
 
     feedControl.attr('aria-labelledby', label);
-    button.prop('disabled', false);
     feedControl.show();
   }
 
   /**
-   * Button used to indicate that there is nothing else to show.
+   * Set the feed control label to the nothing else state.
    */
-  buttonNothingElse(feedControl) {
-    var button = feedControl.children('.feed-button-nothing-else');
+  feedControlNothingElse(feedControl) {
+    var button = feedControl.children('.feed-control-label-nothing-else');
     var label = button.data('label');
 
     button.show();
-    button.siblings('.feed-button').hide();
+    button.siblings('.feed-control-label').hide();
 
     feedControl.attr('aria-labelledby', label);
-    button.prop('disabled', true);
     feedControl.show();
   }
 
