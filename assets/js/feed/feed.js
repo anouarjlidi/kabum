@@ -116,10 +116,10 @@ export default class Feed {
     // Page 2 will be next
     this.page++;
 
-    this.feedData.on('click', '.feed-load-more', () => {
+    this.feedData.on('click', '.feed-button', () => {
       this.status.loading();
       this.status.buttonLoading(this.feedControl);
-      this.status.errorCheck(this.feedControl);
+      this.status.errorCheck();
 
       var request = this.loadPage();
 

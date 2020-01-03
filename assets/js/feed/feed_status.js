@@ -106,65 +106,61 @@ export default class FeedStatus {
   }
 
   /**
-   * Button label used to indicate that the feed is ready.
+   * Button used to indicate that the feed is ready.
    */
   buttonReady(feedControl) {
-    var button = feedControl.find('.feed-load-more');
+    var button = feedControl.children('.feed-button-ready');
+    var label = button.data('label');
 
-    button.children('.feed-ready-label').removeClass('hidden');
-    button.children('.feed-loading-label').hide();
-    button.children('.feed-error-label').hide();
-    button.children('.feed-nothing-else-label').hide();
+    button.show();
+    button.siblings('.feed-button').hide();
 
-    feedControl.attr('aria-labelledby', 'feed-ready-label');
+    feedControl.attr('aria-labelledby', label);
     button.prop('disabled', false);
     feedControl.show();
   }
 
   /**
-   * Button label used to indicate that the feed is busy.
+   * Button used to indicate that the feed is busy.
    */
   buttonLoading(feedControl) {
-    var button = feedControl.find('.feed-load-more');
+    var button = feedControl.children('.feed-button-loading');
+    var label = button.data('label');
 
-    button.children('.feed-loading-label').show();
-    button.children('.feed-ready-label').addClass('hidden');
-    button.children('.feed-error-label').hide();
-    button.children('.feed-nothing-else-label').hide();
+    button.show();
+    button.siblings('.feed-button').hide();
 
-    feedControl.attr('aria-labelledby', 'feed-loading-label');
+    feedControl.attr('aria-labelledby', label);
     button.prop('disabled', true);
     feedControl.show();
   }
 
   /**
-   * Button label used to indicate that an error has occurred.
+   * Button used to indicate that an error has occurred.
    */
   buttonError(feedControl) {
-    var button = feedControl.find('.feed-load-more');
+    var button = feedControl.children('.feed-button-error');
+    var label = button.data('label');
 
-    button.children('.feed-error-label').show();
-    button.children('.feed-loading-label').hide();
-    button.children('.feed-ready-label').addClass('hidden');
-    button.children('.feed-nothing-else-label').hide();
+    button.show();
+    button.siblings('.feed-button').hide();
 
-    feedControl.attr('aria-labelledby', 'feed-error-label');
+    feedControl.attr('aria-labelledby', label);
     button.prop('disabled', false);
     feedControl.show();
   }
 
   /**
-   * Button label used to indicate that there is nothing else to load.
+   * Button used to indicate that there is nothing else to show.
    */
   buttonNothingElse(feedControl) {
-    var button = feedControl.find('.feed-load-more');
+    var button = feedControl.children('.feed-button-nothing-else');
+    var label = button.data('label');
 
-    button.children('.feed-nothing-else-label').show();
-    button.children('.feed-error-label').hide();
-    button.children('.feed-loading-label').hide();
-    button.children('.feed-ready-label').addClass('hidden');
+    button.show();
+    button.siblings('.feed-button').hide();
 
-    feedControl.attr('aria-labelledby', 'feed-nothing-else-label');
+    feedControl.attr('aria-labelledby', label);
     button.prop('disabled', true);
     feedControl.show();
   }
@@ -172,10 +168,8 @@ export default class FeedStatus {
   /**
    * Removes obsolete error alerts.
    */
-  errorCheck(feedControl) {
+  errorCheck() {
     if (this.alert) {
-      let button = feedControl.find('.feed-load-more');
-
       this.alert.remove();
     }
   }

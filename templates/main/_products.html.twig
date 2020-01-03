@@ -50,38 +50,52 @@ it can be focused when a new batch of items is loaded onto the page. #}
 {% endfor %}
 
 <article class="feed-control feed-item feed-new-item col p-4" tabindex="-1">
-  <div class="d-flex flex-column h-100 justify-content-center align-items-center">
-    <button class="feed-load-more bg-transparent border-0 p-0 w-100 h-100"
-      role="button">
-      <div class="feed-loading-label feed-label">
-        <div class="d-flex flex-column align-items-center">
-          <div class="spinner-grow text-kabum-orange">
-            <span class="sr-only">{{ 'loading'|trans }}</span>
-          </div>
-        </div>
+  <button class="feed-button feed-button-ready kabum-button bg-transparent border-0 p-0 w-100 h-100"
+    role="button" data-label="fb-ready">
+    <div class="d-flex flex-column">
+      <div>
+        <i class="fas fa-boxes fa-4x mb-4" aria-hidden="true"></i>
       </div>
-      <div class="feed-ready-label hidden d-flex flex-column justify-content-center kabum-button w-100 h-100">
-        <div>
-          <div>
-            <i class="fas fa-boxes fa-4x text-center mb-4" aria-hidden="true"></i>
-          </div>
-          <div>
-            <span class="lead text-center">{{ 'see_more_products'|trans }}</span>
-          </div>
-        </div>
+      <div>
+        <span id="fb-ready" class="lead">{{ 'see_more_products'|trans }}</span>
       </div>
-      <div class="feed-error-label feed-label">
-        <div class="d-flex flex-column">
-          <i class="fas fa-exclamation-triangle fa-4x text-strawberry text-center mb-4" aria-hidden="true"></i>
-          <span class="lead text-center text-strawberry">{{ 'something_wrong_click_try_again'|trans }}</span>
-        </div>
+    </div>
+  </button>
+
+  <button class="feed-button feed-button-loading bg-transparent border-0 p-0 w-100 h-100"
+    role="button" data-label="fb-loading">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-grow text-kabum-orange">
+        <span id="fb-loading" class="sr-only">{{ 'loading'|trans }}</span>
       </div>
-      <div class="feed-nothing-else-label feed-label">
-        <div class="d-flex flex-column">
-          <i class="fas fa-box-open text-silver fa-4x text-center mb-4" aria-hidden="true"></i>
-          <span class="lead text-center text-secondary">{{ 'this_is_all'|trans }}</span>
-        </div>
+    </div>
+  </button>
+
+  <button class="feed-button feed-button-error kabum-error-button bg-transparent border-0 p-0 w-100 h-100"
+    role="button" data-label="fb-error">
+    <div class="d-flex flex-column">
+      <div>
+        <i class="fas fa-exclamation-triangle fa-4x mb-4" aria-hidden="true"></i>
       </div>
-    </button>
-  </div>
+      <div>
+        <span id="fb-error" class="lead">
+          {{ 'something_wrong_click_try_again'|trans }}
+        </span>
+      </div>
+    </div>
+  </button>
+
+  <button class="feed-button feed-button-nothing-else bg-transparent border-0 p-0 w-100 h-100"
+    role="button" data-label="fb-nothing-else">
+    <div class="d-flex flex-column">
+      <div>
+        <i class="fas fa-box-open fa-4x text-silver mb-4" aria-hidden="true"></i>
+      </div>
+      <div>
+        <span id="fb-nothing-else" class="lead text-secondary">
+          {{ 'this_is_all'|trans }}
+        </span>
+      </div>
+    </div>
+  </button>
 </article>

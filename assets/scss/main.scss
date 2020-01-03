@@ -156,3 +156,13 @@
   color: theme-color('kabum-orange');
   outline: 0;
 }
+
+.kabum-error-button {
+  color: theme-color('strawberry');
+  transition: color 0.3s;
+}
+
+.kabum-error-button:hover, .kabum-error-button:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
