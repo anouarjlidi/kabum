@@ -55,7 +55,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block body %}
   <div class="d-flex flex-column flex-md-row">
-    <div class="sticky-sidebar bg-black">
+    <header class="sticky-sidebar bg-black">
+      <div class="skip-to-content">
+        <a class="skip-to-content-anchor" href="#main-content">{{ 'skip_to_main'|trans }}</a>
+      </div>
       <div class="d-flex justify-content-between">
         <a class="control-panel-item flex-md-grow-1" href="{{ path('main_page') }}">
           <i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i>
@@ -71,10 +74,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         {{ _self.renderPanelItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
         {{ _self.renderPanelItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
       </div>
-    </div>
-    <div class="d-flex flex-column w-100">
+    </header>
+    <main id="main-content" class="d-flex flex-column w-100">
       {% block main %}{% endblock %}
-    </div>
+    </main>
   </div>
 {% endblock %}
 

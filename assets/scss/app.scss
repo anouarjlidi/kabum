@@ -70,3 +70,25 @@
   right: 0;
   z-index: 1000;
 }
+
+.skip-to-content .skip-to-content-anchor {
+  position: absolute;
+  top: -5rem;
+  left: 0;
+  transition: top 1s ease-out;
+  color: theme-color('light');
+  background-color: theme-color('kabum-orange');
+  padding: 0.8rem;
+  border-bottom-right-radius: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.skip-to-content .skip-to-content-anchor:focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: 0;
+  transition: top .1s ease-in;
+}

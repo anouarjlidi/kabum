@@ -256,7 +256,7 @@
       </trans-unit>
       <trans-unit id="feed_help">
         <source>feed_help</source>
-        <target>Navegue pelos produtos usando as teclas PAGE UP e PAGE DOWN. Para ir ao primeiro item, segure CONTROL e aperte a tecla END. Para ir ao último item, segure CONTROL e aperte a tecla HOME.</target>
+        <target>Nesta seção você pode navegar pelos produtos usando as teclas PAGE UP e PAGE DOWN. Para ir ao primeiro item, segure CONTROL e aperte a tecla END. Para ir ao último item, segure CONTROL e aperte a tecla HOME.</target>
       </trans-unit>
       <trans-unit id="departments">
         <source>departments</source>
@@ -265,6 +265,14 @@
       <trans-unit id="this_is_all">
         <source>this_is_all</source>
         <target>Isso é tudo o que temos</target>
+      </trans-unit>
+      <trans-unit id="featured_products">
+        <source>featured_products</source>
+        <target>Produtos em destaque</target>
+      </trans-unit>
+      <trans-unit id="skip_to_main">
+        <source>skip_to_main</source>
+        <target>Ir ao conteúdo principal</target>
       </trans-unit>
     </body>
   </file>

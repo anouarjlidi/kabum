@@ -23,6 +23,9 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block main %}
   <section class="container-fluid">
+    <h3 class="font-weight-light text-kabum-dark-blue m-3">
+      {{ 'featured_products'|trans }}
+    </h3>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
       {% for product in products %}
         <div class="col p-4">
