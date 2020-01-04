@@ -102,7 +102,7 @@
   width: 100%;
   padding: 1rem;
   margin: .3rem 0 0;
-  border: .06rem solid rgba(0, 0, 0, .1);
+  border: .0625rem solid rgba(0, 0, 0, .1);
   border-radius: .2rem;
   background-color: white;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .175);
@@ -160,6 +160,6 @@
 }
 
 .feed-item:focus {
-  box-shadow: 0 0 0 .06rem theme-color('kabum-orange');
+  box-shadow: 0 0 0 .0625rem theme-color('kabum-orange');
   outline: 0;
 }
