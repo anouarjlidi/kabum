@@ -13,10 +13,10 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
 
 @import "base/fontawesome";
 
-form {
+.form {
   width: 100%;
   max-width: 20.6rem;
-  padding: 16px;
+  padding: 1rem;
   margin: auto;
 }
 
@@ -26,7 +26,7 @@ form {
 
   // Enlarges the input box
   height: auto;
-  padding: 10px;
+  padding: .625rem;
 }
 
 .login-form .form-control:focus {
@@ -36,7 +36,7 @@ form {
 
 #inputUsername {
   // Merge the two input boxes' margins
-  margin-bottom: -1px;
+  margin-bottom: -.0625rem;
 
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -45,4 +45,8 @@ form {
 #inputPassword {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+}
+
+.logotype {
+  width: 12.5rem;
 }

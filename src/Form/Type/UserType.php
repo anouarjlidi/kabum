@@ -37,13 +37,6 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => 'username',
-                'help' => 'username_allowed_characters',
-                'attr' => [
-                    'autofocus' => true,
-                ],
-            ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $user = $event->getData();
                 $form = $event->getForm();
@@ -56,6 +49,13 @@ class UserType extends AbstractType
                 if (!$user || null === $user->getId()) {
                     // Creating a new user
                     $form
+                        ->add('username', TextType::class, [
+                            'label' => 'username',
+                            'help' => 'username_allowed_characters',
+                            'attr' => [
+                                'autofocus' => 'autofocus',
+                            ],
+                        ])
                         ->add('agreeTerms', CheckboxType::class, [
                             'label' => 'agree_terms',
                             'label_attr' => [
@@ -77,6 +77,10 @@ class UserType extends AbstractType
                 } else {
                     // Editing an existing user
                     $form
+                        ->add('username', TextType::class, [
+                            'label' => 'username',
+                            'help' => 'username_allowed_characters',
+                        ])
                         ->add('currentPassword', PasswordType::class, [
                             'label' => 'current_password',
                             'required' => $options['requiredPassword'],

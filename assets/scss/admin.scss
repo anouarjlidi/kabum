@@ -1,43 +1,45 @@
 @import "base/environment";
 
-.navbar-toggler {
-  color: theme-color('light');
-}
-
-.navbar-toggler:hover, .navbar-toggler:focus {
-  color: theme-color('kabum-orange');
-  outline: 0;
-}
-
-#sidebar {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
+.sticky-sidebar {
+  z-index: 1000;
   @include media-breakpoint-up(md) {
     position: sticky;
     top: 0;
     height: 100vh;
-    padding: 16px;
-    min-width: 250px;
+    min-width: 15.6rem;
   }
   @include media-breakpoint-up(xl) {
-    min-width: 300px;
+    min-width: 18.7rem;
   }
 }
 
-#sidebar-content {
+.sticky-sidebar-collapsible {
   @include media-breakpoint-up(md) {
-    // Ensures #sidebar-content is always displayed on larger viewport sizes
-    display: flex;
-    flex-direction: column;
+    // Ensures .sticky-sidebar-collapsible is always displayed on larger viewport sizes
+    display: block !important;
   }
+}
+
+.control-panel-item {
+  display: block;
+  color: theme-color('light');
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .control-panel-item:hover, .control-panel-item:focus {
-  background-color: theme-color('black-light');
+  color: theme-color('light');
+  text-decoration: none;
+  background-color: theme-color-level('black', -1);
   outline: 0;
 }
 
 .control-panel-current-item {
-  box-shadow: -2px 0 0 0 theme-color('kabum-orange');
+  border-left: .125rem solid theme-color('kabum-orange');
+}
+
+.current-image-preview {
+  width: 12.5rem;
 }

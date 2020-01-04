@@ -37,10 +37,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     {% endif %}
 
-    <form method="post">
+    <form method="post" class="form">
       <div class="text-center mb-4">
         <a href="{{ path('main_page') }}">
-          <img src="{{ asset('images/kabum.png') }}" alt="{{ 'logotype'|trans }}" width="200"/>
+          <img src="{{ asset('images/kabum.png') }}" class="logotype" alt="{{ 'logotype'|trans }}"/>
         </a>
       </div>
       <p class="lead text-center text-kabum-dark-blue">
@@ -49,9 +49,12 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
       <div class="form-group">
         <label for="inputUsername" class="sr-only">{{ 'username'|trans }}</label>
-        <input type="text" value="{{ last_username }}" name="username" placeholder="{{ 'username'|trans }}" id="inputUsername" class="form-control" required="required" autofocus="autofocus">
+        <input id="inputUsername" type="text" value="{{ last_username }}" name="username"
+          placeholder="{{ 'username'|trans }}" class="form-control"
+          required="required" autofocus="autofocus">
         <label for="inputPassword" class="sr-only">{{ 'password'|trans }}</label>
-        <input type="password" name="password" placeholder="{{ 'password'|trans }}" id="inputPassword" class="form-control" required="required">
+        <input id="inputPassword" type="password" name="password" placeholder="{{ 'password'|trans }}"
+          class="form-control" required="required">
       </div>
 
       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>

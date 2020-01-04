@@ -1,3 +1,60 @@
+@import "base/colors";
+@import "base/bootstrap-required";
+
+.kabum-collapse-dark-button {
+  color: theme-color('light');
+  transition: color .3s;
+  background-color: transparent;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border: 0;
+}
+
+.kabum-collapse-dark-button:hover, .kabum-collapse-dark-button:focus {
+  color: theme-color-level('light', 4);
+  outline: 0;
+}
+
+.kabum-collapse-button {
+  color: theme-color('kabum-light-blue');
+  transition: color .3s;
+  background-color: transparent;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border: 0;
+}
+
+.kabum-collapse-button:hover, .kabum-collapse-button:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
+
+.kabum-button {
+  color: theme-color('kabum-light-blue');
+  transition: color .3s;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+}
+
+.kabum-button:hover, .kabum-button:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
+
+.kabum-error-button {
+  color: theme-color('strawberry');
+  transition: color .3s;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+}
+
+.kabum-error-button:hover, .kabum-error-button:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
+
 /*
  * Removes the default dropdown arrow indicator from
  * <select> input elements.
@@ -9,7 +66,7 @@
 
 #flash {
   position: fixed;
-  top: 16px;
+  top: 1rem;
   right: 0;
   z-index: 1000;
 }

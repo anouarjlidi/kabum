@@ -1,56 +1,72 @@
 @import "base/environment";
 
-.action-button {
+.kabum-action-icon {
   font-size: 1.5rem;
 }
 
-#header-brand {
-  width: 180px;
+.kabum-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  color: theme-color('kabum-orange');
+}
+
+.kabum-action-button:hover {
+  color: theme-color-level('kabum-orange', 2);
+  text-decoration: none;
+}
+
+.kabum-action-button:focus {
+  box-shadow: 0 .125rem 0 0 theme-color('kabum-orange');
+  outline: 0;
+}
+
+.header-logotype {
+  width: 11.2rem;
   transition: transform .15s;
   @include media-breakpoint-down(sm) {
-    width: 150px;
+    width: 6.8rem;
+    transition: none;
   }
 }
 
-#header-brand:hover {
-  transform: scale(1.05) rotate(-5deg);
+.header-logotype:hover {
+  transform: scale(1.1);
+  @include media-breakpoint-down(sm) {
+    transform: none;
+  }
 }
 
-#sidebar {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  box-shadow: 0 0 10px 3px rgba(0, 0, 0, .11);
+.sticky-sidebar {
+  box-shadow: 0 0 .6rem .2rem rgba(0, 0, 0, .11);
   z-index: 1000;
   @include media-breakpoint-up(md) {
     position: sticky;
     top: 0;
     height: 100vh;
-    padding: 16px;
-    min-width: 250px;
+    min-width: 15.6rem;
   }
   @include media-breakpoint-up(xl) {
-    min-width: 300px;
+    min-width: 18.7rem;
   }
 }
 
-#sidebar .nav {
+.sticky-sidebar-collapsible {
+  @include media-breakpoint-up(md) {
+    // Ensures .sticky-sidebar-collapsible is always displayed on larger viewport sizes
+    display: block !important;
+  }
+}
+
+.sticky-sidebar-scrollable {
   @include media-breakpoint-up(md) {
     /*
-     * The max-height value below compensates for other elements taking up space
-     * on the sidebar. This nav element will display a scroll bar if it overflows,
-     * and this ensures it's rendered correctly.
+     * The number we subtract from the full viewport size is a compensation
+     * for all other elements taking up space on the sidebar.
      */
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 18.5rem);
     overflow-y: auto;
-  }
-}
-
-#sidebar-content {
-  @include media-breakpoint-up(md) {
-    // Ensures #sidebar-content is always displayed on larger viewport sizes
-    display: flex;
-    flex-direction: column;
   }
 }
 
@@ -59,7 +75,7 @@
 }
 
 .category {
-  padding: 5px;
+  padding: .3rem;
   text-decoration: none !important;
   color: theme-color('secondary');
   font-weight: lighter;
@@ -84,12 +100,12 @@
   left: 0;
   top: 100%;
   width: 100%;
-  padding: 16px;
-  margin: 6px 0 0;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 4px;
+  padding: 1rem;
+  margin: .3rem 0 0;
+  border: .06rem solid rgba(0, 0, 0, .1);
+  border-radius: .2rem;
   background-color: white;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.175);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .175);
   z-index: 100;
   @include media-breakpoint-up(md) {
     width: 175%;
@@ -97,7 +113,7 @@
 }
 
 .search-input-wrapper {
-  height: 40px;
+  height: 2.5rem;
 }
 
 .search-input {
@@ -105,17 +121,17 @@
   height: 100%;
   min-width: 0;
   border: none;
-  box-shadow: 0 2px 0 0 theme-color('kabum-dark-blue');
-  transition: box-shadow 0.3s;
+  box-shadow: 0 .125rem 0 0 theme-color('kabum-dark-blue');
+  transition: box-shadow .3s;
 }
 
 .search-input:focus {
-  box-shadow: 0 2px 0 0 theme-color('kabum-orange');
+  box-shadow: 0 .125rem 0 0 theme-color('kabum-orange');
   outline: 0;
 }
 
 .instant-search-cursor {
-  box-shadow: 0 0 0 2px theme-color('kabum-orange');
+  box-shadow: 0 0 0 .125rem theme-color('kabum-orange');
 
   /*
    * A higher z-index makes sure the box shadow is properly shown when there
@@ -132,11 +148,11 @@
 
 .feed-control {
   display: none;
-  min-height: 300px;
+  min-height: 18.7rem;
 }
 
 .feed-screen {
-  min-height: 300px;
+  min-height: 18.7rem;
 }
 
 .feed-control-label {
@@ -144,26 +160,6 @@
 }
 
 .feed-item:focus {
-  box-shadow: 0 0 0 1px theme-color('kabum-orange');
-  outline: 0;
-}
-
-.kabum-button {
-  color: theme-color('kabum-light-blue');
-  transition: color 0.3s;
-}
-
-.kabum-button:hover, .kabum-button:focus {
-  color: theme-color('kabum-orange');
-  outline: 0;
-}
-
-.kabum-error-button {
-  color: theme-color('strawberry');
-  transition: color 0.3s;
-}
-
-.kabum-error-button:hover, .kabum-error-button:focus {
-  color: theme-color('kabum-orange');
+  box-shadow: 0 0 0 .06rem theme-color('kabum-orange');
   outline: 0;
 }
