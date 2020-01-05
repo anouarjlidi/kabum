@@ -71,13 +71,11 @@ export default class Feed {
       return;
     }
 
-    this.status.loading();
+    this.status.busy(true);
     var request = this.loadPage();
 
     request
       .done(data => {
-        this.status.hideLoadingScreen();
-
         // Push loaded items onto the page
         this.feedData.append(data);
 
@@ -96,14 +94,16 @@ export default class Feed {
           this.setItemCount();
         }
 
-        this.status.ready();
         this.setupFeedControl();
         this.setupNavigation();
       })
       .fail(() => {
-        this.status.hideLoadingScreen();
         this.status.showErrorScreen();
-        this.status.error();
+        this.status.errorAlert();
+      })
+      .always(() => {
+        this.status.busy(false);
+        this.status.hideLoadingScreen();
       });
   }
 
@@ -117,9 +117,9 @@ export default class Feed {
     this.page++;
 
     this.feedData.on('click', '.feed-button', () => {
-      this.status.loading();
+      this.status.busy(true);
       this.status.feedControlLoading(this.feedControl);
-      this.status.errorCheck();
+      this.status.errorAlertCleanup();
 
       var request = this.loadPage();
 
@@ -155,12 +155,13 @@ export default class Feed {
            * the first item of the new set of items.
            */
           this.feedData.children('.focus-me').last().focus();
-
-          this.status.ready();
         })
         .fail(() => {
           this.status.feedControlError(this.feedControl);
-          this.status.error();
+          this.status.errorAlert();
+        })
+        .always(() => {
+          this.status.busy(false);
         });
     });
   }

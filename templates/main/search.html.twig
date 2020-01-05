@@ -29,10 +29,6 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </h3>
 
     <div id="feed">
-      {# Status indicators for screen readers #}
-      <span class="feed-request-status sr-only" role="status" data-loading="{{ 'loading'|trans }}"
-        data-ready="{{ 'loading_complete'|trans }}" data-error="{{ 'something_wrong'|trans }}"></span>
-
       <div class="feed-loading-screen feed-screen d-flex justify-content-center align-items-center">
         <div class="spinner-grow text-kabum-light-blue"></div>
       </div>
@@ -54,6 +50,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
 
       <section role="feed" aria-busy="false" aria-label="{{ 'feed_help'|trans }}"
+        data-error="{{ 'something_wrong'|trans }}"
         class="feed-data row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
       </section>
     </div>

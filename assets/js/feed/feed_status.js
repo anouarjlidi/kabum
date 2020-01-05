@@ -28,29 +28,15 @@ export default class FeedStatus {
   constructor(feed, feedData) {
     this.feed = feed;
     this.feedData = feedData;
-
-    /**
-     * The request element sends a status message to screen readers whenever
-     * it changes, because of the 'status' role.
-     *
-     * Messages are pushed into the request, which informs the screen reader
-     * about the change.
-     */
-    this.request = this.feed.children('.feed-request-status');
-
-    this.messages = {
-      ready: this.request.data('ready'),
-      loading: this.request.data('loading'),
-      error: this.request.data('error')
-    };
+    this.errorMessage = this.feedData.data('error');
 
     /**
      * Screens are large placeholder elements commonly used to indicate
      * a busy state, errors and other status information.
      *
      * Screens should not be used after the initial request, when items are
-     * already loaded onto the page. For anything after that, use button labels
-     * instead.
+     * already loaded onto the page. For anything after that, use feed control
+     * labels instead.
      */
     this.screens = {
       loading: this.feed.children('.feed-loading-screen'),
@@ -59,36 +45,27 @@ export default class FeedStatus {
     };
 
     this.alert = $('<span>', {
-      id: 'feed-request-error',
       class: 'sr-only',
       role: 'alert',
-      text: this.messages.error
+      text: this.errorMessage
     });
   }
 
   /**
-   * Inform screen readers that the feed is about to change.
+   * Informs screen readers whether the feed is ready or is busy loading more content.
+   *
+   * This method takes a boolean. True means it is busy, and false means
+   * it is not.
    */
-  loading() {
-    this.request.text(this.messages.loading);
-    this.feedData.attr('aria-busy', true);
-  }
-
-  /**
-   * Inform screen readers that the feed is ready.
-   */
-  ready() {
-    this.request.text(this.messages.ready);
-    this.feedData.attr('aria-busy', false);
+  busy(state) {
+    this.feedData.attr('aria-busy', state);
   }
 
   /**
    * Dispatch an error alert to screen readers.
    */
-  error() {
-    this.request.empty();
-    this.alert.insertAfter(this.request);
-    this.feedData.attr('aria-busy', false);
+  errorAlert() {
+    this.feed.prepend(this.alert);
   }
 
   hideLoadingScreen() {
@@ -164,7 +141,7 @@ export default class FeedStatus {
   /**
    * Removes obsolete error alerts.
    */
-  errorCheck() {
+  errorAlertCleanup() {
     if (this.alert) {
       this.alert.remove();
     }
