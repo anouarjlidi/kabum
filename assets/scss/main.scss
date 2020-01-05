@@ -146,12 +146,12 @@
   display: none !important;
 }
 
-.feed-control {
-  display: none;
+.feed-screen {
   min-height: 18.7rem;
 }
 
-.feed-screen {
+.feed-control {
+  display: none;
   min-height: 18.7rem;
 }
 
@@ -160,6 +160,6 @@
 }
 
 .feed-item:focus {
-  box-shadow: 0 0 0 .0625rem theme-color('kabum-orange');
+  box-shadow: 0 0 0 .0625rem theme-color('silver');
   outline: 0;
 }
