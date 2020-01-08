@@ -95,7 +95,7 @@ export default class CollapsibleToggle {
   }
 
   show() {
-    // Get the collapsible element's width and convert it to rem units
+    // Get the collapsible element's width in pixels and convert it to rem units
     let targetWidth = this.target.width() / 16;
 
     // Restore target element visibility and apply transition
