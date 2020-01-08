@@ -1,43 +1,83 @@
 @import "base/environment";
 
-.sticky-sidebar {
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  height: 3.8rem;
+  box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, .11);
   z-index: 1000;
-  @include media-breakpoint-up(md) {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    min-width: 15.6rem;
-  }
-  @include media-breakpoint-up(xl) {
-    min-width: 18.7rem;
-  }
 }
 
-.sticky-sidebar-collapsible {
-  @include media-breakpoint-up(md) {
-    // Ensures .sticky-sidebar-collapsible is always displayed on larger viewport sizes
-    display: block !important;
+.header-logotype {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.header-logotype-img {
+  width: 6.25rem;
+}
+
+.collapsible:not(.expanded) {
+  display: none;
+}
+
+.transitioning {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+
+.control-panel-menu {
+  position: fixed;
+  top: 3.8rem;
+  height: calc(100vh - 3.8rem);
+  box-shadow: 0 .3rem .4rem .1rem rgba(0, 0, 0, .11);
+}
+
+.control-panel-menu-scrollable {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.control-panel-sidebar {
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+    position: sticky;
+    top: 3.8rem;
+    height: calc(100vh - 3.8rem);
+    min-width: 17rem;
+    overflow-y: auto;
   }
 }
 
 .control-panel-item {
   display: block;
-  color: theme-color('light');
+  color: theme-color-level('black', -3);
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
 }
 
-.control-panel-item:hover, .control-panel-item:focus {
-  color: theme-color('light');
+.control-panel-item:hover {
+  color: theme-color-level('black', -3);
   text-decoration: none;
-  background-color: theme-color-level('black', -1);
+  background-color: theme-color-level('light', 1);
+}
+
+.control-panel-item:focus {
+  background-color: theme-color-level('light', 2);
   outline: 0;
 }
 
 .control-panel-current-item {
-  border-left: .125rem solid theme-color('kabum-orange');
+  box-shadow: inset .1875rem 0 theme-color('kabum-orange');
+  background-color: theme-color-level('light', 0.5);
 }
 
 .current-image-preview {

@@ -12,6 +12,7 @@
 
 .kabum-collapse-dark-button:hover, .kabum-collapse-dark-button:focus {
   color: theme-color-level('light', 4);
+  text-decoration: none;
   outline: 0;
 }
 
@@ -26,6 +27,7 @@
 
 .kabum-collapse-button:hover, .kabum-collapse-button:focus {
   color: theme-color('kabum-orange');
+  text-decoration: none;
   outline: 0;
 }
 
@@ -39,6 +41,7 @@
 
 .kabum-button:hover, .kabum-button:focus {
   color: theme-color('kabum-orange');
+  text-decoration: none;
   outline: 0;
 }
 
@@ -52,6 +55,7 @@
 
 .kabum-error-button:hover, .kabum-error-button:focus {
   color: theme-color('kabum-orange');
+  text-decoration: none;
   outline: 0;
 }
 
@@ -73,7 +77,7 @@
 
 .skip-to-content .skip-to-content-anchor {
   position: absolute;
-  top: -5rem;
+  top: -8rem;
   left: 0;
   transition: top 1s ease-out;
   color: theme-color('light');
@@ -82,7 +86,7 @@
   border-bottom-right-radius: 1rem;
   text-decoration: none;
   font-weight: bold;
-  z-index: 100;
+  z-index: 2000;
 }
 
 .skip-to-content .skip-to-content-anchor:focus {

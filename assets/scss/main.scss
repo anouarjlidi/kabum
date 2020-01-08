@@ -77,8 +77,7 @@
 .category {
   padding: .3rem;
   text-decoration: none !important;
-  color: theme-color('secondary');
-  font-weight: lighter;
+  color: theme-color-level('black', -3);
 }
 
 .category:hover {

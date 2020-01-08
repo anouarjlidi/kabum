@@ -27,9 +27,6 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block body %}
   <div class="d-flex flex-column flex-md-row">
     <header class="sticky-sidebar">
-      <div class="skip-to-content">
-        <a class="skip-to-content-anchor" href="#main-content">{{ 'skip_to_main'|trans }}</a>
-      </div>
       <div class="d-flex justify-content-md-center justify-content-between p-2">
         <a href="{{ path('main_page') }}" aria-label="{{ 'go_home_page'|trans }}">
           <img src="{{ asset('images/kabum.png') }}" class="header-logotype" alt="{{ 'logotype'|trans }}">

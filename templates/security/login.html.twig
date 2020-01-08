@@ -26,6 +26,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {{ encore_entry_link_tags('login') }}
 {% endblock %}
 
+{% block skipToContent %}{% endblock %}
+
 {% block body %}
   <section class="d-flex login-form vh-100">
     {% if error %}
@@ -51,7 +53,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <label for="inputUsername" class="sr-only">{{ 'username'|trans }}</label>
         <input id="inputUsername" type="text" value="{{ last_username }}" name="username"
           placeholder="{{ 'username'|trans }}" class="form-control"
-          required="required" autofocus="autofocus">
+          required="required" autofocus="autofocus" autocapitalize="off">
         <label for="inputPassword" class="sr-only">{{ 'password'|trans }}</label>
         <input id="inputPassword" type="password" name="password" placeholder="{{ 'password'|trans }}"
           class="form-control" required="required">

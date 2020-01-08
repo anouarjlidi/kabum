@@ -28,24 +28,25 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {% set currentRouteName = app.request.attributes.get('_route') %}
 
   {% if currentRouteName == targetRoute %}
-    <a class="control-panel-item control-panel-current-item"
-      href="{{ path(targetRoute) }}" aria-current="page">
+    <a class="control-panel-item control-panel-current-item" href="{{ path(targetRoute) }}"
+      aria-current="page" aria-label="{{ label|trans }}" title="{{ label|trans }}">
       <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
+          <i class="{{ iconClasses }}" aria-hidden="true"></i>
         </div>
-        <div>
+        <div class="control-panel-label">
           {{ label|trans }}
         </div>
       </div>
     </a>
   {% else %}
-    <a class="control-panel-item" href="{{ path(targetRoute) }}">
+    <a class="control-panel-item" href="{{ path(targetRoute) }}" aria-label="{{ label|trans }}"
+      title="{{ label|trans }}">
       <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
+          <i class="{{ iconClasses }}" aria-hidden="true"></i>
         </div>
-        <div>
+        <div class="control-panel-label">
           {{ label|trans }}
         </div>
       </div>
@@ -54,23 +55,20 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% endmacro %}
 
 {% block body %}
-  <div class="d-flex flex-column flex-md-row">
-    <header class="sticky-sidebar bg-black">
-      <div class="skip-to-content">
-        <a class="skip-to-content-anchor" href="#main-content">{{ 'skip_to_main'|trans }}</a>
-      </div>
-      <div class="d-flex justify-content-between">
-        <a class="control-panel-item flex-md-grow-1" href="{{ path('main_page') }}">
-          <i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i>
-          {{ 'back_to_store'|trans }}
+  <div class="d-flex">
+    <header class="sticky-sidebar bg-light">
+      <div>
+        <a class="control-panel-item" href="{{ path('main_page') }}"
+          aria-label="{{ 'back_to_store'|trans }}" title="{{ 'back_to_store'|trans }}">
+          <div class="d-flex">
+            <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
+              <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            </div>
+            <div class="control-panel-label">
+              {{ 'back_to_store'|trans }}
+            </div>
+          </div>
         </a>
-        <button class="kabum-collapse-dark-button d-md-none" type="button"
-          data-toggle="collapse" data-target="#ss-collapsible" aria-expanded="false"
-          aria-controls="ss-collapsible" aria-label="{{ 'toggle_main_menu'|trans }}">
-          <i class="fas fa-bars" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div id="ss-collapsible" class="sticky-sidebar-collapsible collapse mt-md-3">
         {{ _self.renderPanelItem('user_account', 'account_settings', 'fas fa-id-card') }}
       </div>
     </header>

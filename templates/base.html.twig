@@ -42,6 +42,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         {% endfor %}
       {% endfor %}
     {% endblock %}
+    {% block skipToContent %}
+      <div class="skip-to-content">
+        <a class="skip-to-content-anchor" href="#main-content">{{ 'skip_to_main'|trans }}</a>
+      </div>
+    {% endblock %}
     {% block body %}{% endblock %}
     {% block javascripts %}
       {{ encore_entry_script_tags('app') }}

@@ -22,10 +22,14 @@ require('../scss/admin.scss');
 const $ = require('jquery');
 require('jquery-mask-plugin');
 import CustomFileInput from './filename-setter/custom_file_input.js';
+import CollapsibleToggle from './collapsible-toggle/toggle.js';
 
 $(document).ready(function() {
   var customFileInput = new CustomFileInput();
   customFileInput.startup();
+
+  var collapsibleToggle = new CollapsibleToggle();
+  collapsibleToggle.setup();
 
   // Apply money mask
   $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
