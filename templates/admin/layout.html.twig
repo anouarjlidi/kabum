@@ -56,16 +56,17 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block body %}
   <header class="header-bar bg-light">
     <button class="collapsible-toggle kabum-collapse-button d-lg-none" data-target="#nav-menu"
-      aria-label="{{ 'toggle_main_menu'|trans }}" aria-expanded="false" aria-controls="nav-menu">
+      aria-label="{{ 'toggle_main_menu'|trans }}" aria-expanded="false" aria-controls="nav-menu"
+      aria-haspopup="true">
       <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
     </button>
-    <div id="nav-menu" class="collapsible control-panel-menu bg-light d-lg-none">
+    <nav id="nav-menu" class="collapsible control-panel-menu bg-light d-lg-none">
       <div class="control-panel-menu-scrollable">
         {{ _self.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
         {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
         {{ _self.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
       </div>
-    </div>
+    </nav>
     <a href="{{ path('main_page') }}" class="d-none d-lg-flex align-items-center kabum-button px-3">
       <div class="d-flex">
         <div class="mr-2">
