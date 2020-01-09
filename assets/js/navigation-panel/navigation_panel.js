@@ -20,15 +20,12 @@
 const $ = require('jquery');
 
 /**
- * Toggle the visibility of content.
- *
- * It applies a transition effect on the element's width. It works similarly
- * to Bootstrap's Collapse component.
+ * A collapsible navigation panel.
  */
-export default class CollapsibleToggle {
+export default class NavigationPanel {
   constructor() {
     /**
-     * All instances of collapsible toggles on the current page.
+     * All toggles on the current page.
      */
     this.buttons = $('.collapsible-toggle');
 
@@ -38,40 +35,52 @@ export default class CollapsibleToggle {
     this.button;
 
     /**
-     * The collapsible element of the currently selected toggle button.
+     * The target element of the currently selected toggle.
      */
     this.target;
+
+    this.keycodes = {
+      escape: 27
+    };
   }
 
   setup() {
-    var collapsibleToggle = this;
+    var navPanel = this;
 
     this.buttons.each(function() {
       $(this).click(function() {
         let target = $(this).data('target');
-        collapsibleToggle.target = $(target);
-        collapsibleToggle.button = $(this);
+        navPanel.target = $(target);
+        navPanel.button = $(this);
 
-        collapsibleToggle.toggle();
+        navPanel.toggle();
+      });
+
+      $(this).keydown(function(event) {
+        let target = $(this).data('target');
+        navPanel.target = $(target);
+        navPanel.button = $(this);
+
+        navPanel.escapeHandler(event);
+      });
+
+      // Event listener for all navigation panel items
+      $(this).siblings('.collapsible').find('a').keydown(function(event) {
+        navPanel.escapeHandler(event);
       });
     });
   }
 
   toggle() {
-    /*
-     * Ignore button presses during transition. This prevents glitchy behavior.
-     */
-    if (this.target.hasClass('transitioning')) {
+    if (this.isTransitioning()) {
       return;
     }
 
-    if (this.target.hasClass('expanded')) {
+    if (this.isExpanded()) {
       this.hide();
-
-      return;
+    } else {
+      this.show();
     }
-
-    this.show();
   }
 
   hide() {
@@ -113,5 +122,49 @@ export default class CollapsibleToggle {
       $(this).addClass('expanded');
       button.attr('aria-expanded', true);
     });
+  }
+
+  /**
+   * Event handler for ESC key events.
+   */
+  escapeHandler(event) {
+    if (this.isTransitioning()) {
+      return;
+    }
+
+    if (!this.isExpanded()) {
+      return;
+    }
+
+    if (event.which == this.keycodes.escape) {
+      this.hide();
+
+      // Prevents unexpected focus placement when the panel collapses
+      this.button.focus();
+    }
+  }
+
+  /**
+   * Detect a CSS transition in progress.
+   *
+   * This can be used to prevent glitchy behavior.
+   */
+  isTransitioning() {
+    if (this.target.hasClass('transitioning')) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Check if the navigation panel is activated/expanded.
+   */
+  isExpanded() {
+    if (this.target.hasClass('expanded')) {
+      return true;
+    }
+
+    return false;
   }
 }
