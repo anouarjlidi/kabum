@@ -39,6 +39,14 @@ export default class NavigationPanel {
      */
     this.target;
 
+    /**
+     * This boolean indicates whether the navigation panel was ever toggled.
+     *
+     * This is useful to prevent access to properties such as 'button' and
+     * 'target', which are undefined until the first toggle is made.
+     */
+    this.initialized = false;
+
     this.keycode = {
       escape: 27
     };
@@ -56,14 +64,23 @@ export default class NavigationPanel {
 
     this.buttons.each(function() {
       $(this).click(function() {
+        // Prevent clicks on the toggle button from bubbling up to the document body
+        event.stopPropagation();
+
+        // If another navigation panel was left open, this will close it
+        if (navPanel.initialized === true && navPanel.isExpanded()) {
+          navPanel.hide();
+        }
+
         let target = $(this).data('target');
         navPanel.target = $(target);
         navPanel.button = $(this);
 
-        navPanel.toggle();
+        if (navPanel.initialized === false) {
+          navPanel.initialized = true;
+        }
 
-        // Prevent clicks on the toggle button from bubbling up to the document body
-        event.stopPropagation();
+        navPanel.toggle();
       });
     });
   }
