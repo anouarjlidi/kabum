@@ -39,8 +39,15 @@ export default class NavigationPanel {
      */
     this.target;
 
-    this.keycodes = {
+    this.keycode = {
       escape: 27
+    };
+
+    this.event = {
+      namespace: '.navpanel',
+      get click() {
+        return 'click' + this.namespace;
+      }
     };
   }
 
@@ -93,7 +100,7 @@ export default class NavigationPanel {
     });
 
     // Disable ephemeral event listeners
-    $(document.body).off('click');
+    $(document.body).off(this.event.click);
     this.button.off('keydown');
     this.target.find('a').off('keydown click');
   }
@@ -119,7 +126,7 @@ export default class NavigationPanel {
     });
 
     // Handle click events outside of the navigation panel component
-    $(document.body).click(() => {
+    $(document.body).on(this.event.click, () => {
       this.hide();
     });
 
@@ -151,7 +158,7 @@ export default class NavigationPanel {
       return;
     }
 
-    if (event.which == this.keycodes.escape) {
+    if (event.which == this.keycode.escape) {
       this.hide();
 
       // Prevents unexpected focus placement when the panel collapses
