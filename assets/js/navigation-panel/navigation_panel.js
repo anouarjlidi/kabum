@@ -54,19 +54,9 @@ export default class NavigationPanel {
         navPanel.button = $(this);
 
         navPanel.toggle();
-      });
 
-      $(this).keydown(function(event) {
-        let target = $(this).data('target');
-        navPanel.target = $(target);
-        navPanel.button = $(this);
-
-        navPanel.escapeHandler(event);
-      });
-
-      // Event listener for all navigation panel items
-      $(this).siblings('.collapsible').find('a').keydown(function(event) {
-        navPanel.escapeHandler(event);
+        // Prevent clicks on the toggle button from bubbling up to the document body
+        event.stopPropagation();
       });
     });
   }
@@ -101,6 +91,11 @@ export default class NavigationPanel {
       $(this).addClass('collapsible');
       button.attr('aria-expanded', false);
     });
+
+    // Disable ephemeral event listeners
+    $(document.body).off('click');
+    this.button.off('keydown');
+    this.target.find('a').off('keydown click');
   }
 
   show() {
@@ -121,6 +116,26 @@ export default class NavigationPanel {
       $(this).addClass('collapsible');
       $(this).addClass('expanded');
       button.attr('aria-expanded', true);
+    });
+
+    // Handle click events outside of the navigation panel component
+    $(document.body).click(() => {
+      this.hide();
+    });
+
+    // Handle keyboard shortcuts when focus is on the button
+    this.button.keydown((event) => {
+      this.escapeHandler(event);
+    });
+
+    // Handle keyboard shortcuts when focus is on the target menu items
+    this.target.find('a').keydown((event) => {
+      this.escapeHandler(event);
+    });
+
+    // Prevent clicks on menu items from bubbling up to the document body
+    this.target.find('a').click(function(event) {
+      event.stopPropagation();
     });
   }
 
