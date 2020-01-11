@@ -48,13 +48,17 @@ export default class NavigationPanel {
     this.initialized = false;
 
     this.keycode = {
-      escape: 27
+      escape: 27,
+      tab: 9
     };
 
     this.event = {
       namespace: '.navpanel',
       get click() {
         return 'click' + this.namespace;
+      },
+      get keyup() {
+        return 'keyup' + this.namespace;
       }
     };
   }
@@ -117,7 +121,7 @@ export default class NavigationPanel {
     });
 
     // Disable ephemeral event listeners
-    $(document.body).off(this.event.click);
+    $(document.body).off(this.event.namespace);
     this.button.off('keydown');
     this.target.find('a').off('keydown click');
   }
@@ -142,24 +146,29 @@ export default class NavigationPanel {
       button.attr('aria-expanded', true);
     });
 
-    // Handle click events outside of the navigation panel component
     $(document.body).on(this.event.click, () => {
+      /*
+       * Any clicks that bubble up to the document body will cause the panel
+       * to collapse.
+       */
       this.hide();
     });
 
-    // Handle keyboard shortcuts when focus is on the button
     this.button.keydown((event) => {
       this.escapeHandler(event);
     });
 
-    // Handle keyboard shortcuts when focus is on the target menu items
     this.target.find('a').keydown((event) => {
       this.escapeHandler(event);
     });
 
-    // Prevent clicks on menu items from bubbling up to the document body
     this.target.find('a').click(function(event) {
+      // Prevent clicks on panel items from bubbling up to the document body
       event.stopPropagation();
+    });
+
+    $(document.body).on(this.event.keyup, (event) => {
+      this.tabHandler(event);
     });
   }
 
@@ -171,15 +180,28 @@ export default class NavigationPanel {
       return;
     }
 
-    if (!this.isExpanded()) {
-      return;
-    }
-
     if (event.which == this.keycode.escape) {
       this.hide();
 
-      // Prevents unexpected focus placement when the panel collapses
+      // Returns focus to the button when the panel collapses
       this.button.focus();
+    }
+  }
+
+  /**
+   * Event handler for TAB key events.
+   *
+   * The panel collapses if focus leaves the toggle button or the menu items.
+   */
+  tabHandler() {
+    if (event.which == this.keycode.tab) {
+      var focused = $(document.activeElement);
+
+      if (focused.is(this.button) || focused.is(this.target.find('a'))) {
+        return;
+      }
+
+      this.hide();
     }
   }
 
