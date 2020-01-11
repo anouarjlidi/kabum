@@ -54,7 +54,9 @@ export default class NavigationPanel {
 
     this.keycode = {
       escape: 27,
-      tab: 9
+      tab: 9,
+      arrowUp: 38,
+      arrowDown: 40
     };
 
     this.event = {
@@ -180,6 +182,41 @@ export default class NavigationPanel {
 
       // Return focus to the button when the panel collapses
       this.button.focus();
+    });
+
+    this.button.keydown((event) => {
+      if (event.which != this.keycode.arrowUp && event.which != this.keycode.arrowDown) {
+        return;
+      }
+
+      event.preventDefault();
+      this.panelItems.first().focus();
+    });
+
+    this.panelItems.keydown((event) => {
+      /*
+       * Keyboard navigation through panel items using arrow keys.
+       */
+      var focused;
+
+      this.panelItems.each(function() {
+        var item = $(this);
+
+        // Determine currently focused item
+        if (item.is(document.activeElement)) {
+          focused = item;
+        }
+      });
+
+      if (event.which == this.keycode.arrowUp) {
+        event.preventDefault();
+        focused.prev().focus();
+      }
+
+      if (event.which == this.keycode.arrowDown) {
+        event.preventDefault();
+        focused.next().focus();
+      }
     });
 
     this.panelItems.click(function(event) {
