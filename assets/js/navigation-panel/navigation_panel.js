@@ -25,7 +25,7 @@ const $ = require('jquery');
 export default class NavigationPanel {
   constructor() {
     /**
-     * All toggles on the current page.
+     * All toggle buttons on the current page.
      */
     this.buttons = $('.collapsible-toggle');
 
@@ -35,9 +35,14 @@ export default class NavigationPanel {
     this.button;
 
     /**
-     * The target element of the currently selected toggle.
+     * The target collapsible element of the currently selected toggle.
      */
     this.target;
+
+    /**
+     * All focusable items within the panel corresponding to the current target.
+     */
+    this.panelItems;
 
     /**
      * This boolean indicates whether the navigation panel was ever toggled.
@@ -59,6 +64,9 @@ export default class NavigationPanel {
       },
       get keyup() {
         return 'keyup' + this.namespace;
+      },
+      get keydown() {
+        return 'keydown' + this.namespace;
       }
     };
   }
@@ -67,8 +75,7 @@ export default class NavigationPanel {
     var navPanel = this;
 
     this.buttons.each(function() {
-      $(this).click(function() {
-        // Prevent clicks on the toggle button from bubbling up to the document body
+      $(this).click(function(event) {
         event.stopPropagation();
 
         // If another navigation panel was left open, this will close it
@@ -78,6 +85,7 @@ export default class NavigationPanel {
 
         let target = $(this).data('target');
         navPanel.target = $(target);
+        navPanel.panelItems = navPanel.target.find('a');
         navPanel.button = $(this);
 
         if (navPanel.initialized === false) {
@@ -120,10 +128,7 @@ export default class NavigationPanel {
       button.attr('aria-expanded', false);
     });
 
-    // Disable ephemeral event listeners
-    $(document.body).off(this.event.namespace);
-    this.button.off('keydown');
-    this.target.find('a').off('keydown click');
+    this.removeEphemeralEvents();
   }
 
   show() {
@@ -146,63 +151,88 @@ export default class NavigationPanel {
       button.attr('aria-expanded', true);
     });
 
+    this.addEphemeralEvents();
+  }
+
+  addEphemeralEvents() {
     $(document.body).on(this.event.click, () => {
       /*
        * Any clicks that bubble up to the document body will cause the panel
        * to collapse.
        */
-      this.hide();
-    });
-
-    this.button.keydown((event) => {
-      this.escapeHandler(event);
-    });
-
-    this.target.find('a').keydown((event) => {
-      this.escapeHandler(event);
-    });
-
-    this.target.find('a').click(function(event) {
-      // Prevent clicks on panel items from bubbling up to the document body
-      event.stopPropagation();
-    });
-
-    $(document.body).on(this.event.keyup, (event) => {
-      this.tabHandler(event);
-    });
-  }
-
-  /**
-   * Event handler for ESC key events.
-   */
-  escapeHandler(event) {
-    if (this.isTransitioning()) {
-      return;
-    }
-
-    if (event.which == this.keycode.escape) {
-      this.hide();
-
-      // Returns focus to the button when the panel collapses
-      this.button.focus();
-    }
-  }
-
-  /**
-   * Event handler for TAB key events.
-   *
-   * The panel collapses if focus leaves the toggle button or the menu items.
-   */
-  tabHandler() {
-    if (event.which == this.keycode.tab) {
-      var focused = $(document.activeElement);
-
-      if (focused.is(this.button) || focused.is(this.target.find('a'))) {
+      if (this.isTransitioning()) {
         return;
       }
 
       this.hide();
-    }
+    });
+
+    this.button.add(this.panelItems).keydown((event) => {
+      if (event.which != this.keycode.escape) {
+        return;
+      }
+
+      if (this.isTransitioning()) {
+        return;
+      }
+
+      this.hide();
+
+      // Return focus to the button when the panel collapses
+      this.button.focus();
+    });
+
+    this.panelItems.click(function(event) {
+      event.stopPropagation();
+    });
+
+    $(document.body).on(this.event.keyup, (event) => {
+      /*
+       * TAB key events.
+       *
+       * This is responsible for collapsing the panel when keyboard focus
+       * leaves any of the navigation panel elements.
+       */
+      if (event.which != this.keycode.tab) {
+        return;
+      }
+
+      if (this.isTransitioning()) {
+        return;
+      }
+
+      var focused = $(document.activeElement);
+
+      if (focused.is(this.button) || focused.is(this.panelItems)) {
+        return;
+      }
+
+      this.hide();
+    });
+
+    $(document.body).on(this.event.keydown, (event) => {
+      /*
+       * TAB key events that prevent the default action during a transition.
+       *
+       * Since a 'keyup' event is too late for preventDefault() to make any
+       * difference, this handler should be bound to a keydown listener.
+       */
+      if (event.which != this.keycode.tab) {
+        return;
+      }
+
+      if (!this.isTransitioning()) {
+        return;
+      }
+
+      event.preventDefault();
+    });
+  }
+
+  removeEphemeralEvents() {
+    $(document.body).off(this.event.namespace);
+    this.button.off('keydown');
+    this.panelItems.off('keydown click');
   }
 
   /**
