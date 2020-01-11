@@ -112,6 +112,17 @@ export default class NavigationPanel {
   }
 
   hide() {
+    /*
+     * The panel may be hidden via CSS at certain viewport sizes. In those
+     * situations, our CSS transition will never fire. If the event listener
+     * for 'transitionend' below is never executed, the panel will be locked
+     * in a 'transition' state, and it will not work until the user reloads
+     * the page. This prevents that from ever happening.
+     */
+    if (this.target.is(':hidden')) {
+      return;
+    }
+
     // Add the transition effect
     this.target.addClass('transitioning');
 
