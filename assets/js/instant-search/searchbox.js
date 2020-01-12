@@ -87,7 +87,6 @@ export default class SearchBox {
 
             searchbox.result.html(data);
             searchbox.open();
-            searchbox.setStatus();
 
             /*
              * Select all search results returned by the server, which are
@@ -137,7 +136,6 @@ export default class SearchBox {
   close() {
     if (this.isInputEmpty()) {
       this.result.empty();
-      this.input.siblings('.instant-search-status').empty();
     }
 
     this.box.hide();
@@ -196,16 +194,6 @@ export default class SearchBox {
     }
 
     return false;
-  }
-
-  /**
-   * Informs the request status to assistive technologies.
-   */
-  setStatus() {
-    var instantSearchStatus = this.input.siblings('.instant-search-status');
-    var resultCount = this.result.children('.result-count').data('instantSearchStatus');
-
-    instantSearchStatus.text(resultCount);
   }
 
   /**

@@ -242,14 +242,6 @@
         <source>results_appear_as_you_type</source>
         <target>Alguns resultados aparecem conforme você digita.</target>
       </trans-unit>
-      <trans-unit id="number_of_results_found">
-        <source>number_of_results_found</source>
-        <target>{results, plural, =0 {Nenhum produto encontrado.} one {1 produto encontrado.} other {# produtos encontrados.}}</target>
-      </trans-unit>
-      <trans-unit id="loading_complete">
-        <source>loading_complete</source>
-        <target>Carregamento concluído.</target>
-      </trans-unit>
       <trans-unit id="something_wrong_click_try_again">
         <source>something_wrong_click_try_again</source>
         <target>Algo deu errado. Clique aqui para tentar novamente.</target>
