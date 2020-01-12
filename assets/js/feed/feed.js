@@ -55,11 +55,12 @@ export default class Feed {
     this.status = new FeedStatus(this.feed, this.feedData);
 
     /**
-     * A slug used to make the request.
+     * The target path of the request.
      *
-     * The slug is optional, unless the target route contains a wildcard.
+     * If this is not provided, the Ajax request will be sent to the current
+     * path, as expected.
      */
-    this.slug = this.feedData.data('slug');
+    this.target = this.feedData.data('target');
   }
 
   /**
@@ -99,7 +100,6 @@ export default class Feed {
       })
       .fail(() => {
         this.status.showErrorScreen();
-        this.status.errorAlert();
       })
       .always(() => {
         this.status.busy(false);
@@ -119,7 +119,6 @@ export default class Feed {
     this.feedData.on('click', '.feed-button', () => {
       this.status.busy(true);
       this.status.feedControlLoading(this.feedControl);
-      this.status.errorAlertCleanup();
 
       var request = this.loadPage();
 
@@ -158,7 +157,6 @@ export default class Feed {
         })
         .fail(() => {
           this.status.feedControlError(this.feedControl);
-          this.status.errorAlert();
         })
         .always(() => {
           this.status.busy(false);
@@ -170,7 +168,7 @@ export default class Feed {
    * Performs an Ajax request and returns the jqXHR object.
    */
   loadPage() {
-    var jqxhr = $.get(this.slug, {page: this.page});
+    var jqxhr = $.get(this.target, {page: this.page});
 
     return jqxhr;
   }

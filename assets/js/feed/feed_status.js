@@ -43,29 +43,17 @@ export default class FeedStatus {
       error: this.feed.children('.feed-error-screen'),
       nothingHere: this.feed.children('.feed-nothing-here-screen')
     };
-
-    this.alert = $('<span>', {
-      class: 'sr-only',
-      role: 'alert',
-      text: this.errorMessage
-    });
   }
 
   /**
-   * Informs screen readers whether the feed is ready or is busy loading more content.
+   * Informs screen readers whether the feed is ready or is busy loading
+   * more content.
    *
    * This method takes a boolean. True means it is busy, and false means
    * it is not.
    */
   busy(state) {
     this.feedData.attr('aria-busy', state);
-  }
-
-  /**
-   * Dispatch an error alert to screen readers.
-   */
-  errorAlert() {
-    this.feed.prepend(this.alert);
   }
 
   hideLoadingScreen() {
@@ -136,14 +124,5 @@ export default class FeedStatus {
 
     feedControl.attr('aria-labelledby', label);
     feedControl.show();
-  }
-
-  /**
-   * Removes obsolete error alerts.
-   */
-  errorAlertCleanup() {
-    if (this.alert) {
-      this.alert.remove();
-    }
   }
 }
