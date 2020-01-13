@@ -25,8 +25,13 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
     App\Service\FileUploader:
         arguments:
             $productImageDirectory: '%product_image_directory%'
+
+    # An alias is used to setup Parsedown for autowiring, as it's in
+    # the global namespace.
+    parsedown:
+        class: Parsedown
+
+    Parsedown: '@parsedown'

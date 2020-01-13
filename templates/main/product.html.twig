@@ -42,7 +42,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           </h3>
         </div>
       </div>
-      <p class="mt-5">{{ product.longDescription|markdown_to_html }}</p>
+      <p class="mt-5">{{ product.longDescription|markdown_2_html|raw }}</p>
     </div>
   </section>
 {% endblock %}
