@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Douglas Silva (0x9fd287d56ec107ac)
+ * Copyright 2019-2020 Douglas Silva (0x9fd287d56ec107ac)
  *
  * This file is part of KaBuM!.
  *
