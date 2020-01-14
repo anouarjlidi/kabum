@@ -75,7 +75,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             {% endif %}
           </div>
         </div>
-        <div class="instant-search mx-3 mb-3">
+        <div class="instant-search is-wrapper mx-3 mb-3">
           <form action="{{ path('search') }}" role="search">
             <div class="d-flex justify-content-between align-items-center search-input-wrapper">
               <label for="is-input" class="mr-2 mb-0">
@@ -90,7 +90,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
               <span id="is-help" class="sr-only">
                 {{ 'results_appear_as_you_type'|trans }}
               </span>
-              <div id="is-box" class="instant-search-box" role="listbox">
+              <div id="is-box" class="instant-search-box is-box is-collapsible" role="listbox">
                 <div class="instant-search-result list-group"></div>
               </div>
             </div>

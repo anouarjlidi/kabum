@@ -1,4 +1,5 @@
 @import "base/environment";
+@import "navigation-panel/resources";
 
 .header-bar {
   display: flex;
@@ -19,16 +20,6 @@
 
 .header-logotype-img {
   width: 6.25rem;
-}
-
-.collapsible:not(.expanded) {
-  display: none;
-}
-
-.transitioning {
-  width: 0;
-  overflow: hidden;
-  transition: width 0.25s ease;
 }
 
 .control-panel-menu {

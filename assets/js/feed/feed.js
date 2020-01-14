@@ -48,7 +48,7 @@ export default class Feed {
      * This element is removed on every request after the first, so it must be
      * retrieved again with updateFeedControl().
      */
-    this.feedControl = null;
+    this.feedControl;
 
     this.page = 1;
     this.itemCount = 1;
@@ -86,12 +86,12 @@ export default class Feed {
 
         // Check pagination metadata and prepare the feed for the next strategy
         if (metadata.data('numberOfResults') > metadata.data('pageSize')) {
-          this.status.feedControlReady(this.feedControl);
+          this.status.switchControlLabel(this.status.control.ready);
           this.setItemCount();
         } else if (metadata.data('numberOfResults') === undefined) {
-          this.status.showNothingHereScreen();
+          this.status.switchScreen(this.status.screen.nothingHere);
         } else {
-          this.status.feedControlNothingElse(this.feedControl);
+          this.status.switchControlLabel(this.status.control.nothingElse);
           this.setItemCount();
         }
 
@@ -99,11 +99,11 @@ export default class Feed {
         this.setupNavigation();
       })
       .fail(() => {
-        this.status.showErrorScreen();
+        this.status.switchScreen(this.status.screen.error);
       })
       .always(() => {
         this.status.busy(false);
-        this.status.hideLoadingScreen();
+        this.status.switchScreen();
       });
   }
 
@@ -118,7 +118,7 @@ export default class Feed {
 
     this.feedData.on('click', '.feed-button', () => {
       this.status.busy(true);
-      this.status.feedControlLoading(this.feedControl);
+      this.status.switchControlLabel(this.status.control.loading);
 
       var request = this.loadPage();
 
@@ -142,10 +142,10 @@ export default class Feed {
 
           // Check pagination metadata and prepare the feed for the next strategy
           if (this.page > metadata.data('lastPage')) {
-            this.status.feedControlNothingElse(this.feedControl);
+            this.status.switchControlLabel(this.status.control.nothingElse);
             this.setItemCount();
           } else {
-            this.status.feedControlReady(this.feedControl);
+            this.status.switchControlLabel(this.status.control.ready);
             this.setItemCount();
           }
 
@@ -156,7 +156,7 @@ export default class Feed {
           this.feedData.children('.focus-me').last().focus();
         })
         .fail(() => {
-          this.status.feedControlError(this.feedControl);
+          this.status.switchControlLabel(this.status.control.error);
         })
         .always(() => {
           this.status.busy(false);
@@ -261,7 +261,12 @@ export default class Feed {
    * make it available for use.
    */
   updateFeedControl() {
-    this.feedControl = this.feedData.children('.feed-control');
+    let feedControl = this.feedData.children('.feed-control');
+
+    this.feedControl = feedControl;
+    this.status.feedControl = feedControl;
+
+    this.status.updateControlLabels();
   }
 
   /**

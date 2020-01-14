@@ -28,20 +28,33 @@ export default class FeedStatus {
   constructor(feed, feedData) {
     this.feed = feed;
     this.feedData = feedData;
-    this.errorMessage = this.feedData.data('error');
+    this.feedControl;
 
     /**
      * Screens are large placeholder elements commonly used to indicate
      * a busy state, errors and other status information.
      *
-     * Screens should not be used after the initial request, when items are
-     * already loaded onto the page. For anything after that, use feed control
-     * labels instead.
+     * Screens should only be used to announce the status of the initial request,
+     * such as when there are no results or when it's still loading.
      */
-    this.screens = {
+    this.screen = {
       loading: this.feed.children('.feed-loading-screen'),
       error: this.feed.children('.feed-error-screen'),
       nothingHere: this.feed.children('.feed-nothing-here-screen')
+    };
+
+    /**
+     * Feed control labels are used to announce the status of the feed button,
+     * whether it's loading or ready for a new request or if there's nothing else
+     * to show.
+     *
+     * This should only be used after the initial request completes successfully.
+     */
+    this.control = {
+      ready: undefined,
+      loading: undefined,
+      error: undefined,
+      nothingElse: undefined
     };
   }
 
@@ -56,73 +69,47 @@ export default class FeedStatus {
     this.feedData.attr('aria-busy', state);
   }
 
-  hideLoadingScreen() {
-    this.screens.loading.addClass('hidden');
-  }
+  /**
+   * Change the Feed Screen.
+   *
+   * If a screen is provided, it will switch to that screen. Otherwise,
+   * it will only hide the loading screen.
+   */
+  switchScreen(screen) {
+    if (screen) {
+      screen.addClass('feed-expanded');
 
-  showNothingHereScreen() {
-    this.screens.nothingHere.removeClass('hidden');
-    this.feedData.hide();
-  }
+      // Hide the empty feed data container
+      this.feedData.hide();
+    }
 
-  showErrorScreen() {
-    this.screens.error.removeClass('hidden');
-    this.feedData.hide();
+    // Hide the loading screen
+    this.screen.loading.removeClass('feed-expanded');
   }
 
   /**
-   * Set the feed control label to the ready state.
+   * Change the feed control label.
    */
-  feedControlReady(feedControl) {
-    var button = feedControl.children('.feed-control-label-ready');
-    var label = button.data('label');
+  switchControlLabel(control) {
+    let label = control.data('label');
 
-    button.show();
-    button.siblings('.feed-control-label').hide();
+    // Show selected feed control and hide all others
+    control.addClass('feed-expanded');
+    control.siblings('.feed-control-label').removeClass('feed-expanded');
 
-    feedControl.attr('aria-labelledby', label);
-    feedControl.show();
+    this.feedControl.attr('aria-labelledby', label);
   }
 
   /**
-   * Set the feed control label to the loading state.
+   * Reassign all feed control labels.
+   *
+   * Since the feed control is replaced after every request, we lose the button
+   * labels with it. This will reassign their values.
    */
-  feedControlLoading(feedControl) {
-    var button = feedControl.children('.feed-control-label-loading');
-    var label = button.data('label');
-
-    button.show();
-    button.siblings('.feed-control-label').hide();
-
-    feedControl.attr('aria-labelledby', label);
-    feedControl.show();
-  }
-
-  /**
-   * Set the feed control label to the error state.
-   */
-  feedControlError(feedControl) {
-    var button = feedControl.children('.feed-control-label-error');
-    var label = button.data('label');
-
-    button.show();
-    button.siblings('.feed-control-label').hide();
-
-    feedControl.attr('aria-labelledby', label);
-    feedControl.show();
-  }
-
-  /**
-   * Set the feed control label to the nothing else state.
-   */
-  feedControlNothingElse(feedControl) {
-    var button = feedControl.children('.feed-control-label-nothing-else');
-    var label = button.data('label');
-
-    button.show();
-    button.siblings('.feed-control-label').hide();
-
-    feedControl.attr('aria-labelledby', label);
-    feedControl.show();
+  updateControlLabels() {
+    this.control.ready = this.feedControl.children('.feed-control-label-ready');
+    this.control.loading = this.feedControl.children('.feed-control-label-loading');
+    this.control.error = this.feedControl.children('.feed-control-label-error');
+    this.control.nothingElse = this.feedControl.children('.feed-control-label-nothing-else');
   }
 }

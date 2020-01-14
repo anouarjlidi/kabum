@@ -32,5 +32,5 @@ $(document).ready(function() {
   navPanel.setup();
 
   // Apply money mask
-  $('#product_price').mask('000.000.000.000.000,00', {reverse: true});
+  $('.money-input').mask('000.000.000.000.000,00', {reverse: true});
 });

@@ -124,20 +124,20 @@ export default class NavigationPanel {
     }
 
     // Add the transition effect
-    this.target.addClass('transitioning');
+    this.target.addClass('np-transitioning');
 
     // Maintain visibility of the item during transition
-    this.target.removeClass('collapsible');
-    this.target.removeClass('expanded');
+    this.target.removeClass('np-collapsible');
+    this.target.removeClass('np-expanded');
 
-    // Reset the width so the 'transitioning' class can set it to zero
+    // Reset the width so the 'np-transitioning' class can set it to zero
     this.target.width('');
 
     var button = this.button;
 
     this.target.one("transitionend", function() {
-      $(this).removeClass('transitioning');
-      $(this).addClass('collapsible');
+      $(this).removeClass('np-transitioning');
+      $(this).addClass('np-collapsible');
       button.attr('aria-expanded', false);
     });
 
@@ -149,8 +149,8 @@ export default class NavigationPanel {
     let targetWidth = this.target.width() / 16;
 
     // Restore target element visibility and apply transition
-    this.target.removeClass('collapsible');
-    this.target.addClass('transitioning');
+    this.target.removeClass('np-collapsible');
+    this.target.addClass('np-transitioning');
 
     // Set the width to trigger the transition effect
     this.target.width(targetWidth + 'rem');
@@ -158,9 +158,9 @@ export default class NavigationPanel {
     var button = this.button;
 
     this.target.one("transitionend", function() {
-      $(this).removeClass('transitioning');
-      $(this).addClass('collapsible');
-      $(this).addClass('expanded');
+      $(this).removeClass('np-transitioning');
+      $(this).addClass('np-collapsible');
+      $(this).addClass('np-expanded');
       button.attr('aria-expanded', true);
     });
 
@@ -289,7 +289,7 @@ export default class NavigationPanel {
    * This can be used to prevent glitchy behavior.
    */
   isTransitioning() {
-    if (this.target.hasClass('transitioning')) {
+    if (this.target.hasClass('np-transitioning')) {
       return true;
     }
 
@@ -300,7 +300,7 @@ export default class NavigationPanel {
    * Check if the navigation panel is activated/expanded.
    */
   isExpanded() {
-    if (this.target.hasClass('expanded')) {
+    if (this.target.hasClass('np-expanded')) {
       return true;
     }
 

@@ -60,7 +60,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       aria-haspopup="true">
       <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
     </button>
-    <nav id="nav-menu" class="collapsible control-panel-menu bg-light d-lg-none">
+    <nav id="nav-menu" class="np-collapsible control-panel-menu bg-light d-lg-none">
       <div class="control-panel-menu-scrollable">
         {{ _self.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
         {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
@@ -80,7 +80,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     <a href="{{ path('main_page') }}" class="header-logotype" aria-label="{{ 'go_home_page'|trans }}">
       <img src="{{ asset('images/kabum.png') }}" class="header-logotype-img" alt="{{ 'logotype'|trans }}">
     </a>
-    <div class="dropdown d-flex pr-1"> {# The right padding keeps the item from being too close to the edge #}
+    <div class="dropdown d-flex pr-1"> {# The right padding keeps the dropdown menu from being too close to the edge #}
       <button class="kabum-button dropdown-toggle px-3" type="button" id="userMenu"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
         aria-label="{{ 'user_menu'|trans }}">

@@ -34,7 +34,12 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
   z-index: 2;
 }
 
-#inputUsername {
+/*
+ * Upper and lower input classes style the form fields in a way that makes
+ * them look like one - unified.
+ */
+
+.upper-input {
   // Merge the two input boxes' margins
   margin-bottom: -.0625rem;
 
@@ -42,7 +47,7 @@ $dropdown-link-hover-bg: theme-color-level('silver', -7);
   border-bottom-left-radius: 0;
 }
 
-#inputPassword {
+.lower-input {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }

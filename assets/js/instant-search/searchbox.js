@@ -138,7 +138,7 @@ export default class SearchBox {
       this.result.empty();
     }
 
-    this.box.hide();
+    this.box.removeClass('is-expanded');
     this.input.attr('aria-expanded', false);
     this.input.removeAttr('aria-activedescendant');
   }
@@ -160,7 +160,7 @@ export default class SearchBox {
       return;
     }
 
-    this.box.show();
+    this.box.addClass('is-expanded');
     this.input.attr('aria-expanded', true);
   }
 

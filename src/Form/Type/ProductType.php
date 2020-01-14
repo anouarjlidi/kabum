@@ -77,6 +77,7 @@ class ProductType extends AbstractType
             ->add('price', TextType::class, [
                 'label' => 'price',
                 'attr' => [
+                    'class' => 'money-input',
                     /*
                      * These attributes ensure that the virtual numeric keyboard
                      * is used instead of the normal multi-character keyboard

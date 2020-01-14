@@ -1,4 +1,6 @@
 @import "base/environment";
+@import "instant-search/resources";
+@import "feed/resources";
 
 .kabum-action-icon {
   font-size: 1.5rem;
@@ -70,7 +72,7 @@
   }
 }
 
-.current {
+.current-category {
   font-weight: bold !important;
 }
 
@@ -89,13 +91,12 @@
   outline: 0;
 }
 
-.instant-search {
+.is-wrapper {
   position: relative;
 }
 
-.instant-search-box {
+.is-box {
   position: absolute;
-  display: none;
   left: 0;
   top: 100%;
   width: 100%;
@@ -105,10 +106,21 @@
   border-radius: .2rem;
   background-color: white;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .175);
-  z-index: 100;
   @include media-breakpoint-up(md) {
     width: 175%;
   }
+}
+
+.instant-search-cursor {
+  box-shadow: 0 0 0 .125rem theme-color('kabum-orange');
+
+  /*
+   * A higher z-index makes sure the box shadow is properly shown when there
+   * are adjacent elements that would otherwise overlap the effect. Relative
+   * positioning is necessary for z-index to work.
+   */
+  position: relative;
+  z-index: 100;
 }
 
 .search-input-wrapper {
@@ -129,33 +141,24 @@
   outline: 0;
 }
 
-.instant-search-cursor {
-  box-shadow: 0 0 0 .125rem theme-color('kabum-orange');
-
-  /*
-   * A higher z-index makes sure the box shadow is properly shown when there
-   * are adjacent elements that would otherwise overlap the effect. Relative
-   * positioning is necessary for z-index to work.
-   */
-  position: relative;
-  z-index: 100;
-}
-
-.hidden {
-  display: none !important;
-}
-
 .feed-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 18.7rem;
 }
 
-.feed-control {
-  display: none;
+.fc-wrapper {
   min-height: 18.7rem;
 }
 
-.feed-control-label {
-  display: none;
+.fc-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .feed-item:focus {

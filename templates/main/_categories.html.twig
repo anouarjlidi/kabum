@@ -19,7 +19,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% for category in categories %}
   {% if currentPageSlug == category.slug %}
-    <a class="category current" href="{{ path('category_page', {category_slug: category.slug}) }}"
+    <a class="category current-category" href="{{ path('category_page', {category_slug: category.slug}) }}"
       aria-current="page">
       <i class="fas fa-caret-right fa-xs fa-fw" aria-hidden="true"></i>
       {{ category.name }}

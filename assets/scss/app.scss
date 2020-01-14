@@ -1,5 +1,18 @@
+/**
+ * Main Sass file.
+ *
+ * The resources in this file are made available for all pages.
+ */
+
 @import "base/colors";
 @import "base/bootstrap-required";
+
+/*
+ * Our standard for z-index values is:
+ *
+ * Localized adjustments with limited impact on other elements: 0 - 999
+ * Fixed/sticky position: 1000 - 10000
+ */
 
 .kabum-collapse-dark-button {
   color: theme-color('light');
@@ -68,11 +81,11 @@
   -webkit-appearance: none;
 }
 
-#flash {
-  position: fixed;
+.flash {
+  position: fixed !important; // Override Bootstrap .alert position
   top: 1rem;
   right: 0;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .skip-to-content .skip-to-content-anchor {
@@ -86,7 +99,7 @@
   border-bottom-right-radius: 1rem;
   text-decoration: none;
   font-weight: bold;
-  z-index: 2000;
+  z-index: 9000;
 }
 
 .skip-to-content .skip-to-content-anchor:focus {
