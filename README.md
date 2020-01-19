@@ -36,6 +36,11 @@ You can add an administrator user with the command:
 php bin/console app:create-admin <username> <password>
 ```
 
+This project makes use of [FOSJsRoutingBundle](https://github.com/FriendsOfSymfony/FOSJsRoutingBundle). When new routes are exposed, you must regenerate the route definitions so they can be used in JavaScript code:
+```
+php bin/console fos:js-routing:dump --format=json --target=public/fos_js_routes.json
+```
+
 ## License
 Copyright 2019-2020 Douglas Silva (0x9fd287d56ec107ac)
 

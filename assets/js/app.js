@@ -19,4 +19,11 @@
 
 require('../scss/app.scss');
 
+const $ = require('jquery');
 require('bootstrap');
+import DepartmentsList from './departments-list/departments-list.js';
+
+$(document).ready(function() {
+  var departmentsList = new DepartmentsList();
+  departmentsList.setup();
+});

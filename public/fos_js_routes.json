@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"category_page":{"tokens":[["variable","\/","[^\/]++","category_slug"],["text","\/categoria"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":[],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http","locale":[]}

@@ -185,8 +185,11 @@ export default class SearchBox {
     if (this.input.attr('aria-expanded') == 'false') {
       this.open();
 
-      // Set the last aria-activedescendant value, unless the search query is empty
-      if (!this.isInputEmpty()) {
+      /*
+       * Set the last aria-activedescendant value, unless the search query
+       * is empty or nothing was selected last time it was closed.
+       */
+      if (!this.isInputEmpty() && selected !== false) {
         this.input.attr('aria-activedescendant', selected.attr('id'));
       }
 
@@ -216,7 +219,8 @@ export default class SearchBox {
      * Unbind any previously bound navigation event handlers, as they are
      * reattached on every 'input' event.
      */
-    this.input.off('keydown blur mousedown');
+    this.input.off('keydown blur');
+    this.result.off('mousedown');
 
     // Close the menu when it loses focus
     this.input.blur(() => {
@@ -230,11 +234,11 @@ export default class SearchBox {
      * allow the client to activate these items with the mouse.
      */
     this.result.on('mousedown', '.instant-search-suggestion', function() {
+      event.preventDefault();
+
       if (event.which == 1) { // Left mouse button key code
         $(this).get(0).click();
       }
-
-      event.preventDefault();
     });
 
     /*

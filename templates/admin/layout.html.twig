@@ -29,7 +29,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
   {% if currentRouteName == targetRoute %}
     <a class="control-panel-item control-panel-current-item" href="{{ path(targetRoute) }}"
-      aria-current="page" aria-label="{{ label|trans }}">
+      aria-current="page">
       <div class="d-flex">
         <div class="align-self-center mr-2">
           <i class="{{ iconClasses }}" aria-hidden="true"></i>
@@ -40,7 +40,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </a>
   {% else %}
-    <a class="control-panel-item" href="{{ path(targetRoute) }}" aria-label="{{ label|trans }}">
+    <a class="control-panel-item" href="{{ path(targetRoute) }}">
       <div class="d-flex">
         <div class="align-self-center mr-2">
           <i class="{{ iconClasses }}" aria-hidden="true"></i>
@@ -53,6 +53,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {% endif %}
 {% endmacro %}
 
+{% block header %}{% endblock %}
+
 {% block body %}
   <header class="header-bar bg-light">
     <button class="collapsible-toggle kabum-collapse-button d-lg-none" data-target="#nav-menu"
@@ -60,12 +62,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       aria-haspopup="true">
       <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
     </button>
-    <nav id="nav-menu" class="np-collapsible control-panel-menu bg-light d-lg-none">
-      <div class="control-panel-menu-scrollable">
-        {{ _self.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
-        {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
-        {{ _self.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
-      </div>
+    <nav id="nav-menu" class="np-collapsible control-panel-menu control-panel-menu-scrollable bg-light d-lg-none">
+      {{ _self.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
+      {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+      {{ _self.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
     </nav>
     <a href="{{ path('main_page') }}" class="d-none d-lg-flex align-items-center kabum-button px-3">
       <div class="d-flex">

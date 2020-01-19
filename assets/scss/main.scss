@@ -1,113 +1,99 @@
 @import "base/environment";
 @import "instant-search/resources";
+@import "navigation-panel/resources";
 @import "feed/resources";
 
-.kabum-action-icon {
-  font-size: 1.5rem;
-}
-
-.kabum-action-button {
+.header-bar { // Make sure this class is reusable
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 4rem;
-  color: theme-color('kabum-orange');
-}
-
-.kabum-action-button:hover {
-  color: theme-color-level('kabum-orange', 2);
-  text-decoration: none;
-}
-
-.kabum-action-button:focus {
-  box-shadow: 0 .125rem 0 0 theme-color('kabum-orange');
-  outline: 0;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  height: 3.8rem;
+  box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, .11);
+  z-index: 1000;
 }
 
 .header-logotype {
-  width: 11.2rem;
-  transition: transform .15s;
-  @include media-breakpoint-down(sm) {
-    width: 6.8rem;
-    transition: none;
-  }
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
-.header-logotype:hover {
-  transform: scale(1.1);
-  @include media-breakpoint-down(sm) {
-    transform: none;
-  }
+.header-logotype-img {
+  width: 6.25rem;
 }
 
-.sticky-sidebar {
-  box-shadow: 0 0 .6rem .2rem rgba(0, 0, 0, .11);
-  z-index: 1000;
-  @include media-breakpoint-up(md) {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    min-width: 15.6rem;
-  }
-  @include media-breakpoint-up(xl) {
-    min-width: 18.7rem;
-  }
+.navigation-menu {
+  position: fixed;
+  top: 3.8rem;
+  height: calc(100vh - 3.8rem);
+  box-shadow: 0 .3rem .4rem .1rem rgba(0, 0, 0, .11);
 }
 
-.sticky-sidebar-collapsible {
-  @include media-breakpoint-up(md) {
-    // Ensures .sticky-sidebar-collapsible is always displayed on larger viewport sizes
-    display: block !important;
-  }
+// Makes the panel slide in from the right
+.navigation-menu-right {
+  right: 0;
 }
 
-.sticky-sidebar-scrollable {
-  @include media-breakpoint-up(md) {
-    /*
-     * The number we subtract from the full viewport size is a compensation
-     * for all other elements taking up space on the sidebar.
-     */
-    max-height: calc(100vh - 18.5rem);
-    overflow-y: auto;
-  }
+.navigation-menu-scrollable {
+  overflow-y: auto;
 }
 
-.current-category {
-  font-weight: bold !important;
-}
-
-.category {
-  padding: .3rem;
-  text-decoration: none !important;
+.navigation-menu-item, .category-list-navpanel .category {
+  display: block;
   color: theme-color-level('black', -3);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
 }
 
-.category:hover {
-  color: theme-color('kabum-light-blue');
+.navigation-menu-item:hover, .category-list-navpanel .category:hover {
+  color: theme-color-level('black', -3);
+  text-decoration: none;
+  background-color: theme-color-level('light', 1);
 }
 
-.category:focus {
-  color: theme-color('kabum-dark-blue');
+.navigation-menu-item:focus, .category-list-navpanel .category:focus {
+  background-color: theme-color-level('light', 2);
   outline: 0;
 }
 
+.navigation-menu-current-item, .category-list-navpanel .current-category {
+  box-shadow: inset .1875rem 0 theme-color('kabum-orange');
+  background-color: theme-color-level('light', 0.5);
+}
+
 .is-wrapper {
-  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    width: 50%;
+  }
 }
 
 .is-box {
   position: absolute;
-  left: 0;
+  right: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
   top: 100%;
   width: 100%;
   padding: 1rem;
-  margin: .3rem 0 0;
+  margin-top: .3rem;
   border: .0625rem solid rgba(0, 0, 0, .1);
   border-radius: .2rem;
   background-color: white;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .175);
+  @include media-breakpoint-up(sm) {
+    min-width: 25rem;
+    width: auto;
+  }
   @include media-breakpoint-up(md) {
-    width: 175%;
+    min-width: 28rem;
+    width: auto;
   }
 }
 
@@ -125,19 +111,67 @@
 
 .search-input-wrapper {
   height: 2.5rem;
+  padding-left: 1rem;
+  background-color: theme-color('light');
+  border-radius: 5rem;
 }
 
 .search-input {
   width: 100%;
   height: 100%;
   min-width: 0;
-  border: none;
-  box-shadow: 0 .125rem 0 0 theme-color('kabum-dark-blue');
-  transition: box-shadow .3s;
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: transparent;
+  border: 0;
 }
 
 .search-input:focus {
-  box-shadow: 0 .125rem 0 0 theme-color('kabum-orange');
+  outline: 0;
+}
+
+.search-input-wrapper:focus-within {
+  box-shadow: 0 .1rem .1rem .1rem rgba(0, 0, 0, .11);
+}
+
+.kabum-action-button {
+  display: flex;
+  align-items: center;
+  padding-right: 0.7rem;
+  padding-left: 0.7rem;
+  color: theme-color('kabum-light-blue');
+}
+
+.kabum-action-button:hover {
+  color: theme-color('kabum-dark-blue');
+  text-decoration: none;
+}
+
+.kabum-action-button:focus {
+  color: theme-color('kabum-orange');
+  outline: 0;
+}
+
+.category-sidebar {
+  min-width: 15.6rem;
+}
+
+.category-list-sidebar .category {
+  padding: .3rem;
+  text-decoration: none !important;
+  color: theme-color-level('black', -3);
+}
+
+.category-list-sidebar .current-category {
+  font-weight: bold !important;
+}
+
+.category-list-sidebar .category:hover {
+  color: theme-color('kabum-light-blue');
+}
+
+.category-list-sidebar .category:focus {
+  color: theme-color('kabum-dark-blue');
   outline: 0;
 }
 

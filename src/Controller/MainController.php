@@ -22,10 +22,12 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Serializer\SerializerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProductRepository;
 use App\Entity\Product;
@@ -71,7 +73,7 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/categoria/{category_slug}", name="category_page")
+     * @Route("/categoria/{category_slug}", name="category_page", options={"expose"=true})
      * @ParamConverter("category", options={"mapping": {"category_slug": "slug"}})
      */
     public function categoryPage(Request $request, Category $category, PaginatorInterface $paginator): Response
@@ -93,21 +95,28 @@ class MainController extends AbstractController
     /**
      * Retrieve all categories.
      *
-     * This controller is meant to be embedded on templates.
+     * This is meant to be called with an Ajax request.
      *
      * @param CategoryRepository $repository
-     * @param string $currentPageSlug The category slug retrieved from the current request
      *
-     * @return Response
+     * @return JsonResponse
+     *
+     * @Route("/categorias", name="get_categories", condition="request.isXmlHttpRequest()")
      */
-    public function categoryList(CategoryRepository $repository, string $currentPageSlug): Response
+    public function getCategories(CategoryRepository $repository, SerializerInterface $serializer): JsonResponse
     {
         $categories = $repository->findAll();
 
-        return $this->render('main/_categories.html.twig', [
-            'categories' => $categories,
-            'currentPageSlug' => $currentPageSlug,
+        // Prepare the data to be returned in a JSON response
+        $jsonData = $serializer->serialize($categories, 'json', [
+            'attributes' => ['name', 'slug']
         ]);
+
+        /*
+         * Returning the processed data within an associative array mitigates
+         * a JSON Hijacking vulnerability.
+         */
+        return JsonResponse::fromJsonString('{"categories": ' . $jsonData . '}');
     }
 
     /**
@@ -116,7 +125,7 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/search", name="search")
+     * @Route("/pesquisa", name="search")
      */
     public function search(Request $request, ProductRepository $repository): Response
     {
@@ -148,7 +157,7 @@ class MainController extends AbstractController
      *
      * @return Response
      *
-     * @Route("/search/instant", name="instant_search", condition="request.isXmlHttpRequest()")
+     * @Route("/pesquisa/instantanea", name="instant_search", condition="request.isXmlHttpRequest()")
      */
     public function instantSearch(Request $request, ProductRepository $repository): Response
     {

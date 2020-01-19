@@ -23,7 +23,7 @@ const $ = require('jquery');
  * A collapsible navigation panel.
  */
 export default class NavigationPanel {
-  constructor() {
+  constructor(fullwidth = false) {
     /**
      * All toggle buttons on the current page.
      */
@@ -51,6 +51,15 @@ export default class NavigationPanel {
      * 'target', which are undefined until the first toggle is made.
      */
     this.initialized = false;
+
+    /**
+     * Fullwidth mode.
+     *
+     * If true, the target element will transition from width 0 to width 100%.
+     * If false (default), it will measure the target element's width and
+     * transition between that and 0.
+     */
+    this.fullwidth = fullwidth;
 
     this.keycode = {
       escape: 27,
@@ -116,7 +125,7 @@ export default class NavigationPanel {
      * The panel may be hidden via CSS at certain viewport sizes. In those
      * situations, our CSS transition will never fire. If the event listener
      * for 'transitionend' below is never executed, the panel will be locked
-     * in a 'transition' state, and it will not work until the user reloads
+     * in a 'transition' state and it will not work until the user reloads
      * the page. This prevents that from ever happening.
      */
     if (this.target.is(':hidden')) {
@@ -145,15 +154,21 @@ export default class NavigationPanel {
   }
 
   show() {
-    // Get the collapsible element's width in pixels and convert it to rem units
-    let targetWidth = this.target.width() / 16;
+    var targetWidth;
+
+    if (this.fullwidth) {
+      targetWidth = '100%';
+    } else {
+      // Get the collapsible element's width in pixels and convert it to rem units
+      targetWidth = this.target.width() / 16 + 'rem';
+    }
 
     // Restore target element visibility and apply transition
     this.target.removeClass('np-collapsible');
     this.target.addClass('np-transitioning');
 
     // Set the width to trigger the transition effect
-    this.target.width(targetWidth + 'rem');
+    this.target.width(targetWidth);
 
     var button = this.button;
 
@@ -251,7 +266,7 @@ export default class NavigationPanel {
 
       var focused = $(document.activeElement);
 
-      if (focused.is(this.button) || focused.is(this.panelItems)) {
+      if (focused.is(this.button) || focused.is(this.panelItems) || focused.is(this.target)) {
         return;
       }
 

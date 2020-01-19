@@ -157,7 +157,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/categoria/gerenciar", name="admin_category_management")
      */
-    public function categoryList(CategoryRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
+    public function manageCategories(CategoryRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $category = new Category;
         $categoryModel = new CategoryFormModel;
