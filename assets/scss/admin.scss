@@ -1,41 +1,8 @@
 @import "base/environment";
-@import "navigation-panel/resources";
-
-.header-bar {
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  height: 3.8rem;
-  box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, .11);
-  z-index: 1000;
-}
-
-.header-logotype {
-  display: flex;
-  align-items: center;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.header-logotype-img {
-  width: 6.25rem;
-}
-
-.control-panel-menu {
-  position: fixed;
-  top: 3.8rem;
-  height: calc(100vh - 3.8rem);
-  box-shadow: 0 .3rem .4rem .1rem rgba(0, 0, 0, .11);
-}
-
-.control-panel-menu-scrollable {
-  overflow-y: auto;
-}
 
 .control-panel-sidebar {
   display: none;
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     display: block;
     position: sticky;
     top: 3.8rem;
@@ -43,31 +10,6 @@
     min-width: 17rem;
     overflow-y: auto;
   }
-}
-
-.control-panel-item {
-  display: block;
-  color: theme-color-level('black', -3);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
-}
-
-.control-panel-item:hover {
-  color: theme-color-level('black', -3);
-  text-decoration: none;
-  background-color: theme-color-level('light', 1);
-}
-
-.control-panel-item:focus {
-  background-color: theme-color-level('light', 2);
-  outline: 0;
-}
-
-.control-panel-current-item {
-  box-shadow: inset .1875rem 0 theme-color('kabum-orange');
-  background-color: theme-color-level('light', 0.5);
 }
 
 .current-image-preview {

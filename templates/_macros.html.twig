@@ -1,0 +1,28 @@
+{% macro renderMenuItem(targetRoute, label, iconClasses) %}
+  {% set currentRouteName = app.request.attributes.get('_route') %}
+
+  {% if currentRouteName == targetRoute %}
+    <a class="navigation-menu-item navigation-menu-current-item flex-fill"
+      href="{{ path(targetRoute) }}" aria-current="page">
+      <div class="d-flex">
+        <div class="align-self-center mr-2">
+          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="text-nowrap text-truncate">
+          {{ label|trans }}
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <a class="navigation-menu-item flex-fill" href="{{ path(targetRoute) }}">
+      <div class="d-flex">
+        <div class="align-self-center mr-2">
+          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="text-nowrap text-truncate">
+          {{ label|trans }}
+        </div>
+      </div>
+    </a>
+  {% endif %}
+{% endmacro %}

@@ -24,50 +24,23 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {{ encore_entry_link_tags('admin') }}
 {% endblock %}
 
-{% macro renderMenuItem(targetRoute, label, iconClasses) %}
-  {% set currentRouteName = app.request.attributes.get('_route') %}
-
-  {% if currentRouteName == targetRoute %}
-    <a class="control-panel-item control-panel-current-item" href="{{ path(targetRoute) }}"
-      aria-current="page">
-      <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }}" aria-hidden="true"></i>
-        </div>
-        <div class="text-nowrap text-truncate">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% else %}
-    <a class="control-panel-item" href="{{ path(targetRoute) }}">
-      <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }}" aria-hidden="true"></i>
-        </div>
-        <div class="text-nowrap text-truncate">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% endif %}
-{% endmacro %}
-
 {% block header %}{% endblock %}
+
+{% import '_macros.html.twig' as macros %}
 
 {% block body %}
   <header class="header-bar bg-light">
-    <button class="collapsible-toggle kabum-collapse-button d-lg-none" data-target="#nav-menu"
+    <button class="collapsible-toggle kabum-collapse-button d-md-none" data-target="#nav-menu"
       aria-label="{{ 'toggle_main_menu'|trans }}" aria-expanded="false" aria-controls="nav-menu"
       aria-haspopup="true">
       <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
     </button>
-    <nav id="nav-menu" class="np-collapsible control-panel-menu control-panel-menu-scrollable bg-light d-lg-none">
-      {{ _self.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
-      {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
-      {{ _self.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
+    <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-scrollable bg-light d-md-none">
+      {{ macros.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
+      {{ macros.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+      {{ macros.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
     </nav>
-    <a href="{{ path('main_page') }}" class="d-none d-lg-flex align-items-center kabum-button px-3">
+    <a href="{{ path('main_page') }}" class="d-none d-md-flex align-items-center kabum-button px-3">
       <div class="d-flex">
         <div class="mr-2">
           <i class="fas fa-arrow-left fa-lg" aria-hidden="true"></i>
@@ -80,7 +53,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     <a href="{{ path('main_page') }}" class="header-logotype" aria-label="{{ 'go_home_page'|trans }}">
       <img src="{{ asset('images/kabum.png') }}" class="header-logotype-img" alt="{{ 'logotype'|trans }}">
     </a>
-    <div class="dropdown d-flex pr-1"> {# The right padding keeps the dropdown menu from being too close to the edge #}
+    <div class="dropdown d-flex mr-1"> {# The right margin keeps the dropdown menu from being too close to the edge #}
       <button class="kabum-button dropdown-toggle px-3" type="button" id="userMenu"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
         aria-label="{{ 'user_menu'|trans }}">
@@ -95,8 +68,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   </header>
   <div class="d-flex">
     <div class="control-panel-sidebar">
-      {{ _self.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
-      {{ _self.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
+      {{ macros.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+      {{ macros.renderMenuItem('admin_category_management', 'manage_categories', 'fas fa-tags') }}
     </div>
     <main id="main-content" class="d-flex flex-column w-100">
       {% block main %}{% endblock %}

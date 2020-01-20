@@ -29,34 +29,7 @@ instead, which effectively prevents the indicator from being set. #}
   {% set categorySlug = '' %}
 {% endif %}
 
-{% macro renderMenuItem(targetRoute, label, iconClasses) %}
-  {% set currentRouteName = app.request.attributes.get('_route') %}
-
-  {% if currentRouteName == targetRoute %}
-    <a class="navigation-menu-item navigation-menu-current-item flex-fill"
-      href="{{ path(targetRoute) }}" aria-current="page">
-      <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="text-nowrap text-truncate">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% else %}
-    <a class="navigation-menu-item flex-fill" href="{{ path(targetRoute) }}">
-      <div class="d-flex">
-        <div class="align-self-center mr-2">
-          <i class="{{ iconClasses }} fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="text-nowrap text-truncate">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% endif %}
-{% endmacro %}
+{% import '_macros.html.twig' as macros %}
 
 <!DOCTYPE html>
 <html lang="{{ currentLocale }}">
@@ -123,7 +96,7 @@ instead, which effectively prevents the indicator from being set. #}
               role="button" href="#">
               <i class="fas fa-bookmark" aria-hidden="true"></i>
             </a>
-            <div class="dropdown d-flex">
+            <div class="dropdown d-flex mr-1">
               <a class="kabum-action-button dropdown-toggle" role="button" href="#"
                 id="user-menu" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" aria-label="{{ 'user_menu'|trans }}">
@@ -154,17 +127,17 @@ instead, which effectively prevents the indicator from being set. #}
         <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-right navigation-menu-scrollable bg-white d-md-none">
           {% if app.user %}
             <div class="d-flex">
-              {{ _self.renderMenuItem('user_account', 'your_account', 'fas fa-user') }}
-              {{ _self.renderMenuItem('app_logout', 'sign_out', 'fas fa-sign-out-alt') }}
+              {{ macros.renderMenuItem('user_account', 'your_account', 'fas fa-user') }}
+              {{ macros.renderMenuItem('app_logout', 'sign_out', 'fas fa-sign-out-alt') }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-              {{ _self.renderMenuItem('admin_new_product', 'control_panel', 'fas fa-sliders-h') }}
+              {{ macros.renderMenuItem('admin_new_product', 'control_panel', 'fas fa-sliders-h') }}
             {% endif %}
-            {{ _self.renderMenuItem('main_page', 'wishlist', 'fas fa-bookmark') }}
+            {{ macros.renderMenuItem('main_page', 'wishlist', 'fas fa-bookmark') }}
           {% else %}
-            {{ _self.renderMenuItem('app_login', 'sign_in_your_account', 'fas fa-sign-in-alt') }}
+            {{ macros.renderMenuItem('app_login', 'sign_in_your_account', 'fas fa-sign-in-alt') }}
           {% endif %}
-          {{ _self.renderMenuItem('main_page', 'shopping_cart', 'fas fa-shopping-cart') }}
+          {{ macros.renderMenuItem('main_page', 'shopping_cart', 'fas fa-shopping-cart') }}
 
           <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'departments'|trans }}</h5>
           <div class="category-list category-list-navpanel" data-category-slug="{{ categorySlug }}"
