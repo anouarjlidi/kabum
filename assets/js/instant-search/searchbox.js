@@ -229,16 +229,11 @@ export default class SearchBox {
 
     /*
      * Because of the blur event handler, clicking on any menu items will
-     * cause the menu to close without executing the expected action. Using
-     * the 'mousedown' event and listening for a left button press will
-     * allow the client to activate these items with the mouse.
+     * cause the menu to close without executing the expected action.
+     * This ensures a click will work on them.
      */
     this.result.on('mousedown', '.instant-search-suggestion', function() {
       event.preventDefault();
-
-      if (event.which == 1) { // Left mouse button key code
-        $(this).get(0).click();
-      }
     });
 
     /*
