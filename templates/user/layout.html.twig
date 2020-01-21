@@ -24,57 +24,19 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   {{ encore_entry_link_tags('user') }}
 {% endblock %}
 
-{% macro renderPanelItem(targetRoute, label, iconClasses) %}
-  {% set currentRouteName = app.request.attributes.get('_route') %}
+{% import '_macros.html.twig' as macros %}
 
-  {% if currentRouteName == targetRoute %}
-    <a class="control-panel-item control-panel-current-item" href="{{ path(targetRoute) }}"
-      aria-current="page" aria-label="{{ label|trans }}" title="{{ label|trans }}">
-      <div class="d-flex">
-        <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
-          <i class="{{ iconClasses }}" aria-hidden="true"></i>
-        </div>
-        <div class="control-panel-label">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% else %}
-    <a class="control-panel-item" href="{{ path(targetRoute) }}" aria-label="{{ label|trans }}"
-      title="{{ label|trans }}">
-      <div class="d-flex">
-        <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
-          <i class="{{ iconClasses }}" aria-hidden="true"></i>
-        </div>
-        <div class="control-panel-label">
-          {{ label|trans }}
-        </div>
-      </div>
-    </a>
-  {% endif %}
-{% endmacro %}
-
-{% block header %}{% endblock %}
+{% block navigation_panel %}
+  <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'user_settings'|trans }}</h5>
+  {{ macros.renderMenuItem('user_account', 'account', 'fas fa-id-card') }}
+{% endblock %}
 
 {% block body %}
   <div class="d-flex">
-    <header class="sticky-sidebar bg-light">
-      <div>
-        <a class="control-panel-item" href="{{ path('main_page') }}"
-          aria-label="{{ 'back_to_store'|trans }}" title="{{ 'back_to_store'|trans }}">
-          <div class="d-flex">
-            <div class="align-self-center mr-lg-2 mr-sm-0 mr-2">
-              <i class="fas fa-arrow-left" aria-hidden="true"></i>
-            </div>
-            <div class="control-panel-label">
-              {{ 'back_to_store'|trans }}
-            </div>
-          </div>
-        </a>
-        {{ _self.renderPanelItem('user_account', 'account_settings', 'fas fa-id-card') }}
-      </div>
-    </header>
-    <main id="main-content" class="d-flex flex-column w-100">
+    <div class="user-settings-sidebar">
+      {{ macros.renderMenuItem('user_account', 'account', 'fas fa-id-card') }}
+    </div>
+    <main id="main-content" class="w-100">
       {% block main %}{% endblock %}
     </main>
   </div>

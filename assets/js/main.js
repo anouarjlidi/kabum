@@ -22,6 +22,7 @@ require('../scss/main.scss');
 const $ = require('jquery');
 import SearchBox from './instant-search/searchbox.js';
 import NavigationPanel from './navigation-panel/navigation_panel.js';
+import DepartmentsList from './departments-list/departments-list.js';
 import Feed from './feed/feed.js';
 
 $(document).ready(function() {
@@ -30,6 +31,9 @@ $(document).ready(function() {
 
   var navPanel = new NavigationPanel(true);
   navPanel.setup();
+
+  var departmentsList = new DepartmentsList();
+  departmentsList.setup();
 
   var feed = new Feed('feed');
   feed.setup();

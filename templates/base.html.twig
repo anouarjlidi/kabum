@@ -139,9 +139,11 @@ instead, which effectively prevents the indicator from being set. #}
           {% endif %}
           {{ macros.renderMenuItem('main_page', 'shopping_cart', 'fas fa-shopping-cart') }}
 
-          <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'departments'|trans }}</h5>
-          <div class="category-list category-list-navpanel" data-category-slug="{{ categorySlug }}"
-            data-target="{{ path('get_categories') }}"></div>
+          {% block navigation_panel %}
+            <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'departments'|trans }}</h5>
+            <div class="category-list category-list-navpanel" data-category-slug="{{ categorySlug }}"
+              data-target="{{ path('get_categories') }}"></div>
+          {% endblock %}
         </nav>
       </header>
     {% endblock %}

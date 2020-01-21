@@ -2,7 +2,12 @@
 @import "feed/resources";
 
 .category-sidebar {
+  display: none;
   min-width: 15.6rem;
+  padding: 1.5rem;
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
 }
 
 .category-list-sidebar .category {

@@ -198,9 +198,9 @@
         <source>back_to_store</source>
         <target>Voltar à loja</target>
       </trans-unit>
-      <trans-unit id="account_settings">
-        <source>account_settings</source>
-        <target>Configurações de conta</target>
+      <trans-unit id="account">
+        <source>account</source>
+        <target>Conta</target>
       </trans-unit>
       <trans-unit id="changes_applied">
         <source>changes_applied</source>
@@ -265,6 +265,10 @@
       <trans-unit id="skip_to_main">
         <source>skip_to_main</source>
         <target>Ir ao conteúdo principal</target>
+      </trans-unit>
+      <trans-unit id="user_settings">
+        <source>user_settings</source>
+        <target>Configurações de usuário</target>
       </trans-unit>
     </body>
   </file>

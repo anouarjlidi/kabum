@@ -1,44 +1,9 @@
 @import "base/environment";
 
-.sticky-sidebar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 3.125rem;
-  transition: width .5s;
-  box-shadow: 0 0 .6rem .1rem rgba(0, 0, 0, .11);
-  z-index: 1000;
-  @include media-breakpoint-up(lg) {
-    width: 17rem;
-  }
-}
-
-.control-panel-item {
-  display: block;
-  color: theme-color-level('black', -3);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
-}
-
-.control-panel-item:hover, .control-panel-item:focus {
-  color: theme-color-level('black', -3);
-  text-decoration: none;
-  background-color: theme-color-level('light', 1);
-  outline: 0;
-}
-
-.control-panel-current-item {
-  box-shadow: inset .1875rem 0 theme-color('kabum-orange');
-}
-
-.control-panel-label {
+.user-settings-sidebar {
   display: none;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  @include media-breakpoint-up(lg) {
+  min-width: 15rem;
+  @include media-breakpoint-up(md) {
     display: block;
   }
 }

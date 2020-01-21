@@ -18,3 +18,15 @@
  */
 
 require('../scss/user.scss');
+
+const $ = require('jquery');
+import SearchBox from './instant-search/searchbox.js';
+import NavigationPanel from './navigation-panel/navigation_panel.js';
+
+$(document).ready(function() {
+  var searchbox = new SearchBox();
+  searchbox.startup();
+
+  var navPanel = new NavigationPanel(true);
+  navPanel.setup();
+});
