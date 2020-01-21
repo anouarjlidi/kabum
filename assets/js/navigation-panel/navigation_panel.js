@@ -226,13 +226,14 @@ export default class NavigationPanel {
        * Keyboard navigation through panel items using arrow keys.
        */
       var index;
+      var navPanel = this;
 
       this.panelItems.each(function() {
         var item = $(this);
 
         // Determine index of currently focused item
         if (item.is(document.activeElement)) {
-          index = item.index('.navigation-panel a');
+          index = navPanel.panelItems.index(item);
         }
       });
 

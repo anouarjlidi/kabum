@@ -124,7 +124,7 @@ instead, which effectively prevents the indicator from being set. #}
           aria-haspopup="true">
           <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
         </button>
-        <nav id="nav-menu" class="navigation-panel np-collapsible navigation-menu navigation-menu-right navigation-menu-scrollable bg-white">
+        <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-right navigation-menu-scrollable bg-white">
           {% if app.user %}
             <div class="d-flex">
               {{ macros.renderMenuItem('user_account', 'your_account', 'fas fa-user') }}
