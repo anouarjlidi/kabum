@@ -21,6 +21,8 @@ const $ = require('jquery');
 
 /**
  * A collapsible navigation panel.
+ *
+ * Only anchors are currently supported as focusable panel items.
  */
 export default class NavigationPanel {
   constructor(fullwidth = false) {
@@ -223,25 +225,37 @@ export default class NavigationPanel {
       /*
        * Keyboard navigation through panel items using arrow keys.
        */
-      var focused;
+      var index;
 
       this.panelItems.each(function() {
         var item = $(this);
 
-        // Determine currently focused item
+        // Determine index of currently focused item
         if (item.is(document.activeElement)) {
-          focused = item;
+          index = item.index('.navigation-panel a');
         }
       });
 
       if (event.which == this.keycode.arrowUp) {
         event.preventDefault();
-        focused.prev().focus();
+
+        if (index === 0) {
+          return;
+        }
+
+        index--;
+        this.panelItems.eq(index).focus();
       }
 
       if (event.which == this.keycode.arrowDown) {
         event.preventDefault();
-        focused.next().focus();
+
+        if (index === this.panelItems.length) {
+          return;
+        }
+
+        index++;
+        this.panelItems.eq(index).focus();
       }
     });
 

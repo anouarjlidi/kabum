@@ -42,6 +42,9 @@
   top: 3.8rem;
   height: calc(100vh - 3.8rem);
   box-shadow: 0 .3rem .4rem .1rem rgba(0, 0, 0, .11);
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
 }
 
 // Makes the panel slide in from the right
