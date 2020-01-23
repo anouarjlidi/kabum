@@ -23,7 +23,7 @@ const $ = require('jquery');
 import SearchBox from './instant-search/searchbox.js';
 import NavigationPanel from './navigation-panel/navigation_panel.js';
 import DepartmentsList from './departments-list/departments-list.js';
-import Feed from './feed/feed.js';
+const Feed = require('feed-control');
 
 $(document).ready(function() {
   var searchbox = new SearchBox();
