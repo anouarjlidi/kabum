@@ -7,6 +7,7 @@
         "feed-control": "^1.0.2",
         "jquery": "^3.4.1",
         "jquery-mask-plugin": "^1.14.16",
+        "nav-panel": "^1.0.0",
         "node-sass": "^4.13.0",
         "popper.js": "^1.16.0",
         "regenerator-runtime": "^0.13.2",

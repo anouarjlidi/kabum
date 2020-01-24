@@ -22,7 +22,7 @@ require('../scss/admin.scss');
 const $ = require('jquery');
 require('jquery-mask-plugin');
 import CustomFileInput from './filename-setter/custom_file_input.js';
-import NavigationPanel from './navigation-panel/navigation_panel.js';
+const NavigationPanel = require('nav-panel');
 
 $(document).ready(function() {
   var customFileInput = new CustomFileInput();
