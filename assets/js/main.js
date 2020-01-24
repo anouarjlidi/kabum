@@ -29,7 +29,7 @@ $(document).ready(function() {
   var searchbox = new SearchBox();
   searchbox.startup();
 
-  var navPanel = new NavigationPanel(true);
+  var navPanel = new NavigationPanel();
   navPanel.setup();
 
   var departmentsList = new DepartmentsList();
