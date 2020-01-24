@@ -4350,9 +4350,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 nav-panel@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.0.tgz#d43cd63f66b5b4e2468e063d2417b49787ec2f71"
-  integrity sha512-yiY0w7Txann+wPXkdcIwxTpXOaEoTzjx+9BK8N9NJRDZ1t9AlO4LD9wIbwGiz8bR7cwbsVlpAUOLBUdCtwd9pg==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.1.tgz#a51cb6de08af60180631f6da7a20ff3f825cc4bc"
+  integrity sha512-uwm4cspq/9Wtt+uzcU6KxiWppR9Ybz9Jyi93sTFL1vclbzymrmFmjffJrelayYfsfFJ+VxLcMM/CyI2dsXIgCw==
   dependencies:
     jquery "^3.4.1"
 
