@@ -1554,9 +1554,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001022:
-  version "1.0.30001022"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001022.tgz#9eeffe580c3a8f110b7b1742dcf06a395885e4c6"
-  integrity sha512-FjwPPtt/I07KyLPkBQ0g7/XuZg6oUkYBVnPHNj3VHJbOjmmJ/GdSo/GUY6MwINEQvjhP6WZVbX8Tvms8xh0D5A==
+  version "1.0.30001023"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001023.tgz#b82155827f3f5009077bdd2df3d8968bcbcc6fc4"
+  integrity sha512-C5TDMiYG11EOhVOA62W1p3UsJ2z4DsHtMBQtjzp3ZsUglcQn62WOUgW0y795c7A5uZ+GCEIvzkMatLIlAsbNTA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -4350,9 +4350,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 nav-panel@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.2.tgz#0971162588e8c55500a24c62c3ebe18df0194c97"
-  integrity sha512-shRUMd3+T1UeQR9HHbSeJLbRbS95zrgemc1VmtFk5KaVihFydqFrKjCi5FoCkdIxS4GNhuSRMLV06Urbt28nmQ==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.5.tgz#103a8fda95b99a74cb2ce0f11e48a22f4e0976e5"
+  integrity sha512-lNXgAP4Xs5UhrPvmpfiMZdNfUB6qqoAWfCq8vxOvUklgm05UOuqKYWwlS8xHeq+U0qd5F6aw2lBScarf6/y9Jg==
   dependencies:
     jquery "^3.4.1"
 
