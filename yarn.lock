@@ -2864,9 +2864,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.9.0.tgz#8d5bcdc65b7108fe1508649c79c12d732dcedb4f"
-  integrity sha512-CRcPzsSIbXyVDl0QI01muNDu69S8trU4jArW9LpOt2WtC6LyUJetcIrmfHsRBx7/Jb6GHJUiuqyYxPooFfNt6A==
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.9.1.tgz#26e329669886f8b3baccbaf352067b0253da6c2d"
+  integrity sha512-oUNbrdUjHItyCytZQrHxWQ81ebL4xCFLH10sG0poUMgbKWoBnswpICjUBld3PLJ1lF6cCYVUBG7hAdLro0JNvg==
   dependencies:
     debug "^3.0.0"
 
@@ -4350,9 +4350,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 nav-panel@^1.0.0:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.5.tgz#103a8fda95b99a74cb2ce0f11e48a22f4e0976e5"
-  integrity sha512-lNXgAP4Xs5UhrPvmpfiMZdNfUB6qqoAWfCq8vxOvUklgm05UOuqKYWwlS8xHeq+U0qd5F6aw2lBScarf6/y9Jg==
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.11.tgz#d97c70027b306ff67db92013ba8604666001061a"
+  integrity sha512-qGLdJ+mfQzWy2krHUvfg/3oNa+jTbgSDjvYzTen884vBfsT+qPG4c5NSo2GpptD5WO13KuD6eh9qB2+TqInajQ==
   dependencies:
     jquery "^3.4.1"
 

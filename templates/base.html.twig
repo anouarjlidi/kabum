@@ -120,8 +120,9 @@ instead, which effectively prevents the indicator from being set. #}
           {% endif %}
         </div>
         <button class="np-toggle kabum-collapse-button d-md-none" data-target="#nav-menu"
-          data-fullscreen="true" data-vertical-transition="false" aria-label="{{ 'toggle_main_menu'|trans }}"
-          aria-expanded="false" aria-controls="nav-menu" aria-haspopup="true">
+          data-fullscreen="true" data-vertical-transition="false" data-close-on-resize="false"
+          aria-label="{{ 'toggle_main_menu'|trans }}" aria-expanded="false"
+          aria-controls="nav-menu" aria-haspopup="true">
           <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
         </button>
         <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-right navigation-menu-scrollable bg-white">
