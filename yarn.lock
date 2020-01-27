@@ -2774,9 +2774,9 @@ faye-websocket@~0.11.1:
     websocket-driver ">=0.5.1"
 
 feed-control@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/feed-control/-/feed-control-1.0.3.tgz#1dc9a987a70deb60618ee5bb56917c5ca0cd4a47"
-  integrity sha512-ljyyTTqDr0o6IctWw8y34N6YSFWPmle1NaQNIwSEi/5nPqILJj+kgZkWmalDaAN1BKbS9Sto2cIMP/AX/wb6Ew==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/feed-control/-/feed-control-1.0.4.tgz#81db60c181acc455aca6224b64c0ce7870dd0240"
+  integrity sha512-JUZ/twEwzsDX9OO1yTk1iP9wUNWJ4R8/6IDS7o9AVoqRHou5o+k3XdnATDvjTY+9wvpLZRYKOv/Pyit8OMNMuw==
   dependencies:
     jquery "^3.4.1"
 
@@ -2864,9 +2864,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.9.1.tgz#26e329669886f8b3baccbaf352067b0253da6c2d"
-  integrity sha512-oUNbrdUjHItyCytZQrHxWQ81ebL4xCFLH10sG0poUMgbKWoBnswpICjUBld3PLJ1lF6cCYVUBG7hAdLro0JNvg==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.10.0.tgz#01f5263aee921c6a54fb91667f08f4155ce169eb"
+  integrity sha512-4eyLK6s6lH32nOvLLwlIOnr9zrL8Sm+OvW4pVTJNoXeGzYIkHVf+pADQi+OJ0E67hiuSLezPVPyBcIZO50TmmQ==
   dependencies:
     debug "^3.0.0"
 
@@ -4350,9 +4350,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 nav-panel@^1.0.0:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.11.tgz#d97c70027b306ff67db92013ba8604666001061a"
-  integrity sha512-qGLdJ+mfQzWy2krHUvfg/3oNa+jTbgSDjvYzTen884vBfsT+qPG4c5NSo2GpptD5WO13KuD6eh9qB2+TqInajQ==
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/nav-panel/-/nav-panel-1.0.12.tgz#d6fb5985cd5d5988f50a18abef740a9d2b6d1295"
+  integrity sha512-WRn/blyMDik/MmnQQld63dwXD4EQsGpUMTg6pbUjnqf0FEcbWG/LvO+idTJPyrOIaX3am6zLwa6fu/oX/Wlsew==
   dependencies:
     jquery "^3.4.1"
 
