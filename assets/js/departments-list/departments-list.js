@@ -52,11 +52,6 @@ export default class DepartmentsList {
   }
 
   setup() {
-    // Abort if there are no department lists on the current page
-    if (!this.departmentLists.length) {
-      return;
-    }
-
     var departmentsList = this;
 
     this.departmentLists.each(function() {
