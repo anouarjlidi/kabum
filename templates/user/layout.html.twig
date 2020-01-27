@@ -28,13 +28,14 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block navigation_panel %}
   <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'user_settings'|trans }}</h5>
-  {{ macros.renderMenuItem('user_account', 'account', 'fas fa-id-card') }}
+  {{ macros.renderMenuItem('user_account', 'security', 'fas fa-shield-alt') }}
 {% endblock %}
 
 {% block body %}
   <div class="d-flex">
     <div class="user-settings-sidebar">
-      {{ macros.renderMenuItem('user_account', 'account', 'fas fa-id-card') }}
+      {{ macros.renderMenuItem('user_page', 'overview', 'fas fa-user') }}
+      {{ macros.renderMenuItem('user_account', 'security', 'fas fa-shield-alt') }}
     </div>
     <main id="main-content" class="w-100">
       {% block main %}{% endblock %}

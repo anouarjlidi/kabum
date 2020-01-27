@@ -8,6 +8,14 @@
   }
 }
 
+.user-overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+
 .logotype {
   width: 12.5rem;
 }

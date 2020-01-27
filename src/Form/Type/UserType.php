@@ -82,6 +82,7 @@ class UserType extends AbstractType
                         ])
                         ->add('currentPassword', PasswordType::class, [
                             'label' => 'current_password',
+                            'help' => 'current_password_needed',
                             'required' => $options['requiredPassword'],
                         ])
                         ->add('password', RepeatedType::class, [

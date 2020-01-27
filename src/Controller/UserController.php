@@ -65,6 +65,16 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/usuario", name="user_page")
+     *
+     * @IsGranted("ROLE_USER")
+     */
+    public function userPage()
+    {
+        return $this->render('user/user_page.html.twig');
+    }
+
+    /**
      * @Route("/usuario/conta", name="user_account")
      *
      * @IsGranted("ROLE_USER")

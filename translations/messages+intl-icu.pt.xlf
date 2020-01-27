@@ -198,9 +198,9 @@
         <source>back_to_store</source>
         <target>Voltar à loja</target>
       </trans-unit>
-      <trans-unit id="account">
-        <source>account</source>
-        <target>Conta</target>
+      <trans-unit id="security">
+        <source>security</source>
+        <target>Segurança</target>
       </trans-unit>
       <trans-unit id="changes_applied">
         <source>changes_applied</source>
@@ -269,6 +269,18 @@
       <trans-unit id="user_settings">
         <source>user_settings</source>
         <target>Configurações de usuário</target>
+      </trans-unit>
+      <trans-unit id="current_password_needed">
+        <source>current_password_needed</source>
+        <target>A senha atual é necessária para definir uma nova senha.</target>
+      </trans-unit>
+      <trans-unit id="overview">
+        <source>overview</source>
+        <target>Visão geral</target>
+      </trans-unit>
+      <trans-unit id="have_not_purchased_anything">
+        <source>have_not_purchased_anything</source>
+        <target>Você ainda não fez nenhuma compra.</target>
       </trans-unit>
     </body>
   </file>
