@@ -4,8 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    main_locale: pt
-    product_image_directory: '%kernel.project_dir%/public/images/products/'
+    app.default_locale: pt
+    app.product_image_directory: '%kernel.project_dir%/public/images/products/'
+    app.product_image_directory_relative_path: 'images/products/'
+    app.shopping_cart_storage_key: 'shopping_cart'
 
 services:
     # default configuration for services in *this* file
@@ -27,7 +29,11 @@ services:
 
     App\Service\FileUploader:
         arguments:
-            $productImageDirectory: '%product_image_directory%'
+            $productImageDirectory: '%app.product_image_directory%'
+
+    App\Service\ShoppingCartStorage:
+        arguments:
+            $storageKey: '%app.shopping_cart_storage_key%'
 
     # An alias is used to setup Parsedown for autowiring, as it's in
     # the global namespace.

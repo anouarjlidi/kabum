@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\Product;
 
 /**
- * Storage layer for shopping cart.
+ * Storage layer for the shopping cart.
  */
 class ShoppingCartStorage
 {
@@ -35,9 +35,15 @@ class ShoppingCartStorage
 
     private $serializer;
 
-    public function __construct(SessionInterface $session)
+    /**
+     * @var string The name used as the key to find all cart items
+     */
+    private $storageKey;
+
+    public function __construct(SessionInterface $session, string $storageKey)
     {
         $this->session = $session;
+        $this->storageKey = $storageKey;
 
         $normalizers = [new ObjectNormalizer()];
         $this->serializer = new Serializer($normalizers);
@@ -45,6 +51,8 @@ class ShoppingCartStorage
 
     /**
      * Converts the Doctrine object into a plain PHP array.
+     *
+     * @param Product $product
      */
     private function normalize(Product $product): array
     {
@@ -62,17 +70,17 @@ class ShoppingCartStorage
      */
     public function add(Product $product)
     {
-        if ($this->session->has('cart')) {
-            $cart = $this->session->get('cart');
+        if ($this->session->has($this->storageKey)) {
+            $cart = $this->session->get($this->storageKey);
             $cart[$product->getId()] = $this->normalize($product);
 
-            $this->session->set('cart', $cart);
+            $this->session->set($this->storageKey, $cart);
         } else {
             $cart = [
                 $product->getId() => $this->normalize($product),
             ];
 
-            $this->session->set('cart', $cart);
+            $this->session->set($this->storageKey, $cart);
         }
     }
 
@@ -83,6 +91,6 @@ class ShoppingCartStorage
      */
     public function all(): ?array
     {
-        return $this->session->get('cart');
+        return $this->session->get($this->storageKey);
     }
 }

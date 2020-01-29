@@ -5,4 +5,5 @@ twig:
     exception_controller: null
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
-        product_image_directory: 'images/products/'
+        product_image_directory: '%app.product_image_directory_relative_path%'
+        shopping_cart: '%app.shopping_cart_storage_key%'

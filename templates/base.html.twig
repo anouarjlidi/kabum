@@ -18,7 +18,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
 {% set currentLocale = app.request.locale %}
-{% set shoppingCartCount = app.session.get('cart')|length %}
+{% set shoppingCartCount = app.session.get(shopping_cart)|length %}
 
 {# This is used to set the current page indicator on items of the
 departments list. If defined, it will retrieve the category slug
