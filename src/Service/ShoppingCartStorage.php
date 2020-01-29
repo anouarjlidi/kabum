@@ -22,6 +22,8 @@
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\Product;
 
 /**
@@ -31,26 +33,43 @@ class ShoppingCartStorage
 {
     private $session;
 
+    private $serializer;
+
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
+
+        $normalizers = [new ObjectNormalizer()];
+        $this->serializer = new Serializer($normalizers);
+    }
+
+    /**
+     * Converts the Doctrine object into a plain PHP array.
+     */
+    private function normalize(Product $product): array
+    {
+        return $this->serializer->normalize($product, null, [
+            'attributes' => ['name', 'image']
+        ]);
     }
 
     /**
      * Push a product into the shopping cart.
      *
      * If the cart doesn't exist, it will be created.
+     *
+     * @param Product $product
      */
     public function add(Product $product)
     {
         if ($this->session->has('cart')) {
             $cart = $this->session->get('cart');
-            $cart[$product->getId()] = $product;
+            $cart[$product->getId()] = $this->normalize($product);
 
             $this->session->set('cart', $cart);
         } else {
             $cart = [
-                $product->getId() => $product,
+                $product->getId() => $this->normalize($product),
             ];
 
             $this->session->set('cart', $cart);
@@ -59,8 +78,10 @@ class ShoppingCartStorage
 
     /**
      * Retrieve all products from the shopping cart.
+     *
+     * @return array|null
      */
-    public function all()
+    public function all(): ?array
     {
         return $this->session->get('cart');
     }
