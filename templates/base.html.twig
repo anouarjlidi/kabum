@@ -18,6 +18,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 #}
 
 {% set currentLocale = app.request.locale %}
+{% set shoppingCartCount = app.session.get('cart')|length %}
 
 {# This is used to set the current page indicator on items of the
 departments list. If defined, it will retrieve the category slug
@@ -88,8 +89,11 @@ instead, which effectively prevents the indicator from being set. #}
         </div>
         <div class="d-md-flex d-none">
           <a class="kabum-action-button" aria-label="{{ 'shopping_cart'|trans }}"
-            role="button" href="#">
+            role="button" href="{{ path('shopping_cart') }}">
             <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            {% if shoppingCartCount %}
+              <small class="font-weight-bold ml-1">{{ shoppingCartCount }}</small>
+            {% endif %}
           </a>
           {% if app.user %}
             <a class="kabum-action-button" aria-label="{{ 'wishlist'|trans }}"
@@ -138,7 +142,7 @@ instead, which effectively prevents the indicator from being set. #}
           {% else %}
             {{ macros.renderMenuItem('app_login', 'sign_in_your_account', 'fas fa-sign-in-alt') }}
           {% endif %}
-          {{ macros.renderMenuItem('main_page', 'shopping_cart', 'fas fa-shopping-cart') }}
+          {{ macros.renderMenuItem('shopping_cart', 'shopping_cart', 'fas fa-shopping-cart', shoppingCartCount) }}
 
           {% block navigation_panel %}
             <h5 class="text-kabum-orange p-3 mt-2 mb-0">{{ 'departments'|trans }}</h5>

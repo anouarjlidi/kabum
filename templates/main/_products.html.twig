@@ -40,11 +40,16 @@ it can be focused when a new batch of items is loaded onto the page. #}
     <div class="mb-3">
       <small class="text-secondary">{{ product.description }}</small>
     </div>
-    <div class="bg-kabum-orange rounded text-center py-1">
-      <h5 class="font-weight-bold text-white">
-        R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
-      </h5>
-    </div>
+    <h5 class="font-weight-bold text-kabum-orange mb-4">
+      R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+    </h5>
+    <form action="{{ path('add_to_cart', {id: product.id}) }}" method="post">
+      <input type="hidden" name="token" value="{{ csrf_token('add-to-cart') }}"/>
+      <button type="submit" class="btn btn-kabum-dark-blue">
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        {{ 'add_to_cart'|trans }}
+      </button>
+    </form>
   </article>
   {% set firstItem = false %}
 {% endfor %}

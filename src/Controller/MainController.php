@@ -33,6 +33,7 @@ use App\Repository\ProductRepository;
 use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Entity\Category;
+use App\Service\ShoppingCartStorage;
 
 class MainController extends AbstractController
 {
@@ -167,6 +168,52 @@ class MainController extends AbstractController
 
         return $this->render('main/_instant_search_products.html.twig', [
             'products' => $products,
+        ]);
+    }
+
+    /**
+     * Add a product to the shopping cart.
+     *
+     * @param Request $request
+     * @param Product $product
+     * @param ShoppingCartStorage $storage
+     *
+     * @return Response
+     *
+     * @Route("/carrinho/adicionar/{id}", methods={"POST"}, name="add_to_cart")
+     */
+    public function addToCart(Request $request, Product $product, ShoppingCartStorage $storage): Response
+    {
+        if (!$this->isCsrfTokenValid('add-to-cart', $request->request->get('token'))) {
+            return $this->redirectToRoute('main_page');
+        }
+
+        $storage->add($product);
+
+        $this->addFlash(
+            'kabum-light-blue',
+            'product_added_to_cart'
+        );
+
+        return $this->redirectToRoute('shopping_cart');
+    }
+
+    /**
+     * List all products on the shopping cart.
+     *
+     * @param Request $request
+     * @param ShoppingCartStorage $storage
+     *
+     * @return Response
+     *
+     * @Route("/carrinho", name="shopping_cart")
+     */
+    public function listCartItems(Request $request, ShoppingCartStorage $storage): Response
+    {
+        $cart = $storage->all();
+
+        return $this->render('main/shopping_cart.html.twig', [
+            'cart' => $cart,
         ]);
     }
 }

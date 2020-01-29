@@ -282,6 +282,18 @@
         <source>have_not_purchased_anything</source>
         <target>Você ainda não fez nenhuma compra.</target>
       </trans-unit>
+      <trans-unit id="product_added_to_cart">
+        <source>product_added_to_cart</source>
+        <target>Produto adicionado ao carrinho.</target>
+      </trans-unit>
+      <trans-unit id="add_to_cart">
+        <source>add_to_cart</source>
+        <target>Adicionar ao carrinho</target>
+      </trans-unit>
+      <trans-unit id="empty_shopping_cart">
+        <source>empty_shopping_cart</source>
+        <target>Seu carrinho está vazio.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
