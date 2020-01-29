@@ -21,7 +21,9 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\Product;
@@ -40,9 +42,15 @@ class ShoppingCartStorage
      */
     private $storageKey;
 
-    public function __construct(SessionInterface $session, string $storageKey)
+    /**
+     * @var string Separates the namespace from the attribute name
+     */
+    private $namespaceCharacter = '/';
+
+    public function __construct(string $storageKey)
     {
-        $this->session = $session;
+        $this->session = new Session(new NativeSessionStorage(), new NamespacedAttributeBag());
+
         $this->storageKey = $storageKey;
 
         $normalizers = [new ObjectNormalizer()];
@@ -70,18 +78,10 @@ class ShoppingCartStorage
      */
     public function add(Product $product)
     {
-        if ($this->session->has($this->storageKey)) {
-            $cart = $this->session->get($this->storageKey);
-            $cart[$product->getId()] = $this->normalize($product);
-
-            $this->session->set($this->storageKey, $cart);
-        } else {
-            $cart = [
-                $product->getId() => $this->normalize($product),
-            ];
-
-            $this->session->set($this->storageKey, $cart);
-        }
+        $this->session->set(
+            $this->storageKey . $this->namespaceCharacter . $product->getId(),
+            $this->normalize($product)
+        );
     }
 
     /**
