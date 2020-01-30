@@ -31,6 +31,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('markdown_2_html', [AppRuntime::class, 'markdownConverter']),
+            new TwigFilter('price', [AppRuntime::class, 'formatPrice']),
         ];
     }
 }

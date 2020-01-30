@@ -38,7 +38,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
             <small>{{ product.name }}</small>
             <div class="d-flex flex-column flex-sm-row align-items-sm-center mt-3">
               <input class="quantity-input form-control form-control-sm" type="number" min="1" value="1"/>
-              <span class="ml-2 mt-2 mt-sm-0">&times; R$ {{ (product.price / 100)|number_format(2, ',', '.') }}</span>
+              <span class="ml-2 mt-2 mt-sm-0">&times; {{ product.price|price }}</span>
             </div>
           </div>
           <div class="ml-auto">

@@ -44,4 +44,21 @@ class AppRuntime implements RuntimeExtensionInterface
 
         return $html;
     }
+
+    /**
+     * Formats a number into money.
+     *
+     * It will also render the currency symbol, but it's currently
+     * limited to BRL.
+     */
+    public function formatPrice($number, $decimals = 2, $decPoint = ',', $thousandsSep = '.')
+    {
+        // Remove the 2 trailing zeroes
+        $number = $number / 100;
+
+        $price = number_format($number, $decimals, $decPoint, $thousandsSep);
+        $price = 'R$ ' . $price;
+
+        return $price;
+    }
 }

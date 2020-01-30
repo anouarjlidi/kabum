@@ -39,7 +39,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
               <small class="text-secondary">{{ product.description }}</small>
             </div>
             <h5 class="font-weight-bold text-kabum-orange mb-4">
-              R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+              {{ product.price|price }}
             </h5>
             <form action="{{ path('add_to_cart', {id: product.id}) }}" method="post">
               <input type="hidden" name="token" value="{{ csrf_token('add-to-cart') }}"/>

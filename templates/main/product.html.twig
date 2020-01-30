@@ -33,7 +33,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <div class="col-sm-7 col-lg-8 col-xl-9">
           <p>{{ product.description }}</p>
           <h3 class="font-weight-bold text-kabum-orange text-center text-sm-left">
-            R$ {{ (product.price / 100)|number_format(2, ',', '.') }}
+            {{ product.price|price }}
           </h3>
           {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-lime mb-3" href="{{ path('admin_edit_product', {slug: product.slug}) }}">
