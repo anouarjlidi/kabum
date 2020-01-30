@@ -199,6 +199,33 @@ class MainController extends AbstractController
     }
 
     /**
+     * Remove a product from the shopping cart.
+     *
+     * @param Request $request
+     * @param Product $product
+     * @param ShoppingCartStorage $storage
+     *
+     * @return Response
+     *
+     * @Route("/carrinho/remover/{id}", methods={"POST"}, name="remove_from_cart")
+     */
+    public function removeFromCart(Request $request, Product $product, ShoppingCartStorage $storage): Response
+    {
+        if (!$this->isCsrfTokenValid('remove-from-cart', $request->request->get('token'))) {
+            return $this->redirectToRoute('main_page');
+        }
+
+        $storage->remove($product);
+
+        $this->addFlash(
+            'kabum-light-blue',
+            'product_removed_from_cart'
+        );
+
+        return $this->redirectToRoute('shopping_cart');
+    }
+
+    /**
      * List all products on the shopping cart.
      *
      * @param Request $request
@@ -208,7 +235,7 @@ class MainController extends AbstractController
      *
      * @Route("/carrinho", name="shopping_cart")
      */
-    public function listCartItems(Request $request, ShoppingCartStorage $storage): Response
+    public function shoppingCart(Request $request, ShoppingCartStorage $storage): Response
     {
         $cart = $storage->all();
 

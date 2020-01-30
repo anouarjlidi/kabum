@@ -65,14 +65,12 @@ class ShoppingCartStorage
     private function normalize(Product $product): array
     {
         return $this->serializer->normalize($product, null, [
-            'attributes' => ['name', 'image']
+            'attributes' => ['id', 'name', 'price', 'image']
         ]);
     }
 
     /**
-     * Push a product into the shopping cart.
-     *
-     * If the cart doesn't exist, it will be created.
+     * Add a product to the shopping cart.
      *
      * @param Product $product
      */
@@ -81,6 +79,18 @@ class ShoppingCartStorage
         $this->session->set(
             $this->storageKey . $this->namespaceCharacter . $product->getId(),
             $this->normalize($product)
+        );
+    }
+
+    /**
+     * Remove a product from the shopping cart.
+     *
+     * @param Product $product
+     */
+    public function remove(Product $product)
+    {
+        $this->session->remove(
+            $this->storageKey . $this->namespaceCharacter . $product->getId()
         );
     }
 

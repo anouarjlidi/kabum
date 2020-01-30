@@ -294,6 +294,14 @@
         <source>empty_shopping_cart</source>
         <target>Seu carrinho está vazio.</target>
       </trans-unit>
+      <trans-unit id="product_removed_from_cart">
+        <source>product_removed_from_cart</source>
+        <target>Produto removido do carrinho.</target>
+      </trans-unit>
+      <trans-unit id="remove_from_cart">
+        <source>remove_from_cart</source>
+        <target>Remover do carrinho</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
