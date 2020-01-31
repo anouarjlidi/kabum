@@ -26,6 +26,10 @@
         <source>wrong_password</source>
         <target>Senha incorreta</target>
       </trans-unit>
+      <trans-unit id="price_pattern">
+        <source>price_pattern</source>
+        <target>O preço contém caracteres inválidos.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

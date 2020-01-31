@@ -54,6 +54,7 @@ class ProductFormModel
 
     /**
      * @Assert\NotBlank(groups={"EditProduct"})
+     * @Assert\Regex(pattern="/^[0-9,.]*$/", message="price_pattern", groups={"EditProduct"})
      */
     private $price;
 

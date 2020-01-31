@@ -40,7 +40,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {{ 'create_an_account'|trans }}
     </h4>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
       {{ form_errors(form) }}
 
       {{ form_row(form.username) }}

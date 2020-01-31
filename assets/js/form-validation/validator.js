@@ -17,12 +17,23 @@
  * along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-require('../scss/app.scss');
+/**
+ * Perform client-side form validation using Bootstrap's custom styles.
+ */
+export default class FormValidator {
+  constructor() {
+    this.forms = document.getElementsByClassName('needs-validation');
+  }
 
-require('bootstrap');
-import FormValidator from './form-validation/validator.js';
+  setup() {
+    for (let form of this.forms) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
 
-document.addEventListener('DOMContentLoaded', function() {
-  var validator = new FormValidator();
-  validator.setup();
-});
+          form.classList.add('was-validated');
+        }
+      });
+    }
+  }
+}

@@ -24,10 +24,8 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Form\Model\UserFormModel;
@@ -48,14 +46,15 @@ class UserType extends AbstractType
                 if (!$user || null === $user->getId()) {
                     // Creating a new user
                     $form
-                        ->add('username', TextType::class, [
+                        ->add('username', null, [
                             'label' => 'username',
                             'help' => 'username_allowed_characters',
                             'attr' => [
                                 'autofocus' => 'autofocus',
+                                'minlength' => 3,
                             ],
                         ])
-                        ->add('agreeTerms', CheckboxType::class, [
+                        ->add('agreeTerms', null, [
                             'label' => 'agree_terms',
                             'label_attr' => [
                                 'class' => 'checkbox-custom',
@@ -67,20 +66,29 @@ class UserType extends AbstractType
                             'required' => $options['requiredPassword'],
                             'first_options' => [
                                 'label' => 'password',
+                                'attr' => [
+                                    'maxlength' => 4096,
+                                ],
                             ],
                             'second_options' => [
                                 'label' => 'repeat_password',
+                                'attr' => [
+                                    'maxlength' => 4096,
+                                ],
                             ],
                         ])
                     ;
                 } else {
                     // Editing an existing user
                     $form
-                        ->add('username', TextType::class, [
+                        ->add('username', null, [
                             'label' => 'username',
                             'help' => 'username_allowed_characters',
+                            'attr' => [
+                                'minlength' => 3,
+                            ],
                         ])
-                        ->add('currentPassword', PasswordType::class, [
+                        ->add('currentPassword', null, [
                             'label' => 'current_password',
                             'help' => 'current_password_needed',
                             'required' => $options['requiredPassword'],
@@ -91,9 +99,15 @@ class UserType extends AbstractType
                             'required' => $options['requiredPassword'],
                             'first_options' => [
                                 'label' => 'new_password',
+                                'attr' => [
+                                    'maxlength' => 4096,
+                                ],
                             ],
                             'second_options' => [
                                 'label' => 'repeat_password',
+                                'attr' => [
+                                    'maxlength' => 4096,
+                                ],
                             ],
                         ])
                     ;

@@ -24,7 +24,6 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -49,7 +48,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', null, [
                 'label' => 'name',
             ])
             ->add('description', TextareaType::class, [
@@ -74,20 +73,19 @@ class ProductType extends AbstractType
                     'class' => 'custom-select',
                 ],
             ])
-            ->add('price', TextType::class, [
+            ->add('price', null, [
                 'label' => 'price',
                 'attr' => [
                     'class' => 'money-input',
                     /*
-                     * These attributes ensure that the virtual numeric keyboard
+                     * This attribute ensures that the virtual numeric keyboard
                      * is used instead of the normal multi-character keyboard
                      * (currently it doesn't work on every modern browser).
                      */
-                    'pattern' => '[0-9,.]*',
                     'inputmode' => 'numeric',
                 ],
             ])
-            ->add('imageFile', FileType::class, [
+            ->add('imageFile', null, [
                 'label' => 'image',
                 'required' => $options['requiredImage'],
                 'attr' => [
@@ -110,13 +108,22 @@ class ProductType extends AbstractType
                     $slug = $this->slugger->slugify($productModel->getName());
                     $productModel->setSlug($slug);
                 }
+            })
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                $productModel = $event->getData();
 
-                // Remove dots and commas from the price value (and store int)
+                /*
+                 * Prepare the price value for storage.
+                 *
+                 * Remove dots and commas, then store it as an integer.
+                 */
                 if (null !== $productModel->getPrice()) {
                     $price = $productModel->getPrice();
+
                     $price = (string) $price;
                     $price = str_replace(array('.', ','), '', $price);
                     $price = (int) $price;
+
                     $productModel->setPrice($price);
                 }
             })
