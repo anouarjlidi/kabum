@@ -19,10 +19,13 @@
 
 /**
  * Perform client-side form validation using Bootstrap's custom styles.
+ *
+ * Validation feedback is applied when the submit button is pressed.
  */
 export default class FormValidator {
   constructor() {
     this.forms = document.getElementsByClassName('needs-validation');
+    this.passwordWrappers = document.getElementsByClassName('validator-password');
   }
 
   setup() {
@@ -33,6 +36,35 @@ export default class FormValidator {
 
           form.classList.add('was-validated');
         }
+      });
+    }
+
+    this.passwordRepeat();
+  }
+
+  /**
+   * Validates a 'repeat password' field.
+   *
+   * Fields used to set a password are validated by testing if the value from
+   * one field matches the value on the other.
+   */
+  passwordRepeat() {
+    for (let wrapper of this.passwordWrappers) {
+      var inputElements = wrapper.querySelectorAll('.validator-password-first, .validator-password-second');
+
+      inputElements.forEach(function(currentValue, currentIndex, listObj) {
+        currentValue.addEventListener('input', function(event) {
+          var first = listObj.item(0);
+          var second = listObj.item(1);
+
+          if (first.value !== second.value) {
+            first.setCustomValidity('#');
+            second.setCustomValidity('#');
+          } else {
+            first.setCustomValidity('');
+            second.setCustomValidity('');
+          }
+        });
       });
     }
   }

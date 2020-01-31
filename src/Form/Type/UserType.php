@@ -68,12 +68,14 @@ class UserType extends AbstractType
                                 'label' => 'password',
                                 'attr' => [
                                     'maxlength' => 4096,
+                                    'class' => 'validator-password-first',
                                 ],
                             ],
                             'second_options' => [
                                 'label' => 'repeat_password',
                                 'attr' => [
                                     'maxlength' => 4096,
+                                    'class' => 'validator-password-second',
                                 ],
                             ],
                         ])
@@ -101,12 +103,14 @@ class UserType extends AbstractType
                                 'label' => 'new_password',
                                 'attr' => [
                                     'maxlength' => 4096,
+                                    'class' => 'validator-password-first',
                                 ],
                             ],
                             'second_options' => [
                                 'label' => 'repeat_password',
                                 'attr' => [
                                     'maxlength' => 4096,
+                                    'class' => 'validator-password-second',
                                 ],
                             ],
                         ])
