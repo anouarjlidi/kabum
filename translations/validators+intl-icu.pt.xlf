@@ -30,6 +30,26 @@
         <source>price_pattern</source>
         <target>O preço contém caracteres inválidos.</target>
       </trans-unit>
+      <trans-unit id="required_fields_empty">
+        <source>required_fields_empty</source>
+        <target>Campos obrigatórios não foram preenchidos.</target>
+      </trans-unit>
+      <trans-unit id="value_too_short">
+        <source>value_too_short</source>
+        <target>Este valor é muito curto.</target>
+      </trans-unit>
+      <trans-unit id="value_too_long">
+        <source>value_too_long</source>
+        <target>Este valor é muito longo.</target>
+      </trans-unit>
+      <trans-unit id="pattern_mismatch">
+        <source>pattern_mismatch</source>
+        <target>Contém caracteres inválidos.</target>
+      </trans-unit>
+      <trans-unit id="password_mismatch">
+        <source>password_mismatch</source>
+        <target>As senhas não correspondem.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

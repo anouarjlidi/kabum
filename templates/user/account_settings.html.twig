@@ -21,6 +21,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block title %}{{ 'security'|trans }} - {{ parent() }}{% endblock %}
 
+{% import '_macros.html.twig' as macros %}
+
 {% block main %}
   <div class="container-fluid">
     <h3 class="font-weight-light text-kabum-dark-blue my-3">
@@ -30,15 +32,34 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
       {{ form_errors(form) }}
 
-      {{ form_row(form.username) }}
-      {{ form_row(form.currentPassword) }}
+      <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr': {'aria-describedby': form.username.vars.id ~ '_help'}}) }}
+        {{ macros.renderFormError() }}
+        {{ form_help(form.username) }}
+      </div>
 
-      <div class="row validator-password">
+      <div class="form-group">
+        {{ form_label(form.currentPassword) }}
+        {{ form_widget(form.currentPassword, {'attr': {'aria-describedby': form.currentPassword.vars.id ~ '_help'}}) }}
+        {{ macros.renderFormError() }}
+        {{ form_help(form.currentPassword) }}
+      </div>
+
+      <div class="row">
         <div class="col-md">
-          {{ form_row(form.password.first) }}
+          <div class="form-group">
+            {{ form_label(form.password.first) }}
+            {{ form_widget(form.password.first) }}
+            {{ macros.renderFormError() }}
+          </div>
         </div>
         <div class="col-md">
-          {{ form_row(form.password.second) }}
+          <div class="form-group">
+            {{ form_label(form.password.second) }}
+            {{ form_widget(form.password.second) }}
+            {{ macros.renderFormError() }}
+          </div>
         </div>
       </div>
 

@@ -21,6 +21,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block title %}{{ 'edit_product'|trans }} - {{ parent() }}{% endblock %}
 
+{% import '_macros.html.twig' as macros %}
+
 {% block main %}
   <div class="container-fluid">
     <h3 class="font-weight-light text-kabum-dark-blue my-3">
@@ -30,11 +32,36 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
       {{ form_errors(form) }}
 
-      {{ form_row(form.name) }}
-      {{ form_row(form.description) }}
-      {{ form_row(form.longDescription) }}
-      {{ form_row(form.category) }}
-      {{ form_row(form.price) }}
+      <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ macros.renderFormError() }}
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {{ macros.renderFormError() }}
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.longDescription) }}
+        {{ form_widget(form.longDescription, {'attr': {'aria-describedby': form.longDescription.vars.id ~ '_help'}}) }}
+        {{ macros.renderFormError() }}
+        {{ form_help(form.longDescription) }}
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.category) }}
+        {{ form_widget(form.category) }}
+        {{ macros.renderFormError() }}
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.price) }}
+        {{ form_widget(form.price) }}
+        {{ macros.renderFormError() }}
+      </div>
 
       <div class="row mb-3">
         <div class="col-sm-3 col-lg-2 text-center text-md-left my-3 my-md-0">

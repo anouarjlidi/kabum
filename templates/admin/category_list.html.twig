@@ -21,6 +21,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block title %}{{ 'manage_categories'|trans }} - {{ parent() }}{% endblock %}
 
+{% import '_macros.html.twig' as macros %}
+
 {% block main %}
   <div class="container-fluid">
     <h3 class="font-weight-light text-kabum-dark-blue my-3">
@@ -30,7 +32,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
       {{ form_errors(form) }}
 
-      {{ form_row(form.name) }}
+      <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ macros.renderFormError() }}
+      </div>
 
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}

@@ -25,12 +25,45 @@
 export default class FormValidator {
   constructor() {
     this.forms = document.getElementsByClassName('needs-validation');
-    this.passwordWrappers = document.getElementsByClassName('validator-password');
+
+    /**
+     * These strings are set using setCustomValidity() and are caught during
+     * validation. They help distinguish between custom errors and take
+     * the most appropriate action.
+     */
+    this.error = {
+      none: '',
+      password: 'password_match_error'
+    };
+
+    this.handler = {
+      main: undefined
+    }
   }
 
   setup() {
     for (let form of this.forms) {
-      form.addEventListener('submit', function(event) {
+      form.addEventListener('submit', (event) => {
+        let separator = ',';
+        let input = 'input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]):not([type="file"])';
+        let select = 'select';
+        let textarea = 'textarea';
+        let selector = input + separator + select + separator + textarea;
+        var inputElements = form.querySelectorAll(selector);
+
+        inputElements.forEach((currentValue, currentIndex, listObj) => {
+          // Call main validation handler once on submit
+          this.validation(form, currentValue);
+
+          this.handler.main = (event) => {
+            this.validation(form, currentValue);
+          }
+
+          // Call main validation handler on input
+          currentValue.removeEventListener('input', this.handler.main);
+          currentValue.addEventListener('input', this.handler.main);
+        });
+
         if (form.checkValidity() === false) {
           event.preventDefault();
 
@@ -38,34 +71,101 @@ export default class FormValidator {
         }
       });
     }
-
-    this.passwordRepeat();
   }
 
   /**
-   * Validates a 'repeat password' field.
+   * Check if the value of two password fields match.
    *
-   * Fields used to set a password are validated by testing if the value from
-   * one field matches the value on the other.
+   * This is a custom validation constraint.
    */
-  passwordRepeat() {
-    for (let wrapper of this.passwordWrappers) {
-      var inputElements = wrapper.querySelectorAll('.validator-password-first, .validator-password-second');
+  passwordValidation(form) {
+    var inputElements = form.querySelectorAll('.validator-password-first, .validator-password-second');
 
-      inputElements.forEach(function(currentValue, currentIndex, listObj) {
-        currentValue.addEventListener('input', function(event) {
-          var first = listObj.item(0);
-          var second = listObj.item(1);
+    inputElements.forEach((currentValue, currentIndex, listObj) => {
+      var first = listObj.item(0);
+      var second = listObj.item(1);
 
-          if (first.value !== second.value) {
-            first.setCustomValidity('#');
-            second.setCustomValidity('#');
-          } else {
-            first.setCustomValidity('');
-            second.setCustomValidity('');
-          }
-        });
-      });
+      // Abort if both fields are empty
+      if (!first.value && !second.value) {
+        return;
+      }
+
+      if (first.value !== second.value) {
+        first.setCustomValidity(this.error.password);
+        second.setCustomValidity(this.error.password);
+      } else {
+        first.setCustomValidity(this.error.none);
+        second.setCustomValidity(this.error.none);
+      }
+    });
+
+    return inputElements;
+  }
+
+  /**
+   * Main validation handler.
+   *
+   * It will check for any constraint violation on the provided input element
+   * and set a feedback message.
+   */
+  async validation(form, input) {
+    // Call custom validation constraint methods here
+    var passwordInputElements = await this.passwordValidation(form);
+
+    var error = input.nextElementSibling;
+    var errorBox = error.querySelector('.validator-message');
+
+    if (input.validity.valueMissing) {
+      errorBox.textContent = error.dataset.empty;
+      error.setAttribute('role', 'alert');
+
+      return;
     }
+
+    if (input.validity.tooShort) {
+      errorBox.textContent = error.dataset.tooShort;
+      error.setAttribute('role', 'alert');
+
+      return;
+    }
+
+    if (input.validity.tooLong) {
+      errorBox.textContent = error.dataset.tooLong;
+      error.setAttribute('role', 'alert');
+
+      return;
+    }
+
+    if (input.validity.patternMismatch) {
+      errorBox.textContent = error.dataset.pattern;
+      error.setAttribute('role', 'alert');
+
+      return;
+    }
+
+    if (input.validity.customError) {
+      if (input.validationMessage == this.error.password) {
+        var first = passwordInputElements.item(0);
+        var second = passwordInputElements.item(1);
+
+        var errorFirst = first.nextElementSibling;
+        var errorSecond = second.nextElementSibling;
+
+        var errorBoxFirst = errorFirst.querySelector('.validator-message');
+        var errorBoxSecond = errorSecond.querySelector('.validator-message');
+
+        errorBoxFirst.textContent = errorFirst.dataset.passwordMatch;
+        errorBoxSecond.textContent = errorSecond.dataset.passwordMatch;
+        errorFirst.setAttribute('role', 'alert');
+        errorSecond.setAttribute('role', 'alert');
+
+        return;
+      }
+
+      throw 'Unknown custom constraint violation.';
+    }
+
+    // No constraint violations found
+    error.removeAttribute('role', 'alert');
   }
 }

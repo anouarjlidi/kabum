@@ -302,6 +302,10 @@
         <source>remove_from_cart</source>
         <target>Remover do carrinho</target>
       </trans-unit>
+      <trans-unit id="error">
+        <source>error</source>
+        <target>Erro</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

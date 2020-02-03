@@ -36,3 +36,19 @@
     </a>
   {% endif %}
 {% endmacro %}
+
+{% macro renderFormError() %}
+  <span class="validator-error invalid-feedback"
+    data-empty="{{ 'required_fields_empty'|trans([], 'validators') }}"
+    data-too-short="{{ 'value_too_short'|trans([], 'validators') }}"
+    data-too-long="{{ 'value_too_long'|trans([], 'validators') }}"
+    data-pattern="{{ 'pattern_mismatch'|trans([], 'validators') }}"
+    data-password-match="{{ 'password_mismatch'|trans([], 'validators') }}">
+    <span class="d-block">
+      <span class="badge badge-danger text-uppercase">
+        {{ 'error'|trans }}
+      </span>
+      <span class="validator-message"></span>
+    </span>
+  </span>
+{% endmacro %}
