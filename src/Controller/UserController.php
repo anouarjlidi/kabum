@@ -88,7 +88,6 @@ class UserController extends AbstractController
         $userModel->setUsername($user->getUsername());
 
         $form = $this->createForm(UserType::class, $userModel, [
-            'requiredPassword' => false,
             'validation_groups' => ['AccountSettings'],
         ]);
         $form->handleRequest($request);

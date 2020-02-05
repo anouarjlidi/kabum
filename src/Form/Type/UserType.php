@@ -63,7 +63,7 @@ class UserType extends AbstractType
                         ->add('password', RepeatedType::class, [
                             'type' => PasswordType::class,
                             'invalid_message' => 'reconfirm_password',
-                            'required' => $options['requiredPassword'],
+                            'required' => false,
                             'first_options' => [
                                 'label' => 'password',
                                 'attr' => [
@@ -90,15 +90,18 @@ class UserType extends AbstractType
                                 'minlength' => 3,
                             ],
                         ])
-                        ->add('currentPassword', null, [
+                        ->add('currentPassword', PasswordType::class, [
                             'label' => 'current_password',
                             'help' => 'current_password_needed',
-                            'required' => $options['requiredPassword'],
+                            'required' => false,
+                            'attr' => [
+                                'maxlength' => 4096,
+                            ],
                         ])
                         ->add('password', RepeatedType::class, [
                             'type' => PasswordType::class,
                             'invalid_message' => 'reconfirm_password',
-                            'required' => $options['requiredPassword'],
+                            'required' => false,
                             'first_options' => [
                                 'label' => 'new_password',
                                 'attr' => [
@@ -124,7 +127,6 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserFormModel::class,
-            'requiredPassword' => true,
             'validation_groups' => ['Default', 'AccountSettings'],
         ]);
     }

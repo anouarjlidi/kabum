@@ -20,7 +20,7 @@
 /**
  * Perform client-side form validation using Bootstrap's custom styles.
  *
- * Validation feedback is applied when the submit button is pressed.
+ * Validates all fields on submit, and each field on input.
  */
 export default class FormValidator {
   constructor() {
@@ -28,17 +28,16 @@ export default class FormValidator {
 
     /**
      * These strings are set using setCustomValidity() and are caught during
-     * validation. They help distinguish between custom errors and take
-     * the most appropriate action.
+     * validation. They help distinguish between custom constraint violations.
      */
-    this.error = {
+    this.constraint = {
       none: '',
       password: 'password_match_error'
     };
 
     this.handler = {
       main: undefined
-    }
+    };
   }
 
   setup() {
@@ -74,90 +73,56 @@ export default class FormValidator {
   }
 
   /**
-   * Check if the value of two password fields match.
-   *
-   * This is a custom validation constraint.
+   * Main validation handler.
    */
-  passwordValidation(form) {
-    var inputElements = form.querySelectorAll('.validator-password-first, .validator-password-second');
+  async validation(form, input) {
+    // Run any custom constraint methods first
+    await this.validatePassword(form);
 
-    inputElements.forEach((currentValue, currentIndex, listObj) => {
-      var first = listObj.item(0);
-      var second = listObj.item(1);
-
-      // Abort if both fields are empty
-      if (!first.value && !second.value) {
-        return;
-      }
-
-      if (first.value !== second.value) {
-        first.setCustomValidity(this.error.password);
-        second.setCustomValidity(this.error.password);
-      } else {
-        first.setCustomValidity(this.error.none);
-        second.setCustomValidity(this.error.none);
-      }
-    });
-
-    return inputElements;
+    this.validateAll(input);
   }
 
   /**
-   * Main validation handler.
+   * Check for any native constraint violations on the provided form field.
    *
-   * It will check for any constraint violation on the provided input element
-   * and set a feedback message.
+   * It will also set the feedback message on the associated error element.
    */
-  async validation(form, input) {
-    // Call custom validation constraint methods here
-    var passwordInputElements = await this.passwordValidation(form);
-
+  validateAll(input) {
     var error = input.nextElementSibling;
-    var errorBox = error.querySelector('.validator-message');
+    var errorMessage = error.querySelector('.validator-message');
 
     if (input.validity.valueMissing) {
-      errorBox.textContent = error.dataset.empty;
+      errorMessage.textContent = error.dataset.empty;
       error.setAttribute('role', 'alert');
 
       return;
     }
 
     if (input.validity.tooShort) {
-      errorBox.textContent = error.dataset.tooShort;
+      errorMessage.textContent = error.dataset.tooShort;
       error.setAttribute('role', 'alert');
 
       return;
     }
 
     if (input.validity.tooLong) {
-      errorBox.textContent = error.dataset.tooLong;
+      errorMessage.textContent = error.dataset.tooLong;
       error.setAttribute('role', 'alert');
 
       return;
     }
 
     if (input.validity.patternMismatch) {
-      errorBox.textContent = error.dataset.pattern;
+      errorMessage.textContent = error.dataset.pattern;
       error.setAttribute('role', 'alert');
 
       return;
     }
 
     if (input.validity.customError) {
-      if (input.validationMessage == this.error.password) {
-        var first = passwordInputElements.item(0);
-        var second = passwordInputElements.item(1);
-
-        var errorFirst = first.nextElementSibling;
-        var errorSecond = second.nextElementSibling;
-
-        var errorBoxFirst = errorFirst.querySelector('.validator-message');
-        var errorBoxSecond = errorSecond.querySelector('.validator-message');
-
-        errorBoxFirst.textContent = errorFirst.dataset.passwordMatch;
-        errorBoxSecond.textContent = errorSecond.dataset.passwordMatch;
-        errorFirst.setAttribute('role', 'alert');
-        errorSecond.setAttribute('role', 'alert');
+      if (input.validationMessage == this.constraint.password) {
+        errorMessage.textContent = error.dataset.passwordMatch;
+        error.setAttribute('role', 'alert');
 
         return;
       }
@@ -167,5 +132,52 @@ export default class FormValidator {
 
     // No constraint violations found
     error.removeAttribute('role', 'alert');
+  }
+
+  /**
+   * Check if the value of two password fields match.
+   *
+   * This is a custom validation constraint.
+   */
+  validatePassword(form) {
+    var first = form.querySelector('.validator-password-first');
+    var second = form.querySelector('.validator-password-second');
+
+    // Abort if password validation fields are not found
+    if (!first || !second) {
+      return;
+    }
+
+    if (first.hasAttribute('required')) {
+      if (first.validity.valid) {
+        second.setAttribute('required', 'required');
+        this.validateAll(second);
+      } else {
+        second.removeAttribute('required', 'required');
+        second.setCustomValidity(this.constraint.none);
+
+        return;
+      }
+    } else {
+      if (first.value) {
+        second.setAttribute('required', 'required');
+        this.validateAll(second);
+      } else {
+        second.removeAttribute('required', 'required');
+        second.setCustomValidity(this.constraint.none);
+
+        return;
+      }
+    }
+
+    if (!second.value) {
+      return;
+    }
+
+    if (first.value !== second.value) {
+      second.setCustomValidity(this.constraint.password);
+    } else {
+      second.setCustomValidity(this.constraint.none);
+    }
   }
 }
