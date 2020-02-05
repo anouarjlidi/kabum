@@ -38,6 +38,17 @@ export default class FormValidator {
     this.handler = {
       main: undefined
     };
+
+    /**
+     * These strings are used to retrieve feedback messages from the dataset.
+     */
+    this.feedback = {
+      empty: 'empty',
+      tooShort: 'tooShort',
+      tooLong: 'tooLong',
+      pattern: 'pattern',
+      passwordMatch: 'passwordMatch'
+    };
   }
 
   setup() {
@@ -83,46 +94,36 @@ export default class FormValidator {
   }
 
   /**
-   * Check for any native constraint violations on the provided form field.
-   *
-   * It will also set the feedback message on the associated error element.
+   * Check for any constraint violations on the provided form field.
    */
   validateAll(input) {
-    var error = input.nextElementSibling;
-    var errorMessage = error.querySelector('.validator-message');
-
     if (input.validity.valueMissing) {
-      errorMessage.textContent = error.dataset.empty;
-      error.setAttribute('role', 'alert');
+      this.setFeedback(input, this.feedback.empty);
 
       return;
     }
 
     if (input.validity.tooShort) {
-      errorMessage.textContent = error.dataset.tooShort;
-      error.setAttribute('role', 'alert');
+      this.setFeedback(input, this.feedback.tooShort);
 
       return;
     }
 
     if (input.validity.tooLong) {
-      errorMessage.textContent = error.dataset.tooLong;
-      error.setAttribute('role', 'alert');
+      this.setFeedback(input, this.feedback.tooLong);
 
       return;
     }
 
     if (input.validity.patternMismatch) {
-      errorMessage.textContent = error.dataset.pattern;
-      error.setAttribute('role', 'alert');
+      this.setFeedback(input, this.feedback.pattern);
 
       return;
     }
 
     if (input.validity.customError) {
       if (input.validationMessage == this.constraint.password) {
-        errorMessage.textContent = error.dataset.passwordMatch;
-        error.setAttribute('role', 'alert');
+        this.setFeedback(input, this.feedback.passwordMatch);
 
         return;
       }
@@ -131,7 +132,30 @@ export default class FormValidator {
     }
 
     // No constraint violations found
-    error.removeAttribute('role', 'alert');
+    this.removeFeedback(input);
+  }
+
+  /**
+   * Set a feedback message on a form field.
+   */
+  setFeedback(input, feedback) {
+    let errorBox = input.nextElementSibling;
+    let errorMessageBox = errorBox.querySelector('.validator-message');
+    let message = errorBox.dataset[feedback];
+
+    errorMessageBox.textContent = message;
+    errorBox.setAttribute('role', 'alert');
+  }
+
+  /**
+   * Remove the feedback message from a form field.
+   */
+  removeFeedback(input) {
+    let errorBox = input.nextElementSibling;
+    let errorMessageBox = errorBox.querySelector('.validator-message');
+
+    errorMessageBox.textContent = '';
+    errorBox.removeAttribute('role');
   }
 
   /**
@@ -148,36 +172,31 @@ export default class FormValidator {
       return;
     }
 
-    if (first.hasAttribute('required')) {
-      if (first.validity.valid) {
-        second.setAttribute('required', 'required');
-        this.validateAll(second);
-      } else {
-        second.removeAttribute('required', 'required');
-        second.setCustomValidity(this.constraint.none);
+    // Will not validate if the first field doesn't have a value
+    if (!first.value) {
+      second.removeAttribute('required');
+      second.setCustomValidity(this.constraint.none);
+      this.validateAll(second);
 
-        return;
-      }
-    } else {
-      if (first.value) {
-        second.setAttribute('required', 'required');
-        this.validateAll(second);
-      } else {
-        second.removeAttribute('required', 'required');
-        second.setCustomValidity(this.constraint.none);
-
-        return;
-      }
+      return;
     }
 
+    // The first field has a value, so the second becomes required
+    second.setAttribute('required', 'required');
+    this.validateAll(second);
+
+    // Will not validate if the second field doesn't have a value
     if (!second.value) {
       return;
     }
 
-    if (first.value !== second.value) {
-      second.setCustomValidity(this.constraint.password);
-    } else {
+    // Test if the value of the first and second fields match
+    if (first.value === second.value) {
       second.setCustomValidity(this.constraint.none);
+      this.validateAll(second);
+    } else {
+      second.setCustomValidity(this.constraint.password);
+      this.validateAll(second);
     }
   }
 }
