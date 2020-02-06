@@ -38,17 +38,6 @@ export default class FormValidator {
     this.handler = {
       main: undefined
     };
-
-    /**
-     * These strings are used to retrieve feedback messages from the dataset.
-     */
-    this.feedback = {
-      empty: 'empty',
-      tooShort: 'tooShort',
-      tooLong: 'tooLong',
-      pattern: 'pattern',
-      passwordMatch: 'passwordMatch'
-    };
   }
 
   setup() {
@@ -69,7 +58,7 @@ export default class FormValidator {
             this.validation(form, currentValue);
           }
 
-          // Call main validation handler on input
+          // Reset main validation handler
           currentValue.removeEventListener('input', this.handler.main);
           currentValue.addEventListener('input', this.handler.main);
         });
@@ -77,6 +66,7 @@ export default class FormValidator {
         if (form.checkValidity() === false) {
           event.preventDefault();
 
+          this.removeServerSideValidation(inputElements);
           form.classList.add('was-validated');
         }
       });
@@ -98,32 +88,32 @@ export default class FormValidator {
    */
   validateAll(input) {
     if (input.validity.valueMissing) {
-      this.setFeedback(input, this.feedback.empty);
+      this.setFeedback(input, 'empty');
 
       return;
     }
 
     if (input.validity.tooShort) {
-      this.setFeedback(input, this.feedback.tooShort);
+      this.setFeedback(input, 'tooShort');
 
       return;
     }
 
     if (input.validity.tooLong) {
-      this.setFeedback(input, this.feedback.tooLong);
+      this.setFeedback(input, 'tooLong');
 
       return;
     }
 
     if (input.validity.patternMismatch) {
-      this.setFeedback(input, this.feedback.pattern);
+      this.setFeedback(input, 'pattern');
 
       return;
     }
 
     if (input.validity.customError) {
       if (input.validationMessage == this.constraint.password) {
-        this.setFeedback(input, this.feedback.passwordMatch);
+        this.setFeedback(input, 'passwordMatch');
 
         return;
       }
@@ -156,6 +146,26 @@ export default class FormValidator {
 
     errorMessageBox.textContent = '';
     errorBox.removeAttribute('role');
+  }
+
+  /**
+   * Remove form validation feedback added by server-side validation.
+   */
+  removeServerSideValidation(inputElements) {
+    inputElements.forEach((currentValue, currentIndex, listObj) => {
+      let label = currentValue.previousElementSibling;
+      let error = currentValue.nextElementSibling;
+      let labelFeedback = label.querySelector('.invalid-feedback');
+
+      if (labelFeedback) {
+        labelFeedback.remove();
+      }
+
+      currentValue.classList.remove('is-invalid');
+
+      // Make client-side validation feedback visible
+      error.classList.remove('not-validated');
+    });
   }
 
   /**
