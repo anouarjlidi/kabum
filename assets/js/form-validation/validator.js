@@ -42,7 +42,21 @@ export default class FormValidator {
 
   setup() {
     for (let form of this.forms) {
+      // Create event delegation handler for the main validation method
+      this.handler.main = (event) => {
+        if (event.target.getAttribute('type') == 'checkbox') {
+          return;
+        }
+
+        if (event.target.getAttribute('type') == 'file') {
+          return;
+        }
+
+        this.validation(form, event.target);
+      }
+
       form.addEventListener('submit', (event) => {
+        // Select and validate all form elements
         let separator = ',';
         let input = 'input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]):not([type="file"])';
         let select = 'select';
@@ -51,17 +65,10 @@ export default class FormValidator {
         var inputElements = form.querySelectorAll(selector);
 
         inputElements.forEach((currentValue, currentIndex, listObj) => {
-          // Call main validation handler once on submit
           this.validation(form, currentValue);
-
-          this.handler.main = (event) => {
-            this.validation(form, currentValue);
-          }
-
-          // Reset main validation handler
-          currentValue.removeEventListener('input', this.handler.main);
-          currentValue.addEventListener('input', this.handler.main);
         });
+
+        form.addEventListener('input', this.handler.main);
 
         if (form.checkValidity() === false) {
           event.preventDefault();
