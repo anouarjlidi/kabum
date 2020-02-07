@@ -41,17 +41,27 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
       {# The submit button is created here to preserve the form's reusability
       for other purposes #}
       <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange" value="{{ 'add'|trans }}"/>
+        <input type="submit" class="btn btn-kabum-orange btn-block" value="{{ 'add'|trans }}"/>
       </div>
     {{ form_end(form) }}
 
-    <ul class="list-group mb-4">
+    <ul class="list-group my-4">
       {% for category in categories %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          {{ category.name }}
-          <span class="badge badge-primary badge-pill">{{ category.products|length }}</span>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ category.name }}</span>
+          <div class="d-flex align-items-center">
+            <span class="badge badge-light mx-2">{{ category.products|length }}</span>
+            <button class="kabum-error-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
+              data-toggle="modal" data-target=".deleteCategoryModal"
+              data-action="{{ path('admin_delete_category', {slug: category.slug}) }}"
+              data-title="{{ 'delete_category_confirmation'|trans({'%category%': category.name}) }}">
+              <i class="far fa-trash-alt" aria-hidden="true"></i>
+              <span class="sr-only">{{ 'delete_category'|trans }}</span>
+            </button>
+          </div>
         </li>
       {% endfor %}
+      {{ macros.deleteCategoryModal() }}
     </ul>
   </div>
 {% endblock %}

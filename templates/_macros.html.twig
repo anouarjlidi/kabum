@@ -52,3 +52,34 @@
     </span>
   </span>
 {% endmacro %}
+
+{% macro deleteCategoryModal() %}
+  <div class="modal fade deleteCategoryModal" tabindex="-1" role="dialog"
+    aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title bs-modal-title" id="deleteCategoryModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'close'|trans }}">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ 'cannot_be_undone'|trans }}
+          {{ 'can_only_delete_empty_categories'|trans }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            {{ 'cancel'|trans }}
+          </button>
+          <form class="bs-modal-action" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('delete-category') }}"/>
+            <button type="submit" class="btn btn-kabum-orange">
+              {{ 'delete_category'|trans }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}

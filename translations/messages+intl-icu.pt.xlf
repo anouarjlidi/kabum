@@ -306,6 +306,34 @@
         <source>error</source>
         <target>Erro</target>
       </trans-unit>
+      <trans-unit id="delete_category">
+        <source>delete_category</source>
+        <target>Remover categoria</target>
+      </trans-unit>
+      <trans-unit id="category_not_empty_cannot_delete">
+        <source>category_not_empty_cannot_delete</source>
+        <target>A categoria não está vazia, portanto não pode ser removida.</target>
+      </trans-unit>
+      <trans-unit id="category_deleted">
+        <source>category_deleted</source>
+        <target>Categoria removida.</target>
+      </trans-unit>
+      <trans-unit id="cancel">
+        <source>cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="cannot_be_undone">
+        <source>cannot_be_undone</source>
+        <target>Isso não pode ser desfeito.</target>
+      </trans-unit>
+      <trans-unit id="can_only_delete_empty_categories">
+        <source>can_only_delete_empty_categories</source>
+        <target>Se a categoria não estiver vazia, você não poderá removê-la.</target>
+      </trans-unit>
+      <trans-unit id="delete_category_confirmation">
+        <source>delete_category_confirmation</source>
+        <target>Tem certeza que deseja remover a categoria "{category}"?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

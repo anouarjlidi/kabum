@@ -90,8 +90,8 @@ class AdminController extends AbstractController
     /**
      * Edit an existing product.
      *
-     * @param Product $product
      * @param Request $request
+     * @param Product $product
      * @param EntityManagerInterface $entityManager
      * @param FileUploader $fileUploader
      *
@@ -99,7 +99,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/produto/{slug}/editar", name="admin_edit_product")
      */
-    public function editProduct(Product $product, Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function editProduct(Request $request, Product $product, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $productModel = new ProductFormModel;
         $productModel->setId($product->getId());
@@ -147,17 +147,17 @@ class AdminController extends AbstractController
     }
 
     /**
-     * Category management.
+     * Add a category.
      *
-     * @param CategoryRepository $repository
      * @param Request $request
+     * @param CategoryRepository $repository
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
      *
-     * @Route("/admin/categoria/gerenciar", name="admin_category_management")
+     * @Route("/admin/categoria/nova", name="admin_new_category")
      */
-    public function manageCategories(CategoryRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
+    public function addCategory(Request $request, CategoryRepository $repository, EntityManagerInterface $entityManager): Response
     {
         $category = new Category;
         $categoryModel = new CategoryFormModel;
@@ -179,7 +179,7 @@ class AdminController extends AbstractController
                 'category_created'
             );
 
-            return $this->redirectToRoute('admin_category_management');
+            return $this->redirectToRoute('admin_new_category');
         }
 
         $categories = $repository->findAll();
@@ -188,5 +188,44 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'categories' => $categories,
         ]);
+    }
+
+    /**
+     * Delete a category.
+     *
+     * @param Request $request
+     * @param Category $category
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     *
+     * @Route("/admin/categoria/{slug}/deletar", methods={"POST"}, name="admin_delete_category")
+     */
+    public function deleteCategory(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->isCsrfTokenValid('delete-category', $request->request->get('token'))) {
+            return $this->redirectToRoute('admin_new_category');
+        }
+
+        $products = $category->getProducts();
+
+        if (count($products)) {
+            $this->addFlash(
+                'kabum-orange',
+                'category_not_empty_cannot_delete'
+            );
+
+            return $this->redirectToRoute('admin_new_category');
+        }
+
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'kabum-light-blue',
+            'category_deleted'
+        );
+
+        return $this->redirectToRoute('admin_new_category');
     }
 }

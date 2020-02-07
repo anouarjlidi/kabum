@@ -21,8 +21,12 @@ require('../scss/app.scss');
 
 require('bootstrap');
 import FormValidator from './form-validation/validator.js';
+import ModalControl from './bs-modal-control/modal-control.js';
 
 document.addEventListener('DOMContentLoaded', function() {
   var validator = new FormValidator();
   validator.setup();
+
+  var modal = new ModalControl();
+  modal.init();
 });
