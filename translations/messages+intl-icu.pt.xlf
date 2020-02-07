@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="delete_category_confirmation">
         <source>delete_category_confirmation</source>
-        <target>Tem certeza que deseja remover a categoria "{category}"?</target>
+        <target>Tem certeza de que deseja remover a categoria "{category}"?</target>
       </trans-unit>
       <trans-unit id="count_of_products">
         <source>count_of_products</source>

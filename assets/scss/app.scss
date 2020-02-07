@@ -169,21 +169,6 @@
   box-shadow: 0 .1rem .1rem .1rem rgba(0, 0, 0, .11);
 }
 
-.kabum-collapse-dark-button {
-  color: theme-color('light');
-  transition: color .3s;
-  background-color: transparent;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  border: 0;
-}
-
-.kabum-collapse-dark-button:hover, .kabum-collapse-dark-button:focus {
-  color: theme-color-level('light', 4);
-  text-decoration: none;
-  outline: 0;
-}
-
 .kabum-collapse-button {
   color: theme-color('kabum-light-blue');
   transition: color .3s;
@@ -213,7 +198,7 @@
   outline: 0;
 }
 
-.kabum-error-button {
+.kabum-danger-button {
   color: theme-color('strawberry');
   transition: color .3s;
   background-color: transparent;
@@ -221,7 +206,7 @@
   border: 0;
 }
 
-.kabum-error-button:hover, .kabum-error-button:focus {
+.kabum-danger-button:hover, .kabum-danger-button:focus {
   color: theme-color('kabum-orange');
   text-decoration: none;
   outline: 0;

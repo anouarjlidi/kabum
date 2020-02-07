@@ -44,7 +44,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           <div class="ml-auto">
             <form action="{{ path('remove_from_cart', {id: product.id}) }}" method="post">
               <input type="hidden" name="token" value="{{ csrf_token('remove-from-cart') }}"/>
-              <button type="submit" class="kabum-error-button" title="{{ 'remove_from_cart'|trans }}">
+              <button type="submit" class="kabum-danger-button" title="{{ 'remove_from_cart'|trans }}">
                 <i class="far fa-trash-alt" aria-hidden="true"></i>
                 <span class="sr-only">{{ 'remove_from_cart'|trans }}</span>
               </button>

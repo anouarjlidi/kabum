@@ -54,7 +54,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
               <span class="sr-only">{{ 'count_of_products'|trans }}</span>
               {{ category.products|length }}
             </span>
-            <button class="kabum-error-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
+            <button class="kabum-danger-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
               data-toggle="modal" data-target=".deleteCategoryModal"
               data-action="{{ path('admin_delete_category', {slug: category.slug}) }}"
               data-title="{{ 'delete_category_confirmation'|trans({'%category%': category.name}) }}">

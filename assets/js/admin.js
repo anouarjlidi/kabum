@@ -21,7 +21,7 @@ require('../scss/admin.scss');
 
 const $ = require('jquery');
 require('jquery-mask-plugin');
-import CustomFileInput from './filename-setter/custom_file_input.js';
+import CustomFileInput from './bs-custom-file-input/custom_file_input.js';
 const NavigationPanel = require('nav-panel');
 
 $(document).ready(function() {
