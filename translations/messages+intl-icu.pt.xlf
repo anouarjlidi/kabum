@@ -126,6 +126,10 @@
         <source>shopping_cart</source>
         <target>Carrinho de compras</target>
       </trans-unit>
+      <trans-unit id="shopping_cart_with_count">
+        <source>shopping_cart_with_count</source>
+        <target>{itemCount, plural, =0 {Carrinho de compras vazio} one {Carrinho de compras com 1 item} other {Carrinho de compras com # itens}}</target>
+      </trans-unit>
       <trans-unit id="wishlist">
         <source>wishlist</source>
         <target>Lista de desejos</target>
@@ -310,6 +314,10 @@
         <source>delete_category</source>
         <target>Remover categoria</target>
       </trans-unit>
+      <trans-unit id="delete_category_named">
+        <source>delete_category_named</source>
+        <target>Remover categoria {category}</target>
+      </trans-unit>
       <trans-unit id="category_not_empty_cannot_delete">
         <source>category_not_empty_cannot_delete</source>
         <target>A categoria não está vazia, portanto não pode ser removida.</target>
@@ -333,6 +341,14 @@
       <trans-unit id="delete_category_confirmation">
         <source>delete_category_confirmation</source>
         <target>Tem certeza que deseja remover a categoria "{category}"?</target>
+      </trans-unit>
+      <trans-unit id="count_of_products">
+        <source>count_of_products</source>
+        <target>Contagem de produtos</target>
+      </trans-unit>
+      <trans-unit id="count_of_items">
+        <source>count_of_items</source>
+        <target>Contagem de itens</target>
       </trans-unit>
     </body>
   </file>

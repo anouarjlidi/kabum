@@ -50,13 +50,18 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <li class="list-group-item d-flex justify-content-between">
           <span>{{ category.name }}</span>
           <div class="d-flex align-items-center">
-            <span class="badge badge-light mx-2">{{ category.products|length }}</span>
+            <span class="badge badge-light mx-2" title="{{ 'count_of_products'|trans }}">
+              <span class="sr-only">{{ 'count_of_products'|trans }}</span>
+              {{ category.products|length }}
+            </span>
             <button class="kabum-error-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
               data-toggle="modal" data-target=".deleteCategoryModal"
               data-action="{{ path('admin_delete_category', {slug: category.slug}) }}"
               data-title="{{ 'delete_category_confirmation'|trans({'%category%': category.name}) }}">
               <i class="far fa-trash-alt" aria-hidden="true"></i>
-              <span class="sr-only">{{ 'delete_category'|trans }}</span>
+              <span class="sr-only">
+                {{ 'delete_category_named'|trans({'%category%': category.name}) }}
+              </span>
             </button>
           </div>
         </li>

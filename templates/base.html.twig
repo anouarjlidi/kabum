@@ -88,11 +88,13 @@ instead, which effectively prevents the indicator from being set. #}
           </form>
         </div>
         <div class="d-md-flex d-none">
-          <a class="kabum-action-button" aria-label="{{ 'shopping_cart'|trans }}"
+          <a class="kabum-action-button" aria-label="{{ 'shopping_cart_with_count'|trans({'%itemCount%': shoppingCartCount}) }}"
             href="{{ path('shopping_cart') }}">
             <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             {% if shoppingCartCount %}
-              <small class="font-weight-bold ml-1">{{ shoppingCartCount }}</small>
+              <small class="font-weight-bold ml-1" aria-hidden="true">
+                {{ shoppingCartCount }}
+              </small>
             {% endif %}
           </a>
           {% if app.user %}
