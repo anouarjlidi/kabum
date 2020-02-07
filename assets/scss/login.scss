@@ -5,13 +5,8 @@ $component-active-bg: map-get($theme-colors, 'kabum-orange');
 @import "base/bootstrap-required";
 
 $body-bg: theme-color('light');
-$enable-responsive-font-sizes: true;
-$input-placeholder-color: theme-color('silver');
-$dropdown-link-hover-bg: theme-color-level('silver', -7);
 
 @import "base/bootstrap-optional";
-
-@import "base/fontawesome";
 
 .form {
   width: 100%;

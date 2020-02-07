@@ -54,10 +54,10 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <label for="inputUsername" class="sr-only">{{ 'username'|trans }}</label>
         <input id="inputUsername" type="text" value="{{ last_username }}" name="username"
           placeholder="{{ 'username'|trans }}" class="form-control upper-input"
-          required="required" autofocus="autofocus" autocapitalize="off">
+          autofocus="autofocus" autocapitalize="off">
         <label for="inputPassword" class="sr-only">{{ 'password'|trans }}</label>
         <input id="inputPassword" type="password" name="password" placeholder="{{ 'password'|trans }}"
-          class="form-control lower-input" required="required">
+          class="form-control lower-input">
       </div>
 
       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
