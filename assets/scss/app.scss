@@ -249,3 +249,7 @@
   outline: 0;
   transition: top .1s ease-in;
 }
+
+.list-item:hover {
+  background-color: theme-color('light');
+}
