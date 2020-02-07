@@ -14,6 +14,7 @@ $component-active-bg: map-get($theme-colors, 'kabum-orange');
 $enable-responsive-font-sizes: true;
 $input-placeholder-color: theme-color('silver');
 $dropdown-link-hover-bg: theme-color-level('silver', -7);
+$form-validation-states: map-remove($form-validation-states, "valid");
 
 @import "base/bootstrap-optional";
 
