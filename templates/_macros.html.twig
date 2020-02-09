@@ -89,3 +89,33 @@
     </div>
   </div>
 {% endmacro %}
+
+{% macro deleteProductModal() %}
+  <div class="modal fade deleteProductModal" tabindex="-1" role="dialog"
+    aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title bs-modal-title" id="deleteProductModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'close'|trans }}">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ 'cannot_be_undone'|trans }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            {{ 'cancel'|trans }}
+          </button>
+          <form class="bs-modal-action" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('delete-product') }}"/>
+            <button type="submit" class="btn btn-kabum-orange">
+              {{ 'delete_product'|trans }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}

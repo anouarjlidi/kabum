@@ -362,6 +362,22 @@
         <source>delete</source>
         <target>Remover</target>
       </trans-unit>
+      <trans-unit id="delete_product_confirmation">
+        <source>delete_product_confirmation</source>
+        <target>Tem certeza de que deseja remover o produto "{product}"?</target>
+      </trans-unit>
+      <trans-unit id="delete_product">
+        <source>delete_product</source>
+        <target>Remover produto</target>
+      </trans-unit>
+      <trans-unit id="delete_product_named">
+        <source>delete_product_named</source>
+        <target>Remover produto {product}</target>
+      </trans-unit>
+      <trans-unit id="product_deleted">
+        <source>product_deleted</source>
+        <target>Produto removido.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

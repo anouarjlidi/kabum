@@ -133,16 +133,27 @@ class Product
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string $imageDirectory, string $image): self
     {
         // If an image is already set, delete it
         if ($this->image) {
             $filesystem = new Filesystem;
-            $filesystem->remove($this->image);
+            $filesystem->remove($imageDirectory . $this->image);
         }
 
         // Set the new image
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function deleteImage(string $imageDirectory): self
+    {
+        if ($this->image) {
+            $filesystem = new Filesystem;
+            $filesystem->remove($imageDirectory . $this->image);
+            $this->image = null;
+        }
 
         return $this;
     }

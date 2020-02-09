@@ -89,7 +89,7 @@ class AdminController extends AbstractController
 
             $image = $productModel->getImageFile();
             $filename = $fileUploader->uploadProductImage($image, $product);
-            $product->setImage($filename);
+            $product->setImage($this->getParameter('app.product_image_directory'), $filename);
 
             $entityManager->persist($product);
             $entityManager->flush();
@@ -147,7 +147,7 @@ class AdminController extends AbstractController
 
             if ($image) {
                 $filename = $fileUploader->uploadProductImage($image, $product);
-                $product->setImage($filename);
+                $product->setImage($this->getParameter('app.product_image_directory'), $filename);
             }
 
             $entityManager->flush();
@@ -164,6 +164,36 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'product' => $product,
         ]);
+    }
+
+    /**
+     * Delete a product.
+     *
+     * @param Request $request
+     * @param Product $product
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     *
+     * @Route("/admin/produto/{slug}/deletar", methods={"POST"}, name="admin_delete_product")
+     */
+    public function deleteProduct(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->isCsrfTokenValid('delete-product', $request->request->get('token'))) {
+            return $this->redirectToRoute('admin_product_overview');
+        }
+
+        $product->deleteImage($this->getParameter('app.product_image_directory'));
+
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'kabum-light-blue',
+            'product_deleted'
+        );
+
+        return $this->redirectToRoute('admin_product_overview');
     }
 
     /**

@@ -21,6 +21,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 
 {% block title %}{{ 'product_overview'|trans }} - {{ parent() }}{% endblock %}
 
+{% import '_macros.html.twig' as macros %}
+
 {% block main %}
   <h3 class="font-weight-light text-kabum-dark-blue mb-3">
     {{ 'product_overview'|trans }}
@@ -46,14 +48,19 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
               <span class="sr-only">{{ 'edit'|trans }}</span>
               <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
             </a>
-            <a class="card-action-button card-action-button-danger" href="#"
-              title="{{ 'delete'|trans }}">
-              <span class="sr-only">{{ 'delete'|trans }}</span>
+            <button class="card-action-button card-action-button-danger bs-modal-trigger"
+              title="{{ 'delete'|trans }}" data-toggle="modal" data-target=".deleteProductModal"
+              data-action="{{ path('admin_delete_product', {slug: product.slug}) }}"
+              data-title="{{ 'delete_product_confirmation'|trans({'%product%': product.name}) }}">
               <i class="far fa-trash-alt fa-lg" aria-hidden="true"></i>
-            </a>
+              <span class="sr-only">
+                {{ 'delete_product_named'|trans({'%product%': product.name}) }}
+              </span>
+            </button>
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
+  {{ macros.deleteProductModal() }}
 {% endblock %}
