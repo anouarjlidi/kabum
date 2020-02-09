@@ -22,36 +22,34 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ 'search_for'|trans }}: {{ query }} - {{ parent() }}{% endblock %}
 
 {% block main %}
-  <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">
-      <i class="fas fa-search" aria-hidden="true"></i>
-      {{ 'search_for'|trans }}: {{ query }}
-    </h3>
+  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+    <i class="fas fa-search" aria-hidden="true"></i>
+    {{ 'search_for'|trans }}: {{ query }}
+  </h3>
 
-    <div id="feed">
-      <div class="feed-loading-screen feed-screen feed-collapsible feed-expanded">
-        <div class="spinner-grow text-kabum-light-blue"></div>
-      </div>
-      <div class="feed-error-screen feed-screen feed-collapsible">
-        <div class="text-center">
-          <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
-          <p class="lead text-secondary mt-4 mb-0">
-            {{ 'something_wrong'|trans }}
-          </p>
-        </div>
-      </div>
-      <div class="feed-nothing-here-screen feed-screen feed-collapsible">
-        <div class="text-center">
-          <i class="fas fa-frown text-silver fa-4x" aria-hidden="true"></i>
-          <p class="lead text-secondary mt-4 mb-0">
-            {{ 'no_products_found'|trans }}
-          </p>
-        </div>
-      </div>
-
-      <section role="feed" aria-busy="false" aria-label="{{ 'feed_help'|trans }}"
-        class="feed-data row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-      </section>
+  <div id="feed">
+    <div class="feed-loading-screen feed-screen feed-collapsible feed-expanded">
+      <div class="spinner-grow text-kabum-light-blue"></div>
     </div>
-  </section>
+    <div class="feed-error-screen feed-screen feed-collapsible">
+      <div class="text-center">
+        <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
+        <p class="lead text-secondary mt-4 mb-0">
+          {{ 'something_wrong'|trans }}
+        </p>
+      </div>
+    </div>
+    <div class="feed-nothing-here-screen feed-screen feed-collapsible">
+      <div class="text-center">
+        <i class="fas fa-frown text-silver fa-4x" aria-hidden="true"></i>
+        <p class="lead text-secondary mt-4 mb-0">
+          {{ 'no_products_found'|trans }}
+        </p>
+      </div>
+    </div>
+
+    <section role="feed" aria-busy="false" aria-label="{{ 'feed_help'|trans }}"
+      class="feed-data row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    </section>
+  </div>
 {% endblock %}

@@ -24,47 +24,45 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% import '_macros.html.twig' as macros %}
 
 {% block main %}
-  <div class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue my-3">
-      {{ 'manage_categories'|trans }}
-    </h3>
+  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+    {{ 'manage_categories'|trans }}
+  </h3>
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
-      {{ form_errors(form) }}
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
+    {{ form_errors(form) }}
 
-      <div class="form-group">
-        {{ form_label(form.name) }}
-        {{ form_widget(form.name) }}
-        {{ macros.renderFormError() }}
-      </div>
+    <div class="form-group">
+      {{ form_label(form.name) }}
+      {{ form_widget(form.name) }}
+      {{ macros.renderFormError() }}
+    </div>
 
-      <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange" value="{{ 'add'|trans }}"/>
-      </div>
-    {{ form_end(form) }}
+    <div class="form-group">
+      <input type="submit" class="btn btn-kabum-orange" value="{{ 'add'|trans }}"/>
+    </div>
+  {{ form_end(form) }}
 
-    <ul class="list-group my-4">
-      {% for category in categories %}
-        <li class="list-group-item list-item d-flex justify-content-between">
-          <span>{{ category.name }}</span>
-          <div class="d-flex align-items-center">
-            <span class="badge badge-light mx-2" title="{{ 'count_of_products'|trans }}">
-              <span class="sr-only">{{ 'count_of_products'|trans }}</span>
-              {{ category.products|length }}
+  <ul class="list-group mt-4">
+    {% for category in categories %}
+      <li class="list-group-item list-item d-flex justify-content-between">
+        <span>{{ category.name }}</span>
+        <div class="d-flex align-items-center">
+          <span class="badge badge-light mx-2" title="{{ 'count_of_products'|trans }}">
+            <span class="sr-only">{{ 'count_of_products'|trans }}</span>
+            {{ category.products|length }}
+          </span>
+          <button class="kabum-danger-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
+            data-toggle="modal" data-target=".deleteCategoryModal"
+            data-action="{{ path('admin_delete_category', {slug: category.slug}) }}"
+            data-title="{{ 'delete_category_confirmation'|trans({'%category%': category.name}) }}">
+            <i class="far fa-trash-alt" aria-hidden="true"></i>
+            <span class="sr-only">
+              {{ 'delete_category_named'|trans({'%category%': category.name}) }}
             </span>
-            <button class="kabum-danger-button bs-modal-trigger" title="{{ 'delete_category'|trans }}"
-              data-toggle="modal" data-target=".deleteCategoryModal"
-              data-action="{{ path('admin_delete_category', {slug: category.slug}) }}"
-              data-title="{{ 'delete_category_confirmation'|trans({'%category%': category.name}) }}">
-              <i class="far fa-trash-alt" aria-hidden="true"></i>
-              <span class="sr-only">
-                {{ 'delete_category_named'|trans({'%category%': category.name}) }}
-              </span>
-            </button>
-          </div>
-        </li>
-      {% endfor %}
-      {{ macros.deleteCategoryModal() }}
-    </ul>
-  </div>
+          </button>
+        </div>
+      </li>
+    {% endfor %}
+    {{ macros.deleteCategoryModal() }}
+  </ul>
 {% endblock %}

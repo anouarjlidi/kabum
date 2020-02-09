@@ -22,41 +22,39 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ 'shopping_cart'|trans }} - {{ parent() }}{% endblock %}
 
 {% block main %}
-  <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">
-      {{ 'shopping_cart'|trans }}
-    </h3>
+  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+    {{ 'shopping_cart'|trans }}
+  </h3>
 
-    {% for product in cart %}
-      <div class="border rounded p-4 mb-3">
-        <div class="d-flex">
-          <div class="mr-2 mr-sm-3">
-            <img src="{{ asset(product_image_directory ~ product.image) }}"
-              class="product-thumbnail" alt="{{ 'product_image'|trans }}"/>
-          </div>
-          <div class="mr-1 mr-sm-2">
-            <small>{{ product.name }}</small>
-            <div class="d-flex flex-column flex-sm-row align-items-sm-center mt-3">
-              <input class="quantity-input form-control form-control-sm" type="number" min="1" value="1"/>
-              <span class="ml-2 mt-2 mt-sm-0">&times; {{ product.price|price }}</span>
-            </div>
-          </div>
-          <div class="ml-auto">
-            <form action="{{ path('remove_from_cart', {id: product.id}) }}" method="post">
-              <input type="hidden" name="token" value="{{ csrf_token('remove-from-cart') }}"/>
-              <button type="submit" class="kabum-danger-button" title="{{ 'remove_from_cart'|trans }}">
-                <i class="far fa-trash-alt" aria-hidden="true"></i>
-                <span class="sr-only">{{ 'remove_from_cart'|trans }}</span>
-              </button>
-            </form>
+  {% for product in cart %}
+    <div class="shadow-sm rounded p-4 mb-3">
+      <div class="d-flex">
+        <div class="mr-3">
+          <img src="{{ asset(product_image_directory ~ product.image) }}"
+            class="product-thumbnail" alt="{{ 'product_image'|trans }}"/>
+        </div>
+        <div class="mr-1 mr-sm-2">
+          <small>{{ product.name }}</small>
+          <div class="d-flex flex-column flex-sm-row align-items-sm-center mt-3">
+            <input class="quantity-input form-control form-control-sm" type="number" min="1" value="1"/>
+            <span class="ml-2 mt-2 mt-sm-0">&times; {{ product.price|price }}</span>
           </div>
         </div>
+        <div class="ml-auto">
+          <form action="{{ path('remove_from_cart', {id: product.id}) }}" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('remove-from-cart') }}"/>
+            <button type="submit" class="kabum-danger-button" title="{{ 'remove_from_cart'|trans }}">
+              <i class="far fa-trash-alt" aria-hidden="true"></i>
+              <span class="sr-only">{{ 'remove_from_cart'|trans }}</span>
+            </button>
+          </form>
+        </div>
       </div>
-    {% else %}
-      <div class="shopping-cart-screen">
-        <i class="fas fa-shopping-cart text-silver fa-4x mb-4" aria-hidden="true"></i>
-        <p class="text-silver text-center lead">{{ 'empty_shopping_cart'|trans }}</p>
-      </div>
-    {% endfor %}
-  </section>
+    </div>
+  {% else %}
+    <div class="shopping-cart-screen">
+      <i class="fas fa-shopping-cart text-silver fa-4x mb-4" aria-hidden="true"></i>
+      <p class="text-silver text-center lead">{{ 'empty_shopping_cart'|trans }}</p>
+    </div>
+  {% endfor %}
 {% endblock %}

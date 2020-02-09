@@ -22,35 +22,33 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ parent() }} - {{ 'low_price_explosion'|trans }}{% endblock %}
 
 {% block main %}
-  <section class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue m-3">
-      {{ 'featured_products'|trans }}
-    </h3>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-      {% for product in products %}
-        <div class="col p-4">
-          <article>
-            <a href="{{ path('product_page', {slug: product.slug}) }}">
-              <img src="{{ asset(product_image_directory ~ product.image) }}"
-                class="img-fluid" alt="{{ 'product_image'|trans }}"/>
-              <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
-            </a>
-            <div class="mb-3">
-              <small class="text-secondary">{{ product.description }}</small>
-            </div>
-            <h5 class="font-weight-bold text-kabum-orange mb-4">
-              {{ product.price|price }}
-            </h5>
-            <form action="{{ path('add_to_cart', {id: product.id}) }}" method="post">
-              <input type="hidden" name="token" value="{{ csrf_token('add-to-cart') }}"/>
-              <button type="submit" class="btn btn-kabum-dark-blue">
-                <i class="fas fa-cart-plus" aria-hidden="true"></i>
-                {{ 'add_to_cart'|trans }}
-              </button>
-            </form>
-          </article>
-        </div>
-      {% endfor %}
-    </div>
-  </section>
+  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+    {{ 'featured_products'|trans }}
+  </h3>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    {% for product in products %}
+      <div class="col p-4">
+        <article>
+          <a href="{{ path('product_page', {slug: product.slug}) }}">
+            <img src="{{ asset(product_image_directory ~ product.image) }}"
+              class="img-fluid" alt="{{ 'product_image'|trans }}"/>
+            <p class="text-kabum-dark-blue lead text-break">{{ product.name }}</p>
+          </a>
+          <div class="mb-3">
+            <small class="text-secondary">{{ product.description }}</small>
+          </div>
+          <h5 class="font-weight-bold text-kabum-orange mb-4">
+            {{ product.price|price }}
+          </h5>
+          <form action="{{ path('add_to_cart', {id: product.id}) }}" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('add-to-cart') }}"/>
+            <button type="submit" class="btn btn-kabum-dark-blue">
+              <i class="fas fa-cart-plus" aria-hidden="true"></i>
+              {{ 'add_to_cart'|trans }}
+            </button>
+          </form>
+        </article>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

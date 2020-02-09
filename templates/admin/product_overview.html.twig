@@ -22,40 +22,38 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ 'product_overview'|trans }} - {{ parent() }}{% endblock %}
 
 {% block main %}
-  <div class="container-fluid">
-    <h3 class="font-weight-light text-kabum-dark-blue my-3">
-      {{ 'product_overview'|trans }}
-    </h3>
-    <a href="{{ path('admin_new_product') }}" class="kabum-floating-button"
-      title="{{ 'add_new_product'|trans }}">
-      <span class="sr-only">{{ 'add_new_product'|trans }}</span>
-      <i class="fas fa-plus fa-lg" aria-hidden="true"></i>
-    </a>
+  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+    {{ 'product_overview'|trans }}
+  </h3>
+  <a href="{{ path('admin_new_product') }}" class="kabum-floating-button"
+    title="{{ 'add_new_product'|trans }}">
+    <span class="sr-only">{{ 'add_new_product'|trans }}</span>
+    <i class="fas fa-plus fa-lg" aria-hidden="true"></i>
+  </a>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 my-4">
-      {% for product in products %}
-        <div class="col">
-          <div class="shadow rounded p-4 m-2">
-            <div class="d-flex flex-column align-items-center mb-3">
-              <img src="{{ asset(product_image_directory ~ product.image) }}"
-                class="product-card-image mb-3" alt="{{ 'product_image'|trans }}"/>
-              <small>{{ product.name }}</small>
-            </div>
-            <div class="d-flex justify-content-around">
-              <a class="card-action-button" href="{{ path('admin_edit_product', {slug: product.slug}) }}"
-                title="{{ 'edit'|trans }}">
-                <span class="sr-only">{{ 'edit'|trans }}</span>
-                <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
-              </a>
-              <a class="card-action-button card-action-button-danger" href="#"
-                title="{{ 'delete'|trans }}">
-                <span class="sr-only">{{ 'delete'|trans }}</span>
-                <i class="far fa-trash-alt fa-lg" aria-hidden="true"></i>
-              </a>
-            </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 mt-4">
+    {% for product in products %}
+      <div class="col">
+        <div class="shadow-sm rounded p-4 my-4">
+          <div class="d-flex flex-column align-items-center mb-3">
+            <img src="{{ asset(product_image_directory ~ product.image) }}"
+              class="product-image-thumbnail mb-3" alt="{{ 'product_image'|trans }}"/>
+            <small>{{ product.name }}</small>
+          </div>
+          <div class="d-flex justify-content-around">
+            <a class="card-action-button" href="{{ path('admin_edit_product', {slug: product.slug}) }}"
+              title="{{ 'edit'|trans }}">
+              <span class="sr-only">{{ 'edit'|trans }}</span>
+              <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
+            </a>
+            <a class="card-action-button card-action-button-danger" href="#"
+              title="{{ 'delete'|trans }}">
+              <span class="sr-only">{{ 'delete'|trans }}</span>
+              <i class="far fa-trash-alt fa-lg" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
-      {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}
