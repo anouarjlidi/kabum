@@ -38,7 +38,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </button>
     <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-scrollable bg-light">
       {{ macros.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
-      {{ macros.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+      {{ macros.renderMenuItem('admin_product_overview', 'product_overview', 'fas fa-th', null, '/admin/produto') }}
       {{ macros.renderMenuItem('admin_new_category', 'manage_categories', 'fas fa-tags') }}
     </nav>
     <a href="{{ path('main_page') }}" class="d-none d-md-flex align-items-center kabum-button px-3">
@@ -69,7 +69,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   </header>
   <div class="d-flex">
     <div class="control-panel-sidebar">
-      {{ macros.renderMenuItem('admin_new_product', 'add_new_product', 'fas fa-plus') }}
+      {{ macros.renderMenuItem('admin_product_overview', 'product_overview', 'fas fa-th', null, '/admin/produto') }}
       {{ macros.renderMenuItem('admin_new_category', 'manage_categories', 'fas fa-tags') }}
     </div>
     <main id="main-content" class="d-flex flex-column w-100">

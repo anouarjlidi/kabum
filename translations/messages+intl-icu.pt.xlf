@@ -350,6 +350,18 @@
         <source>count_of_items</source>
         <target>Contagem de itens</target>
       </trans-unit>
+      <trans-unit id="product_overview">
+        <source>product_overview</source>
+        <target>Gerenciar produtos</target>
+      </trans-unit>
+      <trans-unit id="return_to_product_overview">
+        <source>return_to_product_overview</source>
+        <target>Retornar à grade de produtos</target>
+      </trans-unit>
+      <trans-unit id="delete">
+        <source>delete</source>
+        <target>Remover</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

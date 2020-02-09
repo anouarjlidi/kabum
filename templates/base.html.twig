@@ -111,7 +111,7 @@ instead, which effectively prevents the indicator from being set. #}
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
                 {% if is_granted('ROLE_ADMIN') %}
-                  <a class="dropdown-item" href="{{ path('admin_new_product') }}">{{ 'control_panel'|trans }}</a>
+                  <a class="dropdown-item" href="{{ path('admin_product_overview') }}">{{ 'control_panel'|trans }}</a>
                 {% endif %}
                 <a class="dropdown-item" href="{{ path('user_page') }}">{{ 'your_account'|trans }}</a>
                 <div class="dropdown-divider"></div>
@@ -138,7 +138,7 @@ instead, which effectively prevents the indicator from being set. #}
               {{ macros.renderMenuItem('app_logout', 'sign_out', 'fas fa-sign-out-alt') }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-              {{ macros.renderMenuItem('admin_new_product', 'control_panel', 'fas fa-sliders-h') }}
+              {{ macros.renderMenuItem('admin_product_overview', 'control_panel', 'fas fa-sliders-h') }}
             {% endif %}
             {{ macros.renderMenuItem('main_page', 'wishlist', 'fas fa-bookmark') }}
           {% else %}

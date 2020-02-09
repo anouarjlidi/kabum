@@ -1,7 +1,11 @@
-{% macro renderMenuItem(targetRoute, labelText, iconClasses, badgeValue) %}
+{% macro renderMenuItem(targetRoute, labelText, iconClasses, badgeValue, matchString) %}
   {% set currentRouteName = app.request.attributes.get('_route') %}
 
-  {% if currentRouteName == targetRoute %}
+  {% if matchString %}
+    {% set currentRoutePath = app.request.uri %}
+  {% endif %}
+
+  {% if currentRouteName == targetRoute or (matchString and matchString in currentRoutePath) %}
     <a class="navigation-menu-item navigation-menu-current-item flex-fill"
       href="{{ path(targetRoute) }}" aria-current="page">
       <div class="d-flex">

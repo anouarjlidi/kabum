@@ -35,11 +35,6 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
           <h3 class="font-weight-bold text-kabum-orange text-center text-sm-left">
             {{ product.price|price }}
           </h3>
-          {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-lime mb-3" href="{{ path('admin_edit_product', {slug: product.slug}) }}">
-              {{ 'edit'|trans }}
-            </a>
-          {% endif %}
           <form action="{{ path('add_to_cart', {id: product.id}) }}" method="post">
             <input type="hidden" name="token" value="{{ csrf_token('add-to-cart') }}"/>
             <button type="submit" class="btn btn-kabum-dark-blue">

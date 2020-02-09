@@ -38,10 +38,8 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         {{ macros.renderFormError() }}
       </div>
 
-      {# The submit button is created here to preserve the form's reusability
-      for other purposes #}
       <div class="form-group">
-        <input type="submit" class="btn btn-kabum-orange btn-block" value="{{ 'add'|trans }}"/>
+        <input type="submit" class="btn btn-kabum-orange" value="{{ 'add'|trans }}"/>
       </div>
     {{ form_end(form) }}
 

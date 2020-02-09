@@ -31,6 +31,7 @@ use App\Service\FileUploader;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
 use App\Form\Model\ProductFormModel;
+use App\Repository\ProductRepository;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Form\Model\CategoryFormModel;
@@ -38,6 +39,25 @@ use App\Repository\CategoryRepository;
 
 class AdminController extends AbstractController
 {
+    /**
+     * Product overview.
+     *
+     * @param Request $request
+     * @param ProductRepository $repository
+     *
+     * @return Response
+     *
+     * @Route("/admin/produto/grade", name="admin_product_overview")
+     */
+    public function productOverview(Request $request, ProductRepository $repository): Response
+    {
+        $products = $repository->findAll();
+
+        return $this->render('admin/product_overview.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
     /**
      * Add a new product.
      *
@@ -79,7 +99,7 @@ class AdminController extends AbstractController
                 'product_added'
             );
 
-            return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
+            return $this->redirectToRoute('admin_product_overview');
         }
 
         return $this->render('admin/new_product.html.twig', [
@@ -137,7 +157,7 @@ class AdminController extends AbstractController
                 'product_changes_applied'
             );
 
-            return $this->redirectToRoute('product_page', ['slug' => $product->getSlug()]);
+            return $this->redirectToRoute('admin_product_overview');
         }
 
         return $this->render('admin/edit_product.html.twig', [
