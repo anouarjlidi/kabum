@@ -36,6 +36,7 @@ use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Form\Model\CategoryFormModel;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminController extends AbstractController
 {
@@ -44,18 +45,24 @@ class AdminController extends AbstractController
      *
      * @param Request $request
      * @param ProductRepository $repository
+     * @param PaginatorInterface $paginator
      *
      * @return Response
      *
      * @Route("/admin/produto/grade", name="admin_product_overview")
      */
-    public function productOverview(Request $request, ProductRepository $repository): Response
+    public function productOverview(Request $request, ProductRepository $repository, PaginatorInterface $paginator): Response
     {
-        $products = $repository->findAll();
+        if ($request->isXmlHttpRequest()) {
+            $products = $repository->findAll();
+            $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 5);
 
-        return $this->render('admin/product_overview.html.twig', [
-            'products' => $products,
-        ]);
+            return $this->render('admin/_products.html.twig', [
+                'pagination' => $pagination,
+            ]);
+        }
+
+        return $this->render('admin/product_overview.html.twig');
     }
 
     /**

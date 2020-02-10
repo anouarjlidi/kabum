@@ -23,6 +23,7 @@ const $ = require('jquery');
 require('jquery-mask-plugin');
 import CustomFileInput from './bs-custom-file-input/custom_file_input.js';
 const NavigationPanel = require('nav-panel');
+const Feed = require('feed-control');
 
 $(document).ready(function() {
   var customFileInput = new CustomFileInput();
@@ -30,6 +31,9 @@ $(document).ready(function() {
 
   var navPanel = new NavigationPanel();
   navPanel.setup();
+
+  var feed = new Feed('feed');
+  feed.setup();
 
   // Apply money mask
   $('.money-input').mask('000.000.000.000.000,00', {reverse: true});

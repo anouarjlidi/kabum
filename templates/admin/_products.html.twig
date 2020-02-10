@@ -1,0 +1,89 @@
+{#
+Copyright 2019-2020 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
+{# This is used to give a special class to the first item of the loop, so
+it can be focused when a new batch of items is loaded onto the page. #}
+{% set firstItem = true %}
+
+{# To always get an integer, we use Twig's round filter. This way, when there are
+10 pages and the last one is only half-full, we get 10 instead of 9.5. #}
+{% set lastPage = (pagination.getTotalItemCount / pagination.getItemNumberPerPage)|round(0, 'ceil') %}
+
+{% for product in pagination %}
+  <article class="feed-new-item {% if firstItem == true %}focus-me{% endif %} f-item col"
+    tabindex="-1" data-number-of-results="{{ pagination.getTotalItemCount }}"
+    data-page-size="{{ pagination.getItemNumberPerPage }}" data-last-page="{{ lastPage }}"
+    aria-labelledby="{{ product.id ~ '_label' }}">
+    <div class="shadow-sm rounded p-4 my-4">
+      <div class="d-flex flex-column align-items-center mb-3">
+        <img src="{{ asset(product_image_directory ~ product.image) }}"
+          class="product-image-thumbnail mb-3" alt="{{ 'product_image'|trans }}"/>
+        <small id="{{ product.id ~ '_label' }}">{{ product.name }}</small>
+      </div>
+      <div class="d-flex justify-content-around">
+        <a class="card-action-button" href="{{ path('admin_edit_product', {slug: product.slug}) }}"
+          title="{{ 'edit'|trans }}">
+          <span class="sr-only">{{ 'edit'|trans }}</span>
+          <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
+        </a>
+        <button class="card-action-button card-action-button-danger bs-modal-trigger"
+          title="{{ 'delete'|trans }}" data-toggle="modal" data-target=".deleteProductModal"
+          data-action="{{ path('admin_delete_product', {slug: product.slug}) }}"
+          data-title="{{ 'delete_product_confirmation'|trans({'%product%': product.name}) }}">
+          <i class="far fa-trash-alt fa-lg" aria-hidden="true"></i>
+          <span class="sr-only">
+            {{ 'delete_product_named'|trans({'%product%': product.name}) }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </article>
+  {% set firstItem = false %}
+{% endfor %}
+
+{% if pagination.getTotalItemCount > 0 %}
+  <article class="feed-control feed-new-item fc-wrapper f-item col" tabindex="-1">
+    <button class="feed-control-label-ready feed-control-label feed-button feed-collapsible fc-label kabum-button"
+      type="button" data-label="fcl-ready">
+      <i class="fas fa-boxes fa-4x mb-4" aria-hidden="true"></i>
+      <span id="fcl-ready" class="lead">{{ 'see_more_products'|trans }}</span>
+    </button>
+
+    <div class="feed-control-label-loading feed-control-label feed-collapsible fc-label"
+      data-label="fcl-loading">
+      <div class="spinner-grow text-kabum-orange">
+        <span id="fcl-loading" class="sr-only">{{ 'loading'|trans }}</span>
+      </div>
+    </div>
+
+    <button class="feed-control-label-error feed-control-label feed-button feed-collapsible fc-label kabum-danger-button"
+      type="button" data-label="fcl-error">
+      <i class="fas fa-exclamation-triangle fa-4x mb-4" aria-hidden="true"></i>
+      <span id="fcl-error" class="lead">{{ 'something_wrong_click_try_again'|trans }}</span>
+    </button>
+
+    <div class="feed-control-label-nothing-else feed-control-label feed-collapsible fc-label"
+      data-label="fcl-nothing-else">
+      <i class="fas fa-box-open fa-4x text-silver text-center mb-4" aria-hidden="true"></i>
+      <span id="fcl-nothing-else" class="lead text-secondary text-center">
+        {{ 'this_is_all'|trans }}
+      </span>
+    </div>
+  </article>
+{% endif %}

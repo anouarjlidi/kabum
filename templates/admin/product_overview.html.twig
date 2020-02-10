@@ -33,34 +33,29 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     <i class="fas fa-plus fa-lg" aria-hidden="true"></i>
   </a>
 
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 mt-4">
-    {% for product in products %}
-      <div class="col">
-        <div class="shadow-sm rounded p-4 my-4">
-          <div class="d-flex flex-column align-items-center mb-3">
-            <img src="{{ asset(product_image_directory ~ product.image) }}"
-              class="product-image-thumbnail mb-3" alt="{{ 'product_image'|trans }}"/>
-            <small>{{ product.name }}</small>
-          </div>
-          <div class="d-flex justify-content-around">
-            <a class="card-action-button" href="{{ path('admin_edit_product', {slug: product.slug}) }}"
-              title="{{ 'edit'|trans }}">
-              <span class="sr-only">{{ 'edit'|trans }}</span>
-              <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
-            </a>
-            <button class="card-action-button card-action-button-danger bs-modal-trigger"
-              title="{{ 'delete'|trans }}" data-toggle="modal" data-target=".deleteProductModal"
-              data-action="{{ path('admin_delete_product', {slug: product.slug}) }}"
-              data-title="{{ 'delete_product_confirmation'|trans({'%product%': product.name}) }}">
-              <i class="far fa-trash-alt fa-lg" aria-hidden="true"></i>
-              <span class="sr-only">
-                {{ 'delete_product_named'|trans({'%product%': product.name}) }}
-              </span>
-            </button>
-          </div>
-        </div>
+  <div id="feed">
+    <div class="feed-loading-screen feed-collapsible feed-expanded fc-screen">
+      <div class="spinner-grow text-kabum-light-blue"></div>
+    </div>
+    <div class="feed-error-screen feed-collapsible fc-screen">
+      <div class="text-center">
+        <i class="fas fa-frown-open text-silver fa-4x" aria-hidden="true"></i>
+        <p class="lead text-secondary mt-4 mb-0">
+          {{ 'something_wrong'|trans }}
+        </p>
       </div>
-    {% endfor %}
+    </div>
+    <div class="feed-nothing-here-screen feed-collapsible fc-screen">
+      <div class="text-center">
+        <i class="fas fa-frown text-silver fa-4x" aria-hidden="true"></i>
+        <p class="lead text-secondary mt-4 mb-0">
+          {{ 'no_products_found'|trans }}
+        </p>
+      </div>
+    </div>
+
+    <div role="feed" aria-busy="false" data-target="" aria-label="{{ 'feed_help'|trans }}"
+      class="feed-data row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 mt-4"></div>
   </div>
   {{ macros.deleteProductModal() }}
 {% endblock %}

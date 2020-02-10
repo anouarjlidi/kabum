@@ -81,7 +81,7 @@ class MainController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
             $products = $category->getProducts();
-            $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 2);
+            $pagination = $paginator->paginate($products, $request->query->getInt('page', 1), 4);
 
             return $this->render('main/_products.html.twig', [
                 'pagination' => $pagination,
@@ -135,7 +135,7 @@ class MainController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $page = $request->query->get('page', 1);
 
-            $pagination = $repository->findBySearchQuery($query, $page, 2);
+            $pagination = $repository->findBySearchQuery($query, $page, 4);
 
             return $this->render('main/_products.html.twig', [
                 'pagination' => $pagination,

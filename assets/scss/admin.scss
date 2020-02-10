@@ -1,4 +1,5 @@
 @import "base/environment";
+@import "~feed-control/css/feed.css";
 
 .control-panel-sidebar {
   display: none;
@@ -14,4 +15,29 @@
 
 .product-image-thumbnail {
   width: 6rem;
+}
+
+.f-item:focus {
+  box-shadow: 0 0 0 .0625rem theme-color('light');
+  outline: 0;
+}
+
+.fc-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 18.7rem;
+}
+
+.fc-wrapper {
+  min-height: 18.7rem;
+}
+
+.fc-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
