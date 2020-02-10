@@ -1,4 +1,34 @@
-{% macro renderMenuItem(targetRoute, labelText, iconClasses, badgeValue, matchString) %}
+{#
+Copyright 2019-2020 Douglas Silva (0x9fd287d56ec107ac)
+
+This file is part of KaBuM!.
+
+KaBuM! is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
+#}
+
+{#
+Outputs a navigation menu anchor element.
+
+The current page is identified by the targetRoute argument, but you can optionally
+pass a string as the matchString argument to have the current route path matched
+against it. For example, the string 'user/settings' can be used to match all
+routes that begin with it, such as 'user/settings/account' and 'user/settings/profile'.
+
+Another optional argument is badgeValue, which will insert a Bootstrap badge
+containing its value right after the label.
+#}
+{% macro renderMenuItem(targetRoute, label, iconClasses, badgeValue, matchString) %}
   {% set currentRouteName = app.request.attributes.get('_route') %}
 
   {% if matchString %}
@@ -13,7 +43,7 @@
           <i class="{{ iconClasses }} fa-fw align-baseline" aria-hidden="true"></i>
         </div>
         <div class="text-nowrap text-truncate">
-          {{ labelText|trans }}
+          {{ label|trans }}
         </div>
         {% if badgeValue %}
           <div class="ml-2 ml-auto">
@@ -30,7 +60,7 @@
           <i class="{{ iconClasses }} fa-fw align-baseline" aria-hidden="true"></i>
         </div>
         <div class="text-nowrap text-truncate">
-          {{ labelText|trans }}
+          {{ label|trans }}
         </div>
         {% if badgeValue %}
           <div class="ml-2 ml-auto">

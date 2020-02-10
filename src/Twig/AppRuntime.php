@@ -23,14 +23,18 @@ namespace App\Twig;
 
 use Twig\Extension\RuntimeExtensionInterface;
 use Parsedown;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AppRuntime implements RuntimeExtensionInterface
 {
-    public $converter;
+    private $converter;
 
-    public function __construct(Parsedown $converter)
+    private $router;
+
+    public function __construct(Parsedown $converter, UrlGeneratorInterface $router)
     {
         $this->converter = $converter;
+        $this->router = $router;
     }
 
     /**
@@ -60,5 +64,26 @@ class AppRuntime implements RuntimeExtensionInterface
         $price = 'R$ ' . $price;
 
         return $price;
+    }
+
+    /**
+     * Slice a route path.
+     *
+     * It selects a certain number of slices from the specified route path,
+     * counting from left to right. The result is a shorter path that is most
+     * commonly used to match multiple similar route paths.
+     *
+     * For example, if $numberOfSlices is set to 3, the path 'route/path/towards/resource'
+     * will become 'route/path/towards'.
+     */
+    public function sliceRoutePath(string $routeName, int $numberOfSlices)
+    {
+        $routePath = $this->router->generate($routeName);
+
+        $pathSlices = explode('/', trim($routePath, '/'));
+        $pathSlices = array_slice($pathSlices, 0, abs($numberOfSlices));
+        $slicedPath = implode('/', $pathSlices);
+
+        return $slicedPath;
     }
 }

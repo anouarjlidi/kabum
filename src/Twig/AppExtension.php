@@ -24,6 +24,7 @@ namespace App\Twig;
 use App\Twig\AppRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
@@ -32,6 +33,13 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('markdown_2_html', [AppRuntime::class, 'markdownConverter']),
             new TwigFilter('price', [AppRuntime::class, 'formatPrice']),
+        ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('slice_route_path', [AppRuntime::class, 'sliceRoutePath']),
         ];
     }
 }
