@@ -25,8 +25,6 @@
  */
 export default class ModalControl {
   constructor() {
-    this.triggers = document.getElementsByClassName('bs-modal-trigger');
-
     /**
      * The target modal.
      */
@@ -44,16 +42,20 @@ export default class ModalControl {
   }
 
   init() {
-    for (let trigger of this.triggers) {
-      trigger.addEventListener('click', (event) => {
-        this.modal = document.querySelector(trigger.dataset.target);
-        this.action = trigger.dataset.action;
-        this.title = trigger.dataset.title;
+    document.addEventListener('click', (event) => {
+      var trigger = event.target.closest('.bs-modal-trigger');
 
-        this.setTitle();
-        this.setAction();
-      });
-    }
+      if (!trigger) {
+        return;
+      }
+
+      this.modal = document.querySelector(trigger.dataset.target);
+      this.action = trigger.dataset.action;
+      this.title = trigger.dataset.title;
+
+      this.setTitle();
+      this.setAction();
+    });
   }
 
   setTitle() {
