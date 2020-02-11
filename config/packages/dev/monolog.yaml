@@ -20,5 +20,5 @@ monolog:
             channels: ["!event", "!doctrine", "!console"]
         administration:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.administration.log"
+            path: "%kernel.logs_dir%/%app.administration_log_file%"
             channels: ["administration"]

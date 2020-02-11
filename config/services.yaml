@@ -8,6 +8,7 @@ parameters:
     app.product_image_directory: '%kernel.project_dir%/public/images/products/'
     app.product_image_directory_relative_path: 'images/products/'
     app.shopping_cart_storage_key: 'shopping_cart'
+    app.administration_log_file: '%kernel.environment%.administration.log'
 
 services:
     # default configuration for services in *this* file
@@ -34,6 +35,11 @@ services:
     App\Service\ShoppingCartStorage:
         arguments:
             $storageKey: '%app.shopping_cart_storage_key%'
+
+    App\Service\LogParser:
+        arguments:
+            $logsDirectory: '%kernel.logs_dir%'
+            $administrationLogFile: '%app.administration_log_file%'
 
     # An alias is used to setup Parsedown for autowiring, as it's in
     # the global namespace.

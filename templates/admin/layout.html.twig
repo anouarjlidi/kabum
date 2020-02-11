@@ -38,6 +38,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
     </button>
     <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-scrollable bg-light">
       {{ macros.renderMenuItem('main_page', 'back_to_store', 'fas fa-arrow-left') }}
+      {{ macros.renderMenuItem('admin_overview', 'overview', 'fas fa-stream') }}
       {{ macros.renderMenuItem('admin_product_overview', 'product_overview', 'fas fa-th', null, slice_route_path('admin_product_overview', 2)) }}
       {{ macros.renderMenuItem('admin_new_category', 'manage_categories', 'fas fa-tags') }}
     </nav>
@@ -61,7 +62,7 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
         <i class="fas fa-user" aria-hidden="true"></i>
       </button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-        <a class="dropdown-item" href="{{ path('user_page') }}">{{ 'your_account'|trans }}</a>
+        <a class="dropdown-item" href="{{ path('user_overview') }}">{{ 'your_account'|trans }}</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{{ path('app_logout') }}">{{ 'sign_out'|trans }}</a>
       </div>
@@ -69,10 +70,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
   </header>
   <div class="d-flex">
     <div class="control-panel-sidebar">
+      {{ macros.renderMenuItem('admin_overview', 'overview', 'fas fa-stream') }}
       {{ macros.renderMenuItem('admin_product_overview', 'product_overview', 'fas fa-th', null, slice_route_path('admin_product_overview', 2)) }}
       {{ macros.renderMenuItem('admin_new_category', 'manage_categories', 'fas fa-tags') }}
     </div>
-    <main id="main-content" class="d-flex flex-column w-100 p-4">
+    <main id="main-content" class="d-flex flex-column pre-code-fix w-100 p-4">
       {% block main %}{% endblock %}
     </main>
   </div>

@@ -39,9 +39,24 @@ use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Service\LogParser;
 
 class AdminController extends AbstractController
 {
+    /**
+     * Landing page for the administration section.
+     *
+     * @Route("/admin", name="admin_overview")
+     */
+    public function overview(LogParser $logParser): Response
+    {
+        $logs = $logParser->getAdministrationLogs();
+
+        return $this->render('admin/overview.html.twig', [
+            'logs' => $logs,
+        ]);
+    }
+
     /**
      * Product overview.
      *

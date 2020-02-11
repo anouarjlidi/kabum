@@ -378,6 +378,14 @@
         <source>product_deleted</source>
         <target>Produto removido.</target>
       </trans-unit>
+      <trans-unit id="no_records_found">
+        <source>no_records_found</source>
+        <target>Nenhum registro encontrado.</target>
+      </trans-unit>
+      <trans-unit id="log_viewer">
+        <source>log_viewer</source>
+        <target>Registros</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

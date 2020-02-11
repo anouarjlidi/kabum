@@ -111,9 +111,9 @@ instead, which effectively prevents the indicator from being set. #}
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
                 {% if is_granted('ROLE_ADMIN') %}
-                  <a class="dropdown-item" href="{{ path('admin_product_overview') }}">{{ 'control_panel'|trans }}</a>
+                  <a class="dropdown-item" href="{{ path('admin_overview') }}">{{ 'control_panel'|trans }}</a>
                 {% endif %}
-                <a class="dropdown-item" href="{{ path('user_page') }}">{{ 'your_account'|trans }}</a>
+                <a class="dropdown-item" href="{{ path('user_overview') }}">{{ 'your_account'|trans }}</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('app_logout') }}">{{ 'sign_out'|trans }}</a>
               </div>
@@ -134,11 +134,11 @@ instead, which effectively prevents the indicator from being set. #}
         <nav id="nav-menu" class="np-collapsible navigation-menu navigation-menu-right navigation-menu-scrollable bg-white">
           {% if app.user %}
             <div class="d-flex">
-              {{ macros.renderMenuItem('user_page', 'your_account', 'fas fa-user') }}
+              {{ macros.renderMenuItem('user_overview', 'your_account', 'fas fa-user') }}
               {{ macros.renderMenuItem('app_logout', 'sign_out', 'fas fa-sign-out-alt') }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-              {{ macros.renderMenuItem('admin_product_overview', 'control_panel', 'fas fa-sliders-h') }}
+              {{ macros.renderMenuItem('admin_overview', 'control_panel', 'fas fa-sliders-h') }}
             {% endif %}
             {{ macros.renderMenuItem('main_page', 'wishlist', 'fas fa-bookmark') }}
           {% else %}

@@ -17,6 +17,18 @@
   width: 6rem;
 }
 
+.admin-logs-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+
+.log-viewer {
+  height: 15rem;
+}
+
 .f-item:focus {
   box-shadow: 0 0 0 .0625rem theme-color('light');
   outline: 0;

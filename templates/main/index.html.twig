@@ -22,9 +22,11 @@ along with KaBuM!.  If not, see <https://www.gnu.org/licenses/>.
 {% block title %}{{ parent() }} - {{ 'low_price_explosion'|trans }}{% endblock %}
 
 {% block main %}
-  <h3 class="font-weight-light text-kabum-dark-blue mb-3">
+  <h3 class="font-weight-light text-secondary mb-3">
+    <i class="fas fa-star" aria-hidden="true"></i>
     {{ 'featured_products'|trans }}
   </h3>
+
   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
     {% for product in products %}
       <div class="col p-4">
