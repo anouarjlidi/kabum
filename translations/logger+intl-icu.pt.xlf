@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="product_created_by">
+        <source>product_created_by</source>
+        <target>Produto "{product}" criado por "{user}"</target>
+      </trans-unit>
+      <trans-unit id="product_edited_by">
+        <source>product_edited_by</source>
+        <target>Produto "{product}" modificado por "{user}"</target>
+      </trans-unit>
+      <trans-unit id="product_deleted_by">
+        <source>product_deleted_by</source>
+        <target>Produto "{product}" removido por "{user}"</target>
+      </trans-unit>
+      <trans-unit id="category_created_by">
+        <source>category_created_by</source>
+        <target>Categoria "{category}" criada por "{user}"</target>
+      </trans-unit>
+      <trans-unit id="category_deleted_by">
+        <source>category_deleted_by</source>
+        <target>Categoria "{category}" removida por "{user}"</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

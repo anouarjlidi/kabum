@@ -37,6 +37,8 @@ use App\Form\Type\CategoryType;
 use App\Form\Model\CategoryFormModel;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminController extends AbstractController
 {
@@ -76,7 +78,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/produto/novo", name="admin_new_product")
      */
-    public function addProduct(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function addProduct(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, LoggerInterface $administrationLogger, TranslatorInterface $translator): Response
     {
         $product = new Product;
         $productModel = new ProductFormModel;
@@ -106,6 +108,15 @@ class AdminController extends AbstractController
                 'product_added'
             );
 
+            $user = $this->getUser();
+            $message = $translator->trans(
+                'product_created_by', [
+                    'product' => $product->getName(),
+                    'user' => $user->getUsername()
+                ], 'logger'
+            );
+            $administrationLogger->info($message);
+
             return $this->redirectToRoute('admin_product_overview');
         }
 
@@ -126,7 +137,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/produto/{slug}/editar", name="admin_edit_product")
      */
-    public function editProduct(Request $request, Product $product, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function editProduct(Request $request, Product $product, EntityManagerInterface $entityManager, FileUploader $fileUploader, LoggerInterface $administrationLogger, TranslatorInterface $translator): Response
     {
         $productModel = new ProductFormModel;
         $productModel->setId($product->getId());
@@ -164,6 +175,15 @@ class AdminController extends AbstractController
                 'product_changes_applied'
             );
 
+            $user = $this->getUser();
+            $message = $translator->trans(
+                'product_edited_by', [
+                    'product' => $product->getName(),
+                    'user' => $user->getUsername()
+                ], 'logger'
+            );
+            $administrationLogger->info($message);
+
             return $this->redirectToRoute('admin_product_overview');
         }
 
@@ -184,7 +204,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/produto/{slug}/deletar", methods={"POST"}, name="admin_delete_product")
      */
-    public function deleteProduct(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function deleteProduct(Request $request, Product $product, EntityManagerInterface $entityManager, LoggerInterface $administrationLogger, TranslatorInterface $translator): Response
     {
         if (!$this->isCsrfTokenValid('delete-product', $request->request->get('token'))) {
             return $this->redirectToRoute('admin_product_overview');
@@ -200,6 +220,15 @@ class AdminController extends AbstractController
             'product_deleted'
         );
 
+        $user = $this->getUser();
+        $message = $translator->trans(
+            'product_deleted_by', [
+                'product' => $product->getName(),
+                'user' => $user->getUsername()
+            ], 'logger'
+        );
+        $administrationLogger->info($message);
+
         return $this->redirectToRoute('admin_product_overview');
     }
 
@@ -214,7 +243,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/categoria/nova", name="admin_new_category")
      */
-    public function addCategory(Request $request, CategoryRepository $repository, EntityManagerInterface $entityManager): Response
+    public function addCategory(Request $request, CategoryRepository $repository, EntityManagerInterface $entityManager, LoggerInterface $administrationLogger, TranslatorInterface $translator): Response
     {
         $category = new Category;
         $categoryModel = new CategoryFormModel;
@@ -235,6 +264,15 @@ class AdminController extends AbstractController
                 'kabum-light-blue',
                 'category_created'
             );
+
+            $user = $this->getUser();
+            $message = $translator->trans(
+                'category_created_by', [
+                    'category' => $category->getName(),
+                    'user' => $user->getUsername()
+                ], 'logger'
+            );
+            $administrationLogger->info($message);
 
             return $this->redirectToRoute('admin_new_category');
         }
@@ -258,7 +296,7 @@ class AdminController extends AbstractController
      *
      * @Route("/admin/categoria/{slug}/deletar", methods={"POST"}, name="admin_delete_category")
      */
-    public function deleteCategory(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    public function deleteCategory(Request $request, Category $category, EntityManagerInterface $entityManager, LoggerInterface $administrationLogger, TranslatorInterface $translator): Response
     {
         if (!$this->isCsrfTokenValid('delete-category', $request->request->get('token'))) {
             return $this->redirectToRoute('admin_new_category');
@@ -282,6 +320,15 @@ class AdminController extends AbstractController
             'kabum-light-blue',
             'category_deleted'
         );
+
+        $user = $this->getUser();
+        $message = $translator->trans(
+            'category_deleted_by', [
+                'category' => $category->getName(),
+                'user' => $user->getUsername()
+            ], 'logger'
+        );
+        $administrationLogger->info($message);
 
         return $this->redirectToRoute('admin_new_category');
     }
