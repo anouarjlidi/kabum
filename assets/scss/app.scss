@@ -149,6 +149,11 @@
   padding-left: 1rem;
   background-color: theme-color('light');
   border-radius: 5rem;
+  transition: box-shadow .1s;
+}
+
+.search-input-wrapper:focus-within {
+  box-shadow: 0 .1rem .1rem .1rem rgba(0, 0, 0, .11);
 }
 
 .search-input {
@@ -163,10 +168,6 @@
 
 .search-input:focus {
   outline: 0;
-}
-
-.search-input-wrapper:focus-within {
-  box-shadow: 0 .1rem .1rem .1rem rgba(0, 0, 0, .11);
 }
 
 .kabum-collapse-button {
